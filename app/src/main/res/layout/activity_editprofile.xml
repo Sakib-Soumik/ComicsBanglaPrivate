@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Editprofile"
+    android:background="@drawable/back">
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/nav_back"
+        app:itemTextColor="@drawable/selector"
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/menunavbar"
+        android:layout_alignParentBottom="true"/>
+
+
+
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="264dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="200dp"
+        android:hint=" Email"
+        android:background="@drawable/rounded_edittext"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="264dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="270dp"
+        android:hint=" Name"
+        android:background="@drawable/rounded_edittext"
+        />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="264dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="340dp"
+        android:hint=" Password"
+        android:background="@drawable/rounded_edittext"/>
+
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="103dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="60dp"
+        android:text="Edit Profile"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pass      :"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginLeft="20dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name    :"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:layout_marginTop="280dp"
+        android:layout_marginLeft="20dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email     :"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:layout_marginTop="210dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="183dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="400dp"
+        app:srcCompat="@drawable/update" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="96dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="300dp"
+        app:srcCompat="@drawable/boom" />
+
+
+
+</RelativeLayout>

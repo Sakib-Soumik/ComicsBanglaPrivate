@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/round_house_black_24dp"
+        android:id="@+id/home"
+        android:title="Home" />
+    <item
+        android:icon="@drawable/round_folder_open_black_24dp"
+        android:id="@+id/myfiles"
+        android:title="My Files" />
+    <item
+        android:icon="@drawable/round_add_circle_black_24dp"
+        android:id="@+id/add"
+        android:title="Add" />
+    <item
+        android:icon="@drawable/round_notifications_black_24dp"
+        android:id="@+id/notification"
+        android:title="Notifications" />
+    <item
+        android:icon="@drawable/round_account_circle_black_24dp"
+        android:id="@+id/profile"
+        android:title="Profile" />
+
+</menu>
