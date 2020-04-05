@@ -4,17 +4,36 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Notifications extends AppCompatActivity {
+     ListView listView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
+
+        //-------------------------------------------------Finding Listview-------------------
+
+
+        listView = findViewById(R.id.notification_list_view);
+        String[] notifications = getResources().getStringArray(R.array.notifications);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.s,R.id.sample_text_view,notifications);
+        listView.setAdapter(adapter);
+
+
+
 
         //Initialize and Assign Variable for Bottom navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);

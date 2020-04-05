@@ -25,7 +25,7 @@ public class ADD extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a_d_d);
 
-        //trying font
+        //---------------------------------trying font
         t1=(TextView) findViewById(R.id.textView2);
         tp1= Typeface.createFromAsset(getAssets(),"font/ss.ttf");
         t1.setTypeface(tp1);
