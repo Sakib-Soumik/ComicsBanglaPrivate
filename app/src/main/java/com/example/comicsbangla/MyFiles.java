@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,9 +26,9 @@ public class MyFiles extends AppCompatActivity {
         setContentView(R.layout.activity_my_files);
 
         keepReading = findViewById(R.id.keep_reading);
-        String keepreads[]={"comic1","comic2","comic3","comic4","comic5","comic6"};
+        final String[] keepreads={"comic1","comic2","comic3","comic4","comic5","comic6"};
         Myuploads=findViewById(R.id.myulpoads);
-        String mycomics[]={"comic1","comic2","comic3","comic4","comic5","comic6"};
+        final String[] mycomics={"comic1","comic2","comic3","comic4","comic5","comic6"};
 
 
 
@@ -37,6 +40,25 @@ public class MyFiles extends AppCompatActivity {
 
         Myuploads.setAdapter(myuploadsAdapter);
 
+        // click korle kaj korbe
+
+        keepReading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String value= keepreads[position];
+                Toast.makeText(MyFiles.this, "Ei Dushtu, keno tip dila !!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        Myuploads.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String value= mycomics[position];
+                Toast.makeText(MyFiles.this, "Jah dushtu! keno eto tipcho! ", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         //Initialize and Assign Variable for Bottom navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);

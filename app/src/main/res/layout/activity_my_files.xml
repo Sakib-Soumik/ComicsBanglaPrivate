@@ -11,23 +11,30 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130dp"
         android:layout_marginTop="40dp"
-        android:text="Keep Reading"
-        android:textSize="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:text="পড়তে থাকুন..."
+        android:textSize="30sp"
         android:textStyle="bold"
+        android:textColor="#C1000000"
+        android:fontFamily="@font/ss"
         />
+
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="153dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:layout_marginTop="350dp"
-        android:text="My Comics"
-        android:textSize="25dp"
+        android:fontFamily="@font/ss"
+        android:text="আমার কমিক্স"
+        android:layout_marginBottom="10dp"
+        android:textColor="#C1000000"
+        android:textSize="30sp"
         android:textStyle="bold" />
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
@@ -40,17 +47,25 @@
         android:layout_alignParentBottom="true"/>
 
     <ListView
-        android:layout_width="338dp"
+        android:layout_width="370dp"
         android:layout_height="214dp"
-        android:layout_marginLeft="40dp"
         android:layout_marginTop="100dp"
-        android:id="@+id/keep_reading"/>
+        android:id="@+id/keep_reading"
+        android:listSelector="#BEF44336"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:dividerHeight="2dp"
+        android:divider="#3C000000"/>
 
     <ListView
-        android:layout_width="338dp"
+        android:layout_width="370dp"
+        android:layout_below="@id/textView9"
         android:layout_height="214dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="400dp"
-        android:id="@+id/myulpoads"/>
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:id="@+id/myulpoads"
+        android:listSelector="#BEF44336"
+        android:dividerHeight="2dp"
+        android:divider="#3C000000"/>
 
 </RelativeLayout>

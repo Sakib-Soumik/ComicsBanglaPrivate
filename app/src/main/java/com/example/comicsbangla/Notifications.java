@@ -26,7 +26,7 @@ public class Notifications extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
 
-        //-------------------------------------------------Finding Listview-------------------
+        //-------------------------------------------------Finding List view------------------------
 
 
         listView = findViewById(R.id.notification_list_view);
@@ -41,7 +41,7 @@ public class Notifications extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String value= notifications[position];
-                Toast.makeText(Notifications.this, "It was clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Notifications.this, "Keno Touch koro Dushtu! ", Toast.LENGTH_SHORT).show();
 
             }
         });
