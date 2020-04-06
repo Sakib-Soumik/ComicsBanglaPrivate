@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,25 +16,32 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ADD extends AppCompatActivity {
 
-    ImageButton signup;
-    ImageButton login;
-    TextView t1;
-    Typeface tp1;
+    Button signup;
+    Button login;
+
+    Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a_d_d);
 
-        //---------------------------------trying font
-        t1=(TextView) findViewById(R.id.textView2);
-        tp1= Typeface.createFromAsset(getAssets(),"font/ss.ttf");
-        t1.setTypeface(tp1);
+        //----------Overview dekhar jonne----
+        btn=findViewById(R.id.button2);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ADD.this, OverView.class));
+            }
+
+        });
+
+
 
         // signup & login Button starts
 
-        signup =(ImageButton)findViewById(R.id.add_signup);
-        login=(ImageButton)findViewById(R.id.add_login);
+        signup =(Button)findViewById(R.id.add_signup);
+        login=(Button)findViewById(R.id.add_login);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +58,9 @@ public class ADD extends AppCompatActivity {
                 startActivity(intentLoadNewActivity2);
             }
         });
+
+
+
 
         // signup & login Button ends
 
