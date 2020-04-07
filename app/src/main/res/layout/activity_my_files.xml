@@ -55,8 +55,8 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:dividerHeight="2dp"
-        android:divider="#3C000000"/>
 
+        android:divider="#3C000000"/>
     <ListView
         android:layout_width="370dp"
         android:layout_below="@id/textView9"
