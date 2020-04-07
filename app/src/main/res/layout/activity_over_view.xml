@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OverView"
+    android:background="@drawable/back">
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/nav_back"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:menu="@menu/menunavbar" />
+
+    <ImageView
+        android:id="@+id/overview"
+        android:layout_width="210dp"
+        android:layout_height="320dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="10dp"
+        app:srcCompat="@drawable/overview" />
+
+    <TextView
+        android:id="@+id/comic_name"
+        android:layout_width="120sp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:text="অগ্নি নাগা"
+        android:textColor="#CD000000"
+        android:textSize="25sp"
+        android:fontFamily="@font/ss"/>
+
+    <TextView
+        android:id="@+id/author_name"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comic_name"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentRight="true"
+        android:text="মাসুদ রানা"
+        android:textColor="#CD000000"
+        android:textSize="20sp"
+        android:fontFamily="@font/ss"/>
+
+    <TextView
+        android:id="@+id/comic_description"
+        android:layout_marginRight="25dp"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:textColor="#CD000000"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/overview"
+        android:layout_alignLeft="@id/overview"
+        android:fontFamily="@font/st"
+        android:text="পপৃথিবীতে আবির্ভাব ঘটছে নতুন নতুন রোগের, পাশাপাশি পাল্টে যাচ্ছে অনেক চেনা রোগের লক্ষণ আর উপসর্গ। ব্যাকটেরিয়ারা এন্টিবায়োটিকের ধরণ বুঝে নিজেদের রূপ পাল্টে ফেলছে, পরিণত হচ্ছে ‘সুপারবাগ' এ, রোগ প্রতিরোধ করতে পারছে না এন্টিবায়োটিকও! কিন্তু কেন? আর কী করে মোকাবেলা করা যাবে এই সুপারবাগদের?"
+        />
+
+    <RatingBar
+        android:id="@+id/ratingBarShow"
+        android:layout_marginRight="25dp"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style = "?android:attr/ratingBarStyleSmall"
+        android:layout_alignLeft="@id/comic_name"
+        android:layout_below="@id/author_name"
+        android:layout_marginTop="1dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="4"
+        android:progressTint="#DC2619"
+         />
+
+    <TextView
+        android:id="@+id/ratingValue"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textSize="20sp"
+        android:layout_below="@id/ratingBarShow"
+        android:layout_alignLeft="@id/ratingBarShow"
+        android:textColor="#CD000000"
+        android:fontFamily="@font/ss"
+        android:text="৪/৪" />
+
+    <Button
+        android:id="@+id/read"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:text="পড়ুন"
+        android:background="#B2ED2E20"
+        android:layout_alignLeft="@id/ratingValue"
+        android:layout_below="@id/ratingValue"
+        android:textSize="20sp"
+        android:fontFamily="@font/ss"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+
+</RelativeLayout>
