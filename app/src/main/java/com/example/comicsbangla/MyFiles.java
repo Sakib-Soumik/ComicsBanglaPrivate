@@ -26,19 +26,20 @@ public class MyFiles extends AppCompatActivity {
         setContentView(R.layout.activity_my_files);
 
         keepReading = findViewById(R.id.keep_reading);
-        final String[] keepreads={"comic1","comic2","comic3","comic4","comic5","comic6"};
+        final String[] keepreads= getResources().getStringArray(R.array.Keepreads);
         Myuploads=findViewById(R.id.myulpoads);
-        final String[] mycomics={"comic1","comic2","comic3","comic4","comic5","comic6"};
+        final String[] mycomics=getResources().getStringArray(R.array.mycomics);
 
 
 
-        ArrayAdapter<String> keepreadAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,keepreads);
+        ArrayAdapter<String> keepreadAdapter = new ArrayAdapter<>(this,R.layout.sv,R.id.textView10,keepreads);
 
         keepReading.setAdapter(keepreadAdapter);
 
-        ArrayAdapter<String> myuploadsAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mycomics);
+        ArrayAdapter<String> myuploadsAdapter = new ArrayAdapter<>(this,R.layout.sv,R.id.textView10,mycomics);
 
         Myuploads.setAdapter(myuploadsAdapter);
+
 
         // click korle kaj korbe
 

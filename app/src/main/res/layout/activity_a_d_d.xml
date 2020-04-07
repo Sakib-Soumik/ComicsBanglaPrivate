@@ -5,52 +5,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ADD"
-    android:background="@drawable/back2">
+    android:background="#E4000000"
 
-    <TextView
-        android:id="@+id/textView2"
-        android:gravity="center_vertical"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
+ >
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="210dp"
-        android:fontFamily="@font/ss"
-        android:text="কমিক্স আপলোড করতে -"
-        android:background="#4DFEFEFE"
-        android:textColor="#000000"
-        android:textSize="40dp"
-        android:textStyle="bold" />
+        android:layout_height="240dp"
+        android:scaleY="1.2"
+        app:srcCompat="@drawable/u" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_above="@id/bottom_navbar"
+        android:scaleY="1.2"
+        app:srcCompat="@drawable/d" />
+
+
 
     <Button
         android:id="@+id/add_signup"
-        android:background="#B2ED2E20"
-        android:text="সাইন-আপ করুন"
+        android:background="#DAF6A935"
+        android:text="সাইন-আপ"
+        android:layout_alignLeft="@id/textView2"
         android:fontFamily="@font/ss"
-        android:textSize="25sp"
-        android:layout_width="183dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="320dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentTop="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_above="@id/imageView11"
+        android:layout_marginBottom="30dp"
+        android:textSize="28sp"
+        android:layout_width="170dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="80dp"
         app:srcCompat="@drawable/add_signup" />
 
     <Button
         android:id="@+id/add_login"
-        android:background="#B2ED2E20"
-        android:text="লগ-ইন করুন"
+        android:background="#DAF6A935"
+        android:text="লগ-ইন"
         android:fontFamily="@font/ss"
-        android:textSize="25sp"
-        android:layout_below="@id/add_signup"
-        android:layout_centerInParent="true"
-        android:layout_width="183dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="30dp"
+        android:layout_alignRight="@id/textView2"
+        android:layout_above="@id/imageView11"
+        android:textSize="28sp"
+        android:layout_width="170dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/add_signup"
         />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Overview" />
 
 
 
@@ -64,10 +74,17 @@
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Overview" />
+    <TextView
+        android:id="@+id/textView2"
+        android:textColor="#DAF6A935"
+        android:fontFamily="@font/ss"
+        android:layout_marginTop="70sp"
+        android:textSize="40sp"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/imageView9"
+        android:layout_height="60dp"
+        android:text="কমিক্স আপলোড করতে -" />
+
 
 </RelativeLayout>

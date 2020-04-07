@@ -16,4 +16,18 @@
         <item>আপনার কমিক এর রিভিউ দেখুন!</item>
 
     </string-array>
+
+    <string-array name="Keepreads">
+
+        <item>রহসসময় চুম্বক দ্বীপ</item>
+        <item>রঙ পিশাচ</item>
+
+    </string-array>
+
+    <string-array name="mycomics">
+
+        <item>রঙ পিশাচ</item>
+        <item>রঙ পিশাচ</item>
+
+    </string-array>
 </resources>
