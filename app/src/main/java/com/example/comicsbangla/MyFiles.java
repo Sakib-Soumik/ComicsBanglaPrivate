@@ -127,11 +127,11 @@ public class MyFiles extends AppCompatActivity {
         Myuploads=findViewById(R.id.myulpoads);
         final String[] mycomics={"comic1","comic2","comic3","comic4","comic5","comic6"};
 
-        ArrayAdapter<String> keepreadAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,bookname);
+        ArrayAdapter<String> keepreadAdapter = new ArrayAdapter<String>(this,R.layout.sv,R.id.textView10,bookname);
 
         keepReading.setAdapter(keepreadAdapter);
 
-        ArrayAdapter<String> myuploadsAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mycomics);
+        ArrayAdapter<String> myuploadsAdapter = new ArrayAdapter<>(this,R.layout.sv,R.id.textView10,mycomics);
 
         Myuploads.setAdapter(myuploadsAdapter);
 
