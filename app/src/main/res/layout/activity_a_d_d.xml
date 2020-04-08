@@ -5,56 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ADD"
-    android:background="#E4000000"
+    android:background="@drawable/w"
 
  >
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_height="240dp"
-        android:scaleY="1.2"
-        app:srcCompat="@drawable/u" />
-
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:layout_above="@id/bottom_navbar"
-        android:scaleY="1.2"
-        app:srcCompat="@drawable/d" />
-
 
 
     <Button
         android:id="@+id/add_signup"
         android:background="#DAF6A935"
         android:text="সাইন-আপ"
-        android:layout_alignLeft="@id/textView2"
         android:fontFamily="@font/ss"
-        android:layout_above="@id/imageView11"
-        android:layout_marginBottom="30dp"
-        android:textSize="28sp"
-        android:layout_width="170dp"
-        android:layout_marginLeft="20dp"
-        android:layout_height="80dp"
+        android:layout_below="@id/textView2"
+        android:layout_alignLeft="@id/textView11"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textSize="@dimen/_18sdp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_32sdp"
         app:srcCompat="@drawable/add_signup" />
 
-    <Button
-        android:id="@+id/add_login"
-        android:background="#DAF6A935"
-        android:text="লগ-ইন"
-        android:fontFamily="@font/ss"
-        android:layout_alignRight="@id/textView2"
-        android:layout_above="@id/imageView11"
-        android:textSize="28sp"
-        android:layout_width="170dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="30dp"
-        android:layout_height="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/add_signup"
-        />
+        <Button
+            android:id="@+id/add_login"
+            android:background="#DAF6A935"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="লগ-ইন"
+            android:layout_alignRight="@id/textView11"
+            android:fontFamily="@font/ss"
+            android:layout_below="@id/textView2"
+            android:textSize="@dimen/_18sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_32sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/add_signup"
+            />
+
+
+
+
+
+
+
 
     <Button
         android:id="@+id/button2"
@@ -76,15 +67,33 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:textColor="#DAF6A935"
-        android:fontFamily="@font/ss"
-        android:layout_marginTop="70sp"
-        android:textSize="40sp"
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_below="@id/imageView9"
-        android:layout_height="60dp"
-        android:text="কমিক্স আপলোড করতে -" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+         />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleY="1.2"
+        android:scaleX="1.2"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/sup" />
+
+    <TextView
+    android:id="@+id/textView11"
+    android:textColor="#000000"
+    android:background="#32FEFEFE"
+    android:fontFamily="@font/ss"
+    android:textSize="@dimen/_28sdp"
+    android:padding="@dimen/_5sdp"
+    android:layout_above="@id/textView2"
+    android:layout_centerInParent="true"
+    android:layout_width="wrap_content"
+    android:gravity="center_vertical"
+    android:layout_height="@dimen/_60sdp"
+    android:text="কমিক্স আপলোড করতে -" />
 
 
 </RelativeLayout>

@@ -22,13 +22,12 @@
 
 
 
-
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="264dp"
         android:layout_height="50dp"
         android:layout_marginLeft="120dp"
         android:layout_marginTop="200dp"
-        android:hint=" Email"
+        android:hint=""
         android:background="@drawable/rounded_edittext"/>
 
     <com.google.android.material.textfield.TextInputEditText
@@ -53,11 +52,14 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="103dp"
-        android:layout_marginLeft="50dp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"
         android:layout_marginTop="60dp"
-        android:text="Edit Profile"
-        android:textSize="60sp"
+        android:text="পরিবর্তন করুন"
+        android:fontFamily="@font/ss"
+        android:textSize="50sp"
         android:textStyle="bold" />
 
 
@@ -65,8 +67,9 @@
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
+        android:fontFamily="@font/ss"
         android:layout_height="wrap_content"
-        android:text="Pass      :"
+        android:text="পাসওয়ার্ড :"
         android:textStyle="bold"
         android:textSize="25dp"
         android:layout_marginTop="350dp"
@@ -76,7 +79,8 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name    :"
+        android:text="নাম      : "
+        android:fontFamily="@font/ss"
         android:textStyle="bold"
         android:textSize="25dp"
         android:layout_marginTop="280dp"
@@ -86,7 +90,8 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email     :"
+        android:text="ই-মেইল     :"
+        android:fontFamily="@font/ss"
         android:textStyle="bold"
         android:textSize="25dp"
         android:layout_marginTop="210dp"
@@ -100,13 +105,6 @@
         android:layout_marginTop="400dp"
         app:srcCompat="@drawable/update" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="300dp"
-        app:srcCompat="@drawable/boom" />
 
 
 

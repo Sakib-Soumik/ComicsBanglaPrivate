@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="103dp"
         android:layout_marginLeft="100dp"
+        android:fontFamily="@font/ss"
         android:layout_marginTop="90dp"
         android:text="Upload"
         android:textSize="60sp"
@@ -21,6 +22,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ss"
         android:text="Name          :"
         android:textStyle="bold"
         android:textSize="25dp"
@@ -33,6 +35,7 @@
         android:layout_height="70dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="350dp"
+        android:fontFamily="@font/ss"
         android:text="Short Description:"
         android:textSize="25dp"
         android:textStyle="bold" />

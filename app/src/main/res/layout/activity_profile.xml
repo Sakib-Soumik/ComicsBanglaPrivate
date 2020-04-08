@@ -66,6 +66,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="220dp"
         android:text="Email:"
+        android:fontFamily="@font/ss"
         android:textSize="25dp"
 
         android:textStyle="bold"

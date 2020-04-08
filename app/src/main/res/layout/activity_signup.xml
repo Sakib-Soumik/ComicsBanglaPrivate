@@ -75,37 +75,41 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Re-pass:"
-        android:textStyle="bold"
-        android:textSize="25dp"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/ss"
         android:layout_marginTop="420dp"
-        android:layout_marginLeft="20dp"/>
+        android:text="Re-pass:"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pass      :"
-        android:textStyle="bold"
-        android:textSize="25dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="350dp"
-        android:layout_marginLeft="20dp" />
+        android:text="Pass      :"
+        android:fontFamily="@font/ss"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name    :"
-        android:textStyle="bold"
-        android:textSize="25dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="280dp"
-        android:layout_marginLeft="20dp" />
+        android:fontFamily="@font/ss"
+        android:text="Name    :"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email     :"
+        android:fontFamily="@font/ss"
         android:textStyle="bold"
         android:textSize="25dp"
         android:layout_marginTop="210dp"

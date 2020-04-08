@@ -32,6 +32,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="280dp"
         android:text="Name   :"
+        android:fontFamily="@font/ss"
         android:textSize="25dp"
         android:textStyle="bold"
         />
@@ -42,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="103dp"
         android:layout_marginLeft="140dp"
+        android:fontFamily="@font/ss"
         android:layout_marginTop="100dp"
         android:text="LogIn"
         android:textSize="60sp"
@@ -53,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="350dp"
+        android:fontFamily="@font/ss"
         android:text="Pass     :"
         android:textSize="25dp"
         android:textStyle="bold" />
@@ -71,7 +74,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="264dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="120dp"
+        android:layout_marginLeft="@dimen/_120sdp"
         android:layout_marginTop="270dp"
         android:background="@drawable/rounded_edittext"
         android:fadingEdge="vertical"
