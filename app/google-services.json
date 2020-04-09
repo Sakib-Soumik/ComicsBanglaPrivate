@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "968828506181",
+    "firebase_url": "https://comicsbangla.firebaseio.com",
+    "project_id": "comicsbangla",
+    "storage_bucket": "comicsbangla.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968828506181:android:f471a07a1849ec2e21532c",
+        "android_client_info": {
+          "package_name": "com.example.comicsbangla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968828506181-c8npq73cr8gsqrqios9lbtkrl6oojh66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAc2ySuD8YQcoSCLeOChlCMi1cbSFncHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968828506181-c8npq73cr8gsqrqios9lbtkrl6oojh66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

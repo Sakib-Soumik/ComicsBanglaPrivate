@@ -17,6 +17,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.jar.Attributes;
 
 
 public class MyFiles extends AppCompatActivity {
@@ -93,6 +99,11 @@ public class MyFiles extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_files);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
+
 
         keepReading = findViewById(R.id.keep_reading);
         Stack<Pair<String,String>> content = new Stack<Pair<String, String>>();
@@ -138,9 +149,26 @@ public class MyFiles extends AppCompatActivity {
         keepReading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name= bookname.get(position);
+                final String name= bookname.get(position);
                 String page_number= pagenumber.get(position);
-                Toast.makeText(MyFiles.this, name+" "+page_number, Toast.LENGTH_SHORT).show();
+                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference NameRef= rootRef.child("Comics");
+                NameRef=NameRef.child("ComicName");
+                ValueEventListener eventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                             if(ds.getValue().equals(name)) {
+
+                                 Toast.makeText(MyFiles.this, "From Database " + ds.getKey(), Toast.LENGTH_SHORT).show();
+                             }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                };
+                NameRef.addListenerForSingleValueEvent(eventListener);
 
             }
         });
