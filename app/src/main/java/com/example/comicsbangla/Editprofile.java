@@ -17,6 +17,7 @@ public class Editprofile extends AppCompatActivity {
         setContentView(R.layout.activity_editprofile);
 
 
+
         //Initialize and Assign Variable for Bottom navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
 

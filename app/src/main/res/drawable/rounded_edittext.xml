@@ -3,19 +3,16 @@
     android:shape="rectangle"
     android:thickness="0dp"
     >
-
     <stroke
         android:width="2dp"
-        android:color="@color/cardview_light_background"
+        android:color="#E1FDFCFC"
         />
     <corners
         android:radius="10dp"
         />
     <gradient
-        android:startColor="@color/cardview_light_background"
-        android:endColor="@color/cardview_light_background"
+        android:startColor="#E1FDFCFC"
+        android:endColor="#E1FDFCFC"
         />
-
-
 
 </shape>

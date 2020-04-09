@@ -22,7 +22,7 @@
         android:textSize="@dimen/_18sdp"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_32sdp"
-        app:srcCompat="@drawable/add_signup" />
+         />
 
         <Button
             android:id="@+id/add_login"
@@ -37,7 +37,7 @@
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_32sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/add_signup"
+
             />
 
 
