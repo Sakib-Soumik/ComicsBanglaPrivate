@@ -5,37 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ADD"
-    android:background="@drawable/w"
+    android:background="@drawable/bb"
 
  >
 
 
     <Button
         android:id="@+id/add_signup"
-        android:background="#DAF6A935"
+        android:background="@drawable/round_buttons"
         android:text="সাইন-আপ"
         android:fontFamily="@font/ss"
         android:layout_below="@id/textView2"
-        android:layout_alignLeft="@id/textView11"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/_15sdp"
         android:textSize="@dimen/_18sdp"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_32sdp"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_40sdp"
          />
 
         <Button
             android:id="@+id/add_login"
-            android:background="#DAF6A935"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/round_buttons"
+            android:layout_marginTop="@dimen/_12sdp"
             android:text="লগ-ইন"
-            android:layout_alignRight="@id/textView11"
+            android:layout_alignLeft="@id/add_signup"
             android:fontFamily="@font/ss"
-            android:layout_below="@id/textView2"
+            android:layout_below="@id/add_signup"
             android:textSize="@dimen/_18sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_40sdp"
             app:layout_constraintEnd_toEndOf="parent"
 
             />
@@ -58,7 +56,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/_40sdp"
         android:background="@drawable/nav_back"
         app:itemTextColor="@drawable/selector"
         app:itemIconTint="@drawable/selector"
@@ -71,15 +69,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
          />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleY="1.2"
-        android:scaleX="1.2"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/sup" />
 
     <TextView
     android:id="@+id/textView11"
@@ -94,6 +83,13 @@
     android:gravity="center_vertical"
     android:layout_height="@dimen/_60sdp"
     android:text="কমিক্স আপলোড করতে -" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit" />
 
 
 </RelativeLayout>

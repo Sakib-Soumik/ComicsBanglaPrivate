@@ -19,7 +19,7 @@ public class ADD extends AppCompatActivity {
     Button signup;
     Button login;
 
-    Button btn;
+    Button btn,btn2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,14 @@ public class ADD extends AppCompatActivity {
             }
 
         });
+        btn2=findViewById(R.id.button3);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ADD.this, Editprofile.class));
+            }
 
+        });
 
 
         // signup & login Button starts

@@ -7,13 +7,9 @@
     tools:context=".Editprofile"
     android:background="@drawable/back">
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-
-
+        android:layout_height="wrap_content">
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navbar"
             android:layout_width="match_parent"
@@ -25,30 +21,21 @@
             android:layout_alignParentBottom="true"/>
 
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="@dimen/_200sdp"
-            android:id="@+id/inEmail"
-            android:layout_below="@id/textemail"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_height="@dimen/_38sdp"
-            android:layout_alignLeft="@id/textemail"
-            android:background="@drawable/rounded_edittext"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/inName"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_below="@id/textname"
+        android:layout_alignLeft="@id/textname"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="12dp"
 
-            />
+        android:background="@drawable/rounded_edittext" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_38sdp"
-            android:layout_below="@id/textname"
-            android:layout_alignLeft="@id/textname"
-            android:id="@+id/inName"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/rounded_edittext"
-            />
-
-        <com.google.android.material.textfield.TextInputEditText
+    <com.google.android.material.textfield.TextInputEditText
             android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_38sdp"
+            android:id="@+id/inPass"
             android:layout_below="@id/textpass"
             android:layout_alignLeft="@id/textpass"
             android:layout_marginTop="@dimen/_10sdp"
@@ -57,7 +44,8 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_height="@dimen/_80sdp"
             android:layout_marginTop="@dimen/_40sdp"
             android:fontFamily="@font/ss"
@@ -72,53 +60,53 @@
 
         <TextView
             android:id="@+id/textpass"
-            android:layout_width="@dimen/_80sdp"
+            android:layout_width="@dimen/_95sdp"
             android:fontFamily="@font/ss"
             android:layout_height="@dimen/_40sdp"
-            android:text="পাসওয়ার্ড"
+            android:text="পাসওয়ার্ড :"
             android:textColor="#B9272626"
             android:gravity="center_vertical"
             android:layout_below="@id/inName"
-            android:layout_alignLeft="@id/textname"
+            android:layout_alignLeft="@id/inName"
             android:textSize="@dimen/_26sdp"
             android:layout_marginTop="@dimen/_10sdp"
             />
 
-        <TextView
-            android:id="@+id/textname"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:gravity="center_vertical"
-            android:text="নাম"
-            android:textColor="#B9272626"
-            android:fontFamily="@font/ss"
-            android:textSize="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_alignLeft="@id/textemail"
-            android:layout_below="@id/inEmail"/>
 
-        <TextView
-            android:id="@+id/textemail"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:gravity="center_vertical"
-            android:text="ই-মেইল"
 
-            android:layout_marginLeft="@dimen/_50sdp"
-            android:fontFamily="@font/ss"
-            android:textSize="@dimen/_28sdp"
-            android:textColor="#B9272626"
-            android:layout_below="@id/textView"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_alignLeft="@id/textView"
-            />
+    <TextView
+        android:id="@+id/textname"
+        android:layout_width="@dimen/_95sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@id/textView"
+        android:layout_alignLeft="@id/textView"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/ss"
+        android:gravity="center_vertical"
+        android:text="নাম :"
+        android:textColor="#B9272626"
+        android:textSize="@dimen/_28sdp" />
 
-        <Button
+    <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_40sdp"
             android:background="@drawable/round_buttons"
-            android:text="Button" />
-    </RelativeLayout>
+            android:fontFamily="@font/ss"
+            android:textSize="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_below="@id/inPass"
 
+            android:layout_alignRight="@id/inPass"
+            android:text="আপডেট" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="@dimen/_38sdp"
+        android:layout_alignRight="@id/textView"
+        android:layout_marginTop="@dimen/_42sdp"
+        android:layout_height="@dimen/_40sdp"
+        app:srcCompat="@drawable/boom" />
+
+    </ScrollView>
 </RelativeLayout>
