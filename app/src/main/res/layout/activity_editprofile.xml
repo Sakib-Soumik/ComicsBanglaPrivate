@@ -7,9 +7,6 @@
     tools:context=".Editprofile"
     android:background="@drawable/back">
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navbar"
             android:layout_width="match_parent"
@@ -25,11 +22,12 @@
         android:id="@+id/inName"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_38sdp"
+        android:textColor="#000000"
+        android:textSize="@dimen/_10sdp"
         android:layout_below="@id/textname"
         android:layout_alignLeft="@id/textname"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="12dp"
-
         android:background="@drawable/rounded_edittext" />
 
     <com.google.android.material.textfield.TextInputEditText
@@ -96,7 +94,6 @@
             android:textSize="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_below="@id/inPass"
-
             android:layout_alignRight="@id/inPass"
             android:text="আপডেট" />
 
@@ -108,5 +105,4 @@
         android:layout_height="@dimen/_40sdp"
         app:srcCompat="@drawable/boom" />
 
-    </ScrollView>
 </RelativeLayout>

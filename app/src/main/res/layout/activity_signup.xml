@@ -18,110 +18,185 @@
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="250dp"
-        app:srcCompat="@drawable/boom" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_45sdp"
+            >
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_height="@dimen/_80sdp"
+                android:fontFamily="@font/ss"
+                android:textColor="#CB000000"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="সাইন আপ"
+                android:textSize="@dimen/_40sdp"
+                />
+
+                <TextView
+                android:id="@+id/textemail"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_below="@id/textView"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/ss"
+                android:gravity="center_vertical"
+                android:text="ই-মেইল :"
+                android:textColor="#B9272626"
+                android:textSize="@dimen/_28sdp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/SInEmail"
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/st"
+                        android:textSize="@dimen/_20sdp"
+                        android:layout_height="@dimen/_38sdp"
+                        android:cursorVisible="true"
+                        android:inputType="textEmailAddress"
+                        android:layout_below="@id/textemail"
+                        android:layout_alignLeft="@id/textemail"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:background="@drawable/rounded_edittext"
+                        android:textColor="#000000"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_10sdp"
+                        android:textCursorDrawable="@drawable/cursor"
+                        />
+            <TextView
+                android:id="@+id/textname"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_below="@id/SInEmail"
+                android:layout_alignLeft="@id/SInEmail"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/ss"
+                android:gravity="center_vertical"
+                android:text="নাম :"
+                android:textColor="#B9272626"
+                android:textSize="@dimen/_28sdp" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/SInName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_38sdp"
+                android:textColor="#000000"
+                android:layout_below="@id/textname"
+                android:layout_alignLeft="@id/textname"
+                android:cursorVisible="true"
+                android:fontFamily="@font/st"
+                android:textSize="@dimen/_20sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textCursorDrawable="@drawable/cursor"
+                android:background="@drawable/rounded_edittext" />
+
+            <TextView
+                android:id="@+id/textpass"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_below="@id/SInName"
+                android:layout_alignLeft="@id/SInName"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/ss"
+                android:gravity="center_vertical"
+                android:text="পাসওয়ার্ড :"
+                android:textColor="#B9272626"
+                android:textSize="@dimen/_28sdp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/xx"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/textpass"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#C3CA7169"
+                android:layout_alignLeft="@id/textpass">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:id="@+id/SInPass"
+                    android:inputType="textPassword"
+                    android:cursorVisible="true"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:textSize="@dimen/_20sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:background="@drawable/rounded_edittext"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textRepass"
+                android:layout_width="wrap_content"
+                android:fontFamily="@font/ss"
+                android:layout_height="@dimen/_40sdp"
+                android:text="রিটাইপ পাসওয়ার্ড :"
+                android:textColor="#B9272626"
+                android:gravity="center_vertical"
+                android:layout_below="@id/xx"
+                android:layout_alignLeft="@id/xx"
+                android:textSize="@dimen/_26sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/x1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/textRepass"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#C3CA7169"
+                android:layout_alignLeft="@id/textpass">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:id="@+id/SInRePass"
+                    android:layout_below="@id/textRepass"
+                    android:cursorVisible="true"
+                    android:inputType="textPassword"
+                    android:layout_alignLeft="@id/textpass"
+                    android:textSize="@dimen/_20sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/rounded_edittext"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/SignUpButton"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:background="@drawable/button_selector"
+                android:fontFamily="@font/ss"
+                android:textSize="@dimen/_22sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_below="@id/x1"
+                android:layout_alignRight="@id/x1"
+                android:layout_marginBottom="@dimen/_60sdp"
+                android:text="সাইন আপ" />
 
 
+        </RelativeLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="264dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="200dp"
-        android:hint=" Email"
-        android:background="@drawable/rounded_edittext"/>
+    </ScrollView>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="264dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="270dp"
-        android:hint=" Name"
-        android:background="@drawable/rounded_edittext"
-       />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="264dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="340dp"
-        android:hint=" Password"
-        android:background="@drawable/rounded_edittext"/>
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="264dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="410dp"
-        android:hint=" Re-password"
-        android:background="@drawable/rounded_edittext"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="103dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="60dp"
-        android:text="Signup"
-        android:textSize="60sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:fontFamily="@font/ss"
-        android:layout_marginTop="420dp"
-        android:text="Re-pass:"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="350dp"
-        android:text="Pass      :"
-        android:fontFamily="@font/ss"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="280dp"
-        android:fontFamily="@font/ss"
-        android:text="Name    :"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email     :"
-        android:fontFamily="@font/ss"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:layout_marginTop="210dp"
-        android:layout_marginLeft="20dp"/>
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="133dp"
-        android:layout_height="55dp"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="480dp"
-        app:srcCompat="@drawable/signup" />
 
 
 </RelativeLayout>
