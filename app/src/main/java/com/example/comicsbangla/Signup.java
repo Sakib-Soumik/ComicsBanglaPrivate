@@ -1,10 +1,12 @@
 package com.example.comicsbangla;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -80,9 +82,14 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
-
+        Drawable error,error2;
+        error= getDrawable(R.drawable.er);
+        error2= getDrawable(R.drawable.er);
+        error.setBounds(-90,0,-20,70);
+        error2.setBounds(0,0,70,70);
         String SignUpName, SignUpEmail, SignUpPass, SignUpRePass;
         SignUpEmail= EmailInput.getText().toString();
         SignUpName = NameInput.getText().toString();
@@ -91,34 +98,34 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         boolean flag=true;
         //Showing Error msg in case of null input
         if(TextUtils.isEmpty(SignUpEmail)){
-            EmailInput.setError("আপনার ই-মেইল পূরণ করুন!");
+            EmailInput.setError("আপনার ই-মেইল পূরণ করুন!",error2);
             flag=false;
         }
         if(TextUtils.isEmpty(SignUpName)){
-            NameInput.setError("আপনার নাম পূরণ করুন!");
+            NameInput.setError("আপনার নাম পূরণ করুন!",error2);
             flag=false;
         }
         if(TextUtils.isEmpty(SignUpPass)){
-            PasswordInput.setError("আপনার পাসওয়ার্ড পূরণ করুন!");
+            PasswordInput.setError("আপনার পাসওয়ার্ড পূরণ করুন!",error);
             flag=false;
         }
         if(TextUtils.isEmpty(SignUpRePass)){
-            RePasswordInput.setError("আপনার পাসওয়ার্ড পুনরায় পূরণ করুন!");
+            RePasswordInput.setError("আপনার পাসওয়ার্ড পুনরায় পূরণ করুন!",error);
             flag=false;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(SignUpEmail).matches()){
             flag=false;
-            EmailInput.setError("আপনার ই-মেইল গ্রহণযোগ্য নয়!");
+            EmailInput.setError("আপনার ই-মেইল গ্রহণযোগ্য নয়!",error2);
         }
-        if(SignUpPass.length()<5){
+        if(SignUpPass.length()>0 && SignUpPass.length()<5){
             flag=false;
-            PasswordInput.setError("পাসওয়ার্ড সর্বনিম্ন ৫ ক্যারেক্টার হতে হবে!");
+            PasswordInput.setError("পাসওয়ার্ড সর্বনিম্ন ৫ ক্যারেক্টার হতে হবে!",error);
         }
         if(SignUpPass.matches(SignUpRePass) && flag==true ) {
             Toast.makeText(this, SignUpEmail + "\n" + SignUpName + "\n" + SignUpPass + "\n" + SignUpRePass, Toast.LENGTH_LONG).show();
         }
         else if(flag==true && !SignUpPass.matches(SignUpRePass)){
-            RePasswordInput.setError("আপনার পাসওয়ার্ড মিলে নি!");
+            RePasswordInput.setError("আপনার পাসওয়ার্ড মিলে নি!",error);
         }
     }
 }

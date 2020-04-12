@@ -123,7 +123,8 @@
                 android:focusableInTouchMode="true"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="#C3CA7169"
-                android:layout_alignLeft="@id/textpass">
+                android:layout_alignLeft="@id/textpass"
+                app:errorIconDrawable="@null">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -161,6 +162,7 @@
                 android:focusableInTouchMode="true"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="#C3CA7169"
+                app:errorIconDrawable="@null"
                 android:layout_alignLeft="@id/textpass">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
