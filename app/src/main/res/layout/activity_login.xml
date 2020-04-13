@@ -5,89 +5,137 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back"
+    android:paddingTop="@dimen/_20sdp"
     tools:context=".Login">
-
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="133dp"
-        android:layout_height="55dp"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="400dp"
-        app:srcCompat="@drawable/login" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="90dp"
-        app:srcCompat="@drawable/boom" />
-
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="280dp"
-        android:text="Name   :"
-        android:fontFamily="@font/ss"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        />
-
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="103dp"
-        android:layout_marginLeft="140dp"
-        android:fontFamily="@font/ss"
-        android:layout_marginTop="100dp"
-        android:text="LogIn"
-        android:textSize="60sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="350dp"
-        android:fontFamily="@font/ss"
-        android:text="Pass     :"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
         android:background="@drawable/nav_back"
-        app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
-        app:menu="@menu/menunavbar" />
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/menunavbar"
+        android:layout_alignParentBottom="true"/>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="264dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="@dimen/_120sdp"
-        android:layout_marginTop="270dp"
-        android:background="@drawable/rounded_edittext"
-        android:fadingEdge="vertical"
-        android:hint="  Name"
-        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scrollbars="none">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_30sdp">
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="@dimen/_170sdp"
+        android:layout_height="@dimen/_170sdp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/cc"
+        android:layout_marginBottom="@dimen/_30sdp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_below="@id/imageView9"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#97000000"
+        app:hintTextColor="@color/RedBackGround"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/mailLogin"
+            android:drawableLeft="@drawable/ic_mail"
+            android:drawablePadding="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:textCursorDrawable="@drawable/cursor"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/_20sdp"
+            android:fontFamily="@font/st"
+            android:hint="ই-মেইল" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/l2"
+        android:layout_width="match_parent"
+        android:layout_below="@id/l1"
+        android:focusable="true"
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#C3CA7169"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#97000000"
+        app:hintTextColor="@color/RedBackGround"
+        android:paddingTop="@dimen/_5sdp"
+        android:layout_height="wrap_content">
 
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="264dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="340dp"
-        android:background="@drawable/rounded_edittext"
-        android:hint="  Password" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passLogin"
+            android:drawablePadding="@dimen/_10sdp"
+            android:drawableStart="@drawable/ic_key"
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/_10sdp"
+            android:layout_height="match_parent"
+            android:inputType="textPassword"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="@dimen/_20sdp"
+            android:fontFamily="@font/st"
+            android:hint="পাসওয়ার্ড"
+            android:drawableLeft="@drawable/ic_key" />
+    </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/LoginButton"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:background="@drawable/button_selector"
+            android:fontFamily="@font/ss"
+            app:errorEnabled="true"
+            android:textSize="@dimen/_22sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_below="@id/l2"
+            android:layout_centerInParent="true"
+            android:text="লগ-ইন" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/LoginButton"
+            android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:textSize="@dimen/_14sdp"
+            android:fontFamily="@font/st"
+            android:text="অ্যাকাউন্ট নেই? তাহলে " />
+
+            <TextView
+                android:id="@+id/signUpClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/RedBackGround"
+                android:textSize="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_40sdp"
+                android:fontFamily="@font/st"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="সাইন আপ" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

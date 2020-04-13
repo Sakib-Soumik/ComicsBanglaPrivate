@@ -90,6 +90,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         error2= getDrawable(R.drawable.er);
         error.setBounds(-90,0,-20,70);
         error2.setBounds(0,0,70,70);
+
         String SignUpName, SignUpEmail, SignUpPass, SignUpRePass;
         SignUpEmail= EmailInput.getText().toString();
         SignUpName = NameInput.getText().toString();
@@ -100,6 +101,10 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         if(TextUtils.isEmpty(SignUpEmail)){
             EmailInput.setError("আপনার ই-মেইল পূরণ করুন!",error2);
             flag=false;
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(SignUpEmail).matches()){
+            flag=false;
+            EmailInput.setError("আপনার ই-মেইল গ্রহণযোগ্য নয়!",error2);
         }
         if(TextUtils.isEmpty(SignUpName)){
             NameInput.setError("আপনার নাম পূরণ করুন!",error2);
@@ -113,18 +118,14 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             RePasswordInput.setError("আপনার পাসওয়ার্ড পুনরায় পূরণ করুন!",error);
             flag=false;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(SignUpEmail).matches()){
-            flag=false;
-            EmailInput.setError("আপনার ই-মেইল গ্রহণযোগ্য নয়!",error2);
-        }
         if(SignUpPass.length()>0 && SignUpPass.length()<5){
             flag=false;
             PasswordInput.setError("পাসওয়ার্ড সর্বনিম্ন ৫ ক্যারেক্টার হতে হবে!",error);
         }
-        if(SignUpPass.matches(SignUpRePass) && flag==true ) {
+        if(SignUpPass.matches(SignUpRePass) && flag) {
             Toast.makeText(this, SignUpEmail + "\n" + SignUpName + "\n" + SignUpPass + "\n" + SignUpRePass, Toast.LENGTH_LONG).show();
         }
-        else if(flag==true && !SignUpPass.matches(SignUpRePass)){
+        else if(flag && !SignUpPass.matches(SignUpRePass)){
             RePasswordInput.setError("আপনার পাসওয়ার্ড মিলে নি!",error);
         }
     }
