@@ -7,35 +7,6 @@
     tools:context=".MyFiles"
     android:background="@drawable/back">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:text="পড়তে থাকুন..."
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="#C1000000"
-        android:fontFamily="@font/ss"
-        />
-
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="153dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="350dp"
-        android:fontFamily="@font/ss"
-        android:text="আমার কমিক্স"
-        android:layout_marginBottom="10dp"
-        android:textColor="#C1000000"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
@@ -45,27 +16,64 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingTop="@dimen/_30sdp"
+        android:paddingLeft="@dimen/_20sdp"
+        android:paddingRight="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_60sdp"
+        >
+    <TextView
+        android:id="@+id/textRead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:text="পড়তে থাকুন..."
+        android:textSize="@dimen/_30sdp"
+        android:textColor="#C1000000"
+        android:fontFamily="@font/ss"
+        />
+
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/keep_reading"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:fontFamily="@font/ss"
+        android:text="আমার কমিক্স"
+        android:textColor="#C1000000"
+        android:textSize="@dimen/_30sdp"
+         />
+
 
     <ListView
-        android:layout_width="370dp"
-        android:layout_height="214dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_280sdp"
+        android:layout_below="@id/textRead"
+        android:layout_marginTop="@dimen/_20sdp"
         android:id="@+id/keep_reading"
         android:listSelector="#BEF44336"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:dividerHeight="2dp"
-
-        android:divider="#3C000000"/>
+        android:dividerHeight="1dp"
+        android:divider="#68000000"/>
     <ListView
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_below="@id/textView9"
-        android:layout_height="214dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_height="wrap_content"
         android:id="@+id/myulpoads"
         android:listSelector="#BEF44336"
         android:dividerHeight="2dp"
         android:divider="#3C000000"/>
-
+    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
