@@ -7,10 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +21,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class OverView extends AppCompatActivity {
     ImageView overview;
     Button read;
-    TextView description,comic_name,comic_author,rating_value;
-
+    TextView description,comic_name,comic_author,rating_value_output;
+    RatingBar ratingBarInput, ratingBarOutput;
+    String banglaRatingString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +35,50 @@ public class OverView extends AppCompatActivity {
         description = findViewById(R.id.comic_description);
         comic_name = findViewById(R.id.comic_name);
         comic_author = findViewById(R.id.author_name);
-        rating_value= findViewById(R.id.ratingValue);
+        rating_value_output= findViewById(R.id.ratingValueOutput);
+        ratingBarInput= findViewById(R.id.ratingBarInput);
+        ratingBarOutput= findViewById(R.id.ratingBarOutput);
+
+        //While showing the rating of the comics
+        String ratingOutputString ="3.5";
+        float ratingOutputValue;
+        ratingOutputValue= Float.parseFloat(ratingOutputString);
+        ratingBarOutput.setRating(ratingOutputValue);
+        int size= ratingOutputString.length();
+        char ratings[] =new char[size];
+        char ratingInBangla[]=new char[size];
+        Log.d("Created Arrays", "onCreate: ");
+
+        ratings= ratingOutputString.toCharArray();
+        Log.d("String conversion done", "onCreate: "+ratingOutputString);
+        //Changing Rating Value to Bangla
+
+        for(int i = 0; i <ratings.length; i++){
+            Log.d("inside loop", "onCreate: "+i);
+            TranslateNumber(ratings[i],i,ratingInBangla);
+        }
+        Log.d("Loop Done", "onCreate: ");
+
+        StringBuilder stringBuilder= new StringBuilder();
+        for(char ch:ratingInBangla){
+            stringBuilder.append(ch);
+        }
+        banglaRatingString= stringBuilder.toString();
+        Log.d("Array conversion done", "onCreate: "+banglaRatingString);
+        
+        rating_value_output.setText(banglaRatingString);
+        Log.d("value set", "onCreate: ");
+
+
+        //When user Inputs a Rating
+        ratingBarInput.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                Toast.makeText(OverView.this, "Rating Given :"+rating, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         // Clicking Porun
         read.setOnClickListener(new View.OnClickListener() {
@@ -83,5 +129,22 @@ public class OverView extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void TranslateNumber(char rating,int i, char[] ratingInBangla) {
+        switch (rating){
+            case '0': ratingInBangla[i]='0';
+            case '1': ratingInBangla[i]='১';
+            case '2': ratingInBangla[i]='২';
+            case '3': ratingInBangla[i]='৩';
+            case '4': ratingInBangla[i]='৪';
+            case '5': ratingInBangla[i]='৫';
+            case '6': ratingInBangla[i]='৬';
+            case '7': ratingInBangla[i]='৭';
+            case '8': ratingInBangla[i]='৮';
+            case '9': ratingInBangla[i]='৯';
+            case '.': ratingInBangla[i]='.';
+
+        }
     }
 }
