@@ -65,7 +65,7 @@ public class OverView extends AppCompatActivity {
         }
         banglaRatingString= stringBuilder.toString();
         Log.d("Array conversion done", "onCreate: "+banglaRatingString);
-        
+
         rating_value_output.setText(banglaRatingString);
         Log.d("value set", "onCreate: ");
 
