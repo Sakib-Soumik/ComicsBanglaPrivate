@@ -7,7 +7,6 @@
     tools:context=".MyFiles"
     android:background="@drawable/back">
 
-
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
@@ -58,7 +57,6 @@
         android:dividerHeight="2dp"
 
         android:divider="#3C000000"/>
-
     <ListView
         android:layout_width="370dp"
         android:layout_below="@id/textView9"
@@ -69,6 +67,5 @@
         android:listSelector="#BEF44336"
         android:dividerHeight="2dp"
         android:divider="#3C000000"/>
-
 
 </RelativeLayout>
