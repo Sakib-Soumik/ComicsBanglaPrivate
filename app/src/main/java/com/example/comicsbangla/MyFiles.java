@@ -27,9 +27,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
-import com.example.comicsbangla.Read_PDF;
+
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.github.barteksc.pdfviewer.PDFView;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -68,7 +68,6 @@ import java.util.jar.Attributes;
 public class MyFiles extends AppCompatActivity {
     ListView keepReading;
     ListView Myuploads;
-    PDFView pdfView;
     static ArrayList<StorageReference> comicimages=new ArrayList<>();
 
 
