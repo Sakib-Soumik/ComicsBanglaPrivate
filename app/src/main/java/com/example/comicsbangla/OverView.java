@@ -44,6 +44,8 @@ public class OverView extends AppCompatActivity {
         float ratingOutputValue;
         ratingOutputValue= Float.parseFloat(ratingOutputString);
         ratingBarOutput.setRating(ratingOutputValue);
+        
+
         int size= ratingOutputString.length();
         char ratings[] =new char[size];
         char ratingInBangla[]=new char[size];
@@ -134,15 +136,25 @@ public class OverView extends AppCompatActivity {
     private void TranslateNumber(char rating,int i, char[] ratingInBangla) {
         switch (rating){
             case '0': ratingInBangla[i]='0';
+                        break;
             case '1': ratingInBangla[i]='১';
+                        break;
             case '2': ratingInBangla[i]='২';
+                break;
             case '3': ratingInBangla[i]='৩';
+                break;
             case '4': ratingInBangla[i]='৪';
+                break;
             case '5': ratingInBangla[i]='৫';
+                break;
             case '6': ratingInBangla[i]='৬';
+                break;
             case '7': ratingInBangla[i]='৭';
+                break;
             case '8': ratingInBangla[i]='৮';
+                break;
             case '9': ratingInBangla[i]='৯';
+                break;
             case '.': ratingInBangla[i]='.';
 
         }
