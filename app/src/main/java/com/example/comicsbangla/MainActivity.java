@@ -1,29 +1,54 @@
 package com.example.comicsbangla;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import static android.telecom.Call.Details.hasProperty;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static ArrayList<StorageReference> main_comic_images;
 
     private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE =1 ;
     ViewFlipper v_flipper;  //
 
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -32,6 +57,29 @@ public class MainActivity extends AppCompatActivity {
                     MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
 
         }
+         final FirebaseAuth mAuth;
+// ...
+// Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("sign in", "signInAnonymously:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("sign in", "signInAnonymously:failure", task.getException());
+
+                        }
+
+                        // ...
+                    }
+                });
+
         setContentView(R.layout.activity_main);
 
         //Initialize and Assign Variable for Bottom navbar

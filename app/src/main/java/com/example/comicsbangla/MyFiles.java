@@ -2,48 +2,76 @@ package com.example.comicsbangla;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.example.comicsbangla.Read_PDF;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.github.barteksc.pdfviewer.PDFView;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.Buffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.jar.Attributes;
 
 
-public class MyFiles extends AppCompatActivity {
 
+public class MyFiles extends AppCompatActivity {
     ListView keepReading;
     ListView Myuploads;
+    PDFView pdfView;
+    static ArrayList<StorageReference> comicimages=new ArrayList<>();
+
+
     //
     //append reading history to file
     //
@@ -97,10 +125,14 @@ public class MyFiles extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_files);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
+
+
+
 
         myRef.setValue("Hello, World!");
 
@@ -148,7 +180,7 @@ public class MyFiles extends AppCompatActivity {
 
         keepReading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 final String name= bookname.get(position);
                 String page_number= pagenumber.get(position);
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -159,25 +191,55 @@ public class MyFiles extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot ds : dataSnapshot.getChildren()) {
                              if(ds.getValue().equals(name)) {
+                                 String name2=ds.getValue().toString();
+                                 Log.d("found", "onDataChange: found");
+                                 StorageReference comicref=FirebaseStorage.getInstance().getReference().child("Comic/"+name2);
+                                 Log.d("link", "onDataChange: "+comicref.toString());
+                                 comicimages.clear();
+                                 // Find all the prefixes and items.
+                                 comicref.listAll()
+                                         .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                                             @Override
+                                             public void onSuccess(ListResult listResult) {
 
-                                 Toast.makeText(MyFiles.this, "From Database " + ds.getKey(), Toast.LENGTH_SHORT).show();
+                                                 for (StorageReference item : listResult.getItems()) {
+                                                     comicimages.add(item);
+
+                                                 }
+                                                 Log.d("intent", "onDataChange: next");
+
+                                                 Intent intent;
+                                                 
+                                                 MainActivity.main_comic_images=comicimages;
+                                                 intent=new Intent(MyFiles.this,ReadComic.class);
+                                                 startActivity(intent);
+                                             }
+                                         })
+                                         .addOnFailureListener(new OnFailureListener() {
+                                             @Override
+                                             public void onFailure(@NonNull Exception e) {
+                                                 // Uh-oh, an error occurred!
+                                             }
+                                         });
                              }
+
                         }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {}
                 };
-                NameRef.addListenerForSingleValueEvent(eventListener);
-
+                NameRef.addValueEventListener(eventListener);
             }
+
         });
+
 
         Myuploads.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String value= mycomics[position];
-                Toast.makeText(MyFiles.this, "Jah dushtu! keno eto tipcho! ", Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -219,4 +281,10 @@ public class MyFiles extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
 }
+
