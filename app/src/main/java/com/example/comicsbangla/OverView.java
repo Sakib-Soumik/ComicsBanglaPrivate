@@ -10,13 +10,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class OverView extends AppCompatActivity {
     ImageView overview;
@@ -24,12 +28,16 @@ public class OverView extends AppCompatActivity {
     TextView description,comic_name,comic_author,rating_value_output;
     RatingBar ratingBarInput, ratingBarOutput;
     String banglaRatingString;
+    EditText review;
+    TextInputLayout l1;
+    String Review;
+    ListView reviewList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_over_view);
 
-        //-----------------------------Finding Everything------------------
+        //--------------Finding Everything-------------//
         overview= findViewById(R.id.overview);
         read= findViewById(R.id.read);
         description = findViewById(R.id.comic_description);
@@ -38,51 +46,48 @@ public class OverView extends AppCompatActivity {
         rating_value_output= findViewById(R.id.ratingValueOutput);
         ratingBarInput= findViewById(R.id.ratingBarInput);
         ratingBarOutput= findViewById(R.id.ratingBarOutput);
+        l1= findViewById(R.id.reviewLayout);
+        review= findViewById(R.id.reviewInput);
+        reviewList = findViewById(R.id.reviewList);
 
-        //While showing the rating of the comics
+        //Getting Review from user
+        Review= review.getText().toString();
+
+        //Turning string rating into float rating
         String ratingOutputString ="3.5";
         float ratingOutputValue;
         ratingOutputValue= Float.parseFloat(ratingOutputString);
-        ratingBarOutput.setRating(ratingOutputValue);
-        
 
+        //Converting Rating Value to Bangla String
         int size= ratingOutputString.length();
         char ratings[] =new char[size];
         char ratingInBangla[]=new char[size];
-        Log.d("Created Arrays", "onCreate: ");
-
         ratings= ratingOutputString.toCharArray();
-        Log.d("String conversion done", "onCreate: "+ratingOutputString);
-        //Changing Rating Value to Bangla
-
         for(int i = 0; i <ratings.length; i++){
-            Log.d("inside loop", "onCreate: "+i);
             TranslateNumber(ratings[i],i,ratingInBangla);
         }
-        Log.d("Loop Done", "onCreate: ");
-
         StringBuilder stringBuilder= new StringBuilder();
         for(char ch:ratingInBangla){
             stringBuilder.append(ch);
         }
         banglaRatingString= stringBuilder.toString();
-        Log.d("Array conversion done", "onCreate: "+banglaRatingString);
 
-        rating_value_output.setText(banglaRatingString);
-        Log.d("value set", "onCreate: ");
+
+        //setting Value Of rating as Output
+        rating_value_output.setText(banglaRatingString+"/৫");
+        ratingBarOutput.setRating(ratingOutputValue);
 
 
         //When user Inputs a Rating
         ratingBarInput.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                //value is stored in -> rating
                 Toast.makeText(OverView.this, "Rating Given :"+rating, Toast.LENGTH_SHORT).show();
             }
         });
 
-
-
-        // Clicking Porun
+        // Clicking "পড়ুন"
         read.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,13 +95,14 @@ public class OverView extends AppCompatActivity {
             }
         });
 
+        //Showing Reviews and Ratings
+        final String[] reviews = getResources().getStringArray(R.array.reviews);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.sample_review,R.id.textView4,reviews);
+        reviewList.setAdapter(adapter);
 
 
-
-        //Initialize and Assign Variable for Bottom navbar
+        //Initialize and Assign Variable for Bottom Navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
-
-
 
         //perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -136,9 +142,9 @@ public class OverView extends AppCompatActivity {
     private void TranslateNumber(char rating,int i, char[] ratingInBangla) {
         switch (rating){
             case '0': ratingInBangla[i]='0';
-                        break;
+                break;
             case '1': ratingInBangla[i]='১';
-                        break;
+                break;
             case '2': ratingInBangla[i]='২';
                 break;
             case '3': ratingInBangla[i]='৩';

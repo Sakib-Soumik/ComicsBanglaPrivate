@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,13 +19,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Notifications extends AppCompatActivity {
      ListView listView;
-
+     Button btn2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
+        btn2=findViewById(R.id.button3);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Notifications.this, Upload.class));
+            }
+
+        });
 
         //-------------------------------------------------Finding List view------------------------
 
@@ -35,7 +44,7 @@ public class Notifications extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.s,R.id.sample_text_view,notifications);
         listView.setAdapter(adapter);
 
-        // click korle kaj korbe
+        // Works when clicked
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

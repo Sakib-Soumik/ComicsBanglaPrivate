@@ -26,8 +26,24 @@
 
     <string-array name="mycomics">
 
-        <item>রঙ পিশাচ</item>
+
         <item>রঙ পিশাচ</item>
 
     </string-array>
+
+    <string-array name="reviews">
+
+        <item>অনেকদিনের অপেক্ষায় ছিলাম নতুন পর্বের জন্যে। বরাবরের মতোই মাসুদ রানা আমাদেরকে হতাশ করেনি। চমৎকার সব ক্যারেক্টার।আগামি পর্বের জন্যে অধীর আগ্রহে রইলাম। শুভকামনা </item>
+        <item> সত্যিই অসাধারণ। আগামীতে এরকম ভালো কিছু দেখার অপেক্ষায় রইলাম। গ্রাফিক্সের সাথে কোন কমিক্সের তুলনাই করা যাবেনা!! </item>
+        <item>আমার সব থেকে প্রিয় কমিক সিরিজের একটি। </item>
+
+    </string-array>
+
+    <string name="fiction">ফিকশন</string>
+    <string name="adventure">অ্যাডভেঞ্চার</string>
+    <string name="action">একশন</string>
+    <string name="horror">হরোর</string>
+    <string name="comedy">কমেডি</string>
+    <string name="contemporary">কনটেমপোরারি</string>
+
 </resources>

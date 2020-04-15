@@ -6,58 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Upload"
     android:background="@drawable/back">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="103dp"
-        android:layout_marginLeft="100dp"
-        android:fontFamily="@font/ss"
-        android:layout_marginTop="90dp"
-        android:text="Upload"
-        android:textSize="60sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/ss"
-        android:text="Name          :"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:layout_marginTop="280dp"
-        android:layout_marginLeft="15dp" />
-
-    <TextView
-        android:id="@+id/short_descrip"
-        android:layout_width="139dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="350dp"
-        android:fontFamily="@font/ss"
-        android:text="Short Description:"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="247dp"
-        android:layout_height="195dp"
-        android:layout_marginLeft="155dp"
-        android:layout_marginTop="350dp"
-        android:background="@drawable/rounded_edittext"
-        android:hint=" Short Description"
-        />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="250dp"
-        android:layout_height="43dp"
-        android:layout_marginLeft="155dp"
-        android:layout_marginTop="270dp"
-        android:background="@drawable/rounded_edittext"
-        android:hint=" Name" />
-
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
@@ -68,20 +16,229 @@
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginLeft="250dp"
-        app:srcCompat="@drawable/boom" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_20sdp">
+    <TextView
+        android:layout_marginTop="@dimen/_20sdp"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ss"
+        android:textColor="#CB000000"
+        android:text="আপলোড"
+        android:textSize="@dimen/_40sdp"
+        />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@id/textView"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/ss"
+        android:gravity="center_vertical"
+        android:text="কমিক্সের নাম :"
+        android:textColor="#B9272626"
+        android:textSize="@dimen/_28sdp"
+         />
+
+    <TextView
+        android:id="@+id/textDes"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@id/userComicName"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/ss"
+        android:gravity="center_vertical"
+        android:text="সংক্ষিপ্ত বর্ণনা :"
+        android:textColor="#B9272626"
+        android:textSize="@dimen/_28sdp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:id="@+id/userComicDes"
+        android:layout_width="match_parent"
+        android:minHeight="@dimen/_80sdp"
+        android:fontFamily="@font/st"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingBottom="@dimen/_7sdp"
+        android:textSize="@dimen/_20sdp"
+        android:layout_height="wrap_content"
+        android:cursorVisible="true"
+        android:layout_below="@id/textDes"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/rounded_edittext"
+        android:textColor="#000000"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:textCursorDrawable="@drawable/cursor"
+        />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/userComicName"
+        android:layout_width="match_parent"
+        android:fontFamily="@font/st"
+        android:textSize="@dimen/_20sdp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_40sdp"
+        android:cursorVisible="true"
+        android:inputType="text"
+        android:layout_below="@id/textName"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/rounded_edittext"
+        android:textColor="#000000"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingBottom="@dimen/_7sdp"
+        android:textCursorDrawable="@drawable/cursor"
+        />
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/containterLinearLayout"
+        android:layout_below="@id/userComicDes"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        >
+    <TextView
+        android:id="@+id/textCat"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@id/userComicDes"
+        android:fontFamily="@font/ss"
+        android:gravity="center_vertical"
+        android:text="ক্যাটেগোরি :"
+        android:textColor="#B9272626"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:textSize="@dimen/_26sdp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/outerl1"
+        >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userComicDes"
+
+        android:id="@+id/verticall1"
+        android:orientation="vertical"
+        >
+        <CheckBox
+            android:id="@+id/checkBoxAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ss"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#E6322C2C"
+            android:text="@string/action" />
+
+        <CheckBox
+            android:id="@+id/checkBoxAdventure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ss"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#E6322C2C"
+            android:text="@string/adventure" />
+        <CheckBox
+            android:id="@+id/checkBoxContemporary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ss"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#E6322C2C"
+            android:text="@string/contemporary" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userComicDes"
+        android:id="@+id/verticall2"
+        android:orientation="vertical"
+        >
+        <CheckBox
+            android:id="@+id/checkBoxComedy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ss"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#E6322C2C"
+            android:text="@string/comedy" />
+        <CheckBox
+            android:id="@+id/checkBoxFicton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ss"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#E6322C2C"
+            android:text="@string/fiction" />
+        <CheckBox
+            android:id="@+id/checkBoxhorror"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ss"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#E6322C2C"
+            android:text="@string/horror" />
+
+
+    </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/containterLinearLayout"
+        android:layout_alignParentRight="true">
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="133dp"
-        android:layout_height="69dp"
-        android:layout_marginLeft="265dp"
-        android:layout_marginTop="550dp"
-        app:srcCompat="@drawable/upload" />
+        android:id="@+id/upload_file"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_below="@id/containterLinearLayout"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:background="@drawable/cloud">
 
+    </ImageButton>
+        <Button
+            android:id="@+id/uploadButton"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_60sdp"
+
+            android:background="@drawable/button_selector"
+            android:fontFamily="@font/ss"
+            android:textSize="@dimen/_24sdp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/_80sdp"
+            android:text="আপলোড" />
+    </LinearLayout>
+</RelativeLayout>
+</ScrollView>
 </RelativeLayout>
