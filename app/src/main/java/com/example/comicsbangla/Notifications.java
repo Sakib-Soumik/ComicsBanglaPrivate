@@ -24,12 +24,21 @@ public class Notifications extends AppCompatActivity {
      ListView listView;
      Button btn2;
      FirebaseAuth mAuth;
-
+    Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
+
+        btn=findViewById(R.id.button2);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Notifications.this, OverView.class));
+            }
+
+        });
         btn2=findViewById(R.id.button3);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
