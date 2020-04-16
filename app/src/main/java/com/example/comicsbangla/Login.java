@@ -41,9 +41,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     EditText t1,t2;
     Button login;
     TextView signUpTxt;
-    private GoogleSignInClient mGoogleSignInClient;
-    private static final int RC_SIGN_IN = 9001;
-    private FirebaseAuth mAuth;
     ProgressBar progressBar;
 
     @Override
@@ -58,27 +55,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         t2=findViewById(R.id.passLogin);
         login =findViewById(R.id.LoginButton);
         signUpTxt=findViewById(R.id.signUpClick);
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("968828506181-c8npq73cr8gsqrqios9lbtkrl6oojh66.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
-
-        Log.d("login", "onCreate: started");
-        mGoogleSignInClient=GoogleSignIn.getClient(this, gso);
-        mAuth = FirebaseAuth.getInstance();
-        signIn();
-        progressBar.setVisibility(View.GONE);
-        //FirebaseAuth.getInstance().signOut();
-        //FirebaseUser currentUser = mAuth.getCurrentUser();
-        Log.d("login", "onCreate: done");
-
-
-
-
-
-
-
-
+        
         signUpTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,19 +119,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.add:
-                        startActivity(new Intent(getApplicationContext(),ADD.class));
-                        overridePendingTransition(0,0);
+
+                    case R.id.profile:
+                        Toast.makeText(getApplicationContext(),"You have to login or sign up first",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.notification:
                         startActivity(new Intent(getApplicationContext(),Notifications.class));
                         overridePendingTransition(0,0);
                         return true;
-
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
                 }
                 return false;
             }
@@ -162,68 +134,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
     }
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-    public  void signOut() {
-        // Firebase sign out
-
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        progressBar.setVisibility(View.GONE);
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d("signed in to google", "onActivityResult: done");
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Log.d("TAG", "Google sign in failed", e);
-                e.printStackTrace();
-                // ...
-            }
-        }
-    }
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        progressBar.setVisibility(View.VISIBLE);
-        Log.d("TAG", "firebaseAuthWithGoogle:" + acct.getId());
-
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            progressBar.setVisibility(View.GONE);
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            if(MainActivity.afterlogin.equals("Upload")) {
-                                startActivity(new Intent(getApplicationContext(),Upload.class));
-                            }
-                            if(MainActivity.afterlogin.equals("Profile")) {
-                                startActivity(new Intent(getApplicationContext(),Profile.class));
-                            }
-                            Log.d("TAG", "onComplete: signed in");
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.d("TAG", "signInWithCredential:failure", task.getException());
-
-                        }
-
-                        // ...
-                    }
-                });
-    }
-
 
     @Override
     public void onClick(View v) {
