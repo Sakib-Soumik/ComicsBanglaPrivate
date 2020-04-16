@@ -37,10 +37,11 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
-    TextInputLayout l1,l2;
-    EditText t1,t2;
-    Button login;
+    Button signIn,signInGoogle;
+    EditText userEmail,userPass;
     TextView signUpTxt;
+
+    TextInputLayout l1,l2;
     ProgressBar progressBar;
 
     @Override
@@ -51,11 +52,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //finding everything
         l1=findViewById(R.id.l1);
         l2=findViewById(R.id.l2);
-        t1=findViewById(R.id.mailLogin);
-        t2=findViewById(R.id.passLogin);
-        login =findViewById(R.id.LoginButton);
+        userEmail=findViewById(R.id.mailLogin);
+        userPass=findViewById(R.id.passLogin);
+        signIn =findViewById(R.id.signInButton);
         signUpTxt=findViewById(R.id.signUpClick);
-        
+        signInGoogle= findViewById(R.id.signInGoogle);
+
+        //When Sign In with Google is Clicked
+
+
+        //When Sign Up is clicked
         signUpTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,10 +69,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
 
         });
+        //When sign in is clicked
+        signIn.setOnClickListener(this);
 
-        login.setOnClickListener(this);
+
+
         //Adding Text watchers for errors
-        t1.addTextChangedListener(new TextWatcher() {
+        userEmail.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -82,7 +91,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-        t2.addTextChangedListener(new TextWatcher() {
+        userPass.addTextChangedListener(new TextWatcher() {
 
 
             @Override
@@ -99,7 +108,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-            //Initialize and Assign Variable for Bottom navbar
+        //Initialize and Assign Variable for Bottom navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
 
 
@@ -131,47 +140,44 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 return false;
             }
         });
-
-
     }
 
     @Override
     public void onClick(View v) {
-        //Saved Email and Pass
-        String userEmail="u@gmail.com" ,userPass="12345";
 
-        String loginEmail,loginPass;
-        loginEmail= t1.getText().toString();
-        loginPass= t2.getText().toString();
+        //Saved Email and Pass
+        String userEmailDatabase="u@gmail.com" ,userPassDatabase="12345";
+
+        String signInEmailString,signInPassString;
+        signInEmailString= userEmail.getText().toString();
+        signInPassString=userPass.getText().toString();
+
         boolean validInput=true;
 
-
-
-        if(TextUtils.isEmpty(loginEmail)){
+        if(TextUtils.isEmpty(signInEmailString)){
             l1.setError("আপনার ই-মেইল পূরণ করুন!");
             validInput=false;
         }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(loginEmail).matches()){
+        else if(!Patterns.EMAIL_ADDRESS.matcher(signInEmailString).matches()){
             l1.setError("আপনার তথ্য সঠিক নয়!!");
             validInput=false;
 
         }
-        if(TextUtils.isEmpty(loginPass)){
+        if(TextUtils.isEmpty(signInPassString)){
             l2.setError("আপনার পাসওয়ার্ড পূরণ করুন!");
             validInput=false;
         }
-        if(loginPass.length()>0 && loginPass.length()<5){
+        if(signInPassString.length()>0 && signInPassString.length()<5){
             l2.setError("আপনার তথ্য সঠিক নয়!!");
             validInput=false;
         }
 
         //match operation will be done only if the input is valid
-        if(loginEmail.matches(userEmail) && loginPass.matches(userPass) && validInput){
-            Toast.makeText(this, loginEmail+"\n"+loginPass, Toast.LENGTH_LONG).show();
+        if(signInEmailString.matches(userEmailDatabase) && signInPassString.matches(userPassDatabase) && validInput){
+            Toast.makeText(this, signInEmailString+"\n"+signInPassString, Toast.LENGTH_LONG).show();
         }
-        if(validInput && ((!loginEmail.matches(userEmail) && !loginPass.matches(userPass)) || (loginEmail.matches(userEmail) && !loginPass.matches(userPass)) ||(!loginEmail.matches(userEmail) && loginPass.matches(userPass)))){
+        if(validInput && ((!signInEmailString.matches(userEmailDatabase) && !signInEmailString.matches(userPassDatabase)) || (signInEmailString.matches(userEmailDatabase) && !signInPassString.matches(userPassDatabase)) ||(!signInEmailString.matches(userEmailDatabase) && signInPassString.matches(userPassDatabase)))){
             l2.setError("আপনার তথ্য সঠিক নয়!!");
-
         }
 
 

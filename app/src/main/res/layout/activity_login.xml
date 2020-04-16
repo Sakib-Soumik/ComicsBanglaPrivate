@@ -94,7 +94,19 @@
             android:drawableLeft="@drawable/ic_key" />
     </com.google.android.material.textfield.TextInputLayout>
         <Button
-            android:id="@+id/LoginGoogle"
+            android:id="@+id/signInGoogle"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/button_selector"
+            android:fontFamily="@font/ss"
+            app:errorEnabled="true"
+            android:textSize="@dimen/_22sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_below="@id/signInButton"
+            android:layout_centerInParent="true"
+            android:text="গুগল সাইন-ইন" />
+        <Button
+            android:id="@+id/signInButton"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="@dimen/_45sdp"
             android:background="@drawable/button_selector"
@@ -104,24 +116,12 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_below="@id/l2"
             android:layout_centerInParent="true"
-            android:text="গুগল সাইন-ইন" />
-        <Button
-            android:id="@+id/LoginButton"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:background="@drawable/button_selector"
-            android:fontFamily="@font/ss"
-            app:errorEnabled="true"
-            android:textSize="@dimen/_22sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_below="@id/LoginGoogle"
-            android:layout_centerInParent="true"
             android:text="সাইন-ইন " />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/LoginButton"
+            android:layout_below="@id/signInGoogle"
             android:layout_centerInParent="true">
         <TextView
             android:id="@+id/textView5"
