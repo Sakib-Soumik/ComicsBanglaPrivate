@@ -44,7 +44,7 @@ public class OverView extends AppCompatActivity {
         float ratingOutputValue;
         ratingOutputValue= Float.parseFloat(ratingOutputString);
         ratingBarOutput.setRating(ratingOutputValue);
-        
+
 
         int size= ratingOutputString.length();
         char ratings[] =new char[size];
