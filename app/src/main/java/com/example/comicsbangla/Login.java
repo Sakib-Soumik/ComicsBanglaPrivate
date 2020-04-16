@@ -67,7 +67,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         mGoogleSignInClient=GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
         signIn();
-
+        progressBar.setVisibility(View.GONE);
         //FirebaseAuth.getInstance().signOut();
         //FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.d("login", "onCreate: done");
@@ -174,7 +174,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        progressBar.setVisibility(View.GONE);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -192,6 +192,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        progressBar.setVisibility(View.VISIBLE);
         Log.d("TAG", "firebaseAuthWithGoogle:" + acct.getId());
 
 
