@@ -20,7 +20,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/sv"
         >
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -189,21 +190,26 @@
         android:fontFamily="@font/ss"
         android:layout_marginBottom="@dimen/_40sdp"/>
 
-    <ListView
-        android:layout_below="@id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/_280sdp"
-        android:id="@+id/reviewList"
-        android:dividerHeight="2dp"
-        android:divider="#D2393030"
-        android:layout_marginBottom="@dimen/_100sdp"
-        >
-    </ListView>
 
 
+        <ListView
+
+            android:layout_below="@id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_280sdp"
+            android:id="@+id/reviewList"
+            android:dividerHeight="2dp"
+            android:divider="#D2393030"
+            android:clickable="false"
+            android:scrollbars="none"
+            android:layout_marginBottom="@dimen/_100sdp"
+            >
+        </ListView>
 
 
     </RelativeLayout>
     </ScrollView>
+
+
 </RelativeLayout>

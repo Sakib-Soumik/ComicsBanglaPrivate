@@ -27,14 +27,7 @@ public class ADD extends AppCompatActivity {
         setContentView(R.layout.activity_a_d_d);
 
         //----------Overview dekhar jonne----
-        btn=findViewById(R.id.button2);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ADD.this, OverView.class));
-            }
 
-        });
         btn2=findViewById(R.id.button3);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
