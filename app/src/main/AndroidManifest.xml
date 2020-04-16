@@ -16,16 +16,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <meta-data
             android:name="com.mypackage.MyGlideModule"
             android:value="GlideModule" />
-        <activity android:name=".ReadComic"></activity>
+
+        <activity android:name=".ReadComic" />
         <activity android:name=".Read_PDF" />
         <activity android:name=".data.Read_PDF" />
         <activity android:name=".OverView" />
         <activity android:name=".Editprofile" />
         <activity android:name=".Upload" />
         <activity android:name=".Login" />
+
         <activity android:name=".Signup" />
         <activity
             android:name=".ui.login.Login"
