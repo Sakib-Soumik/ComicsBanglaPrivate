@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,10 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Notifications extends AppCompatActivity {
      ListView listView;
      Button btn2;
+     FirebaseAuth mAuth;
 
 
     @Override
@@ -34,6 +38,7 @@ public class Notifications extends AppCompatActivity {
             }
 
         });
+        mAuth=FirebaseAuth.getInstance();
 
         //-------------------------------------------------Finding List view------------------------
 
@@ -68,7 +73,6 @@ public class Notifications extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()) {
-
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         overridePendingTransition(0,0);
@@ -79,14 +83,31 @@ public class Notifications extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.add:
-                        startActivity(new Intent(getApplicationContext(),ADD.class));
+                        FirebaseUser currentUser =mAuth.getCurrentUser();
+                        if(currentUser==null) {
+                            MainActivity.afterlogin="Upload";
+                            Log.d("user", "onNavigationItemSelected: going to login");
+                            startActivity(new Intent(getApplicationContext(),Login.class));
+                        }
+                        else {
+                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
+                            startActivity(new Intent(getApplicationContext(),Upload.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.notification:
                         return true;
-
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        currentUser =mAuth.getCurrentUser();
+                        if(currentUser==null) {
+                            MainActivity.afterlogin="Profile";
+                            Log.d("user", "onNavigationItemSelected: going to login");
+                            startActivity(new Intent(getApplicationContext(),Login.class));
+                        }
+                        else {
+                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
+                            startActivity(new Intent(getApplicationContext(),Profile.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
 

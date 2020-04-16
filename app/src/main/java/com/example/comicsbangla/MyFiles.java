@@ -33,6 +33,8 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,6 +70,7 @@ import java.util.jar.Attributes;
 public class MyFiles extends AppCompatActivity {
     ListView keepReading;
     ListView Myuploads;
+    FirebaseAuth mAuth;
     static ArrayList<StorageReference> comicimages=new ArrayList<>();
 
 
@@ -132,7 +135,7 @@ public class MyFiles extends AppCompatActivity {
 
 
 
-
+        mAuth=FirebaseAuth.getInstance();
         myRef.setValue("Hello, World!");
 
 
@@ -260,9 +263,20 @@ public class MyFiles extends AppCompatActivity {
                         return true;
 
                     case R.id.myfiles:
+
                         return true;
                     case R.id.add:
-                        startActivity(new Intent(getApplicationContext(),ADD.class));
+                        FirebaseUser currentUser =mAuth.getCurrentUser();
+                        if(currentUser==null) {
+                            MainActivity.afterlogin="Upload";
+                            Log.d("user", "onNavigationItemSelected: going to login");
+                            startActivity(new Intent(getApplicationContext(),Login.class));
+                        }
+                        else {
+                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
+                            startActivity(new Intent(getApplicationContext(),Upload.class));
+                        }
+
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.notification:
@@ -271,7 +285,16 @@ public class MyFiles extends AppCompatActivity {
                         return true;
 
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        currentUser =mAuth.getCurrentUser();
+                        if(currentUser==null) {
+                            MainActivity.afterlogin="Profile";
+                            Log.d("user", "onNavigationItemSelected: going to login");
+                            startActivity(new Intent(getApplicationContext(),Login.class));
+                        }
+                        else {
+                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
+                            startActivity(new Intent(getApplicationContext(),Profile.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
 

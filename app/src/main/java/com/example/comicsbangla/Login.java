@@ -160,10 +160,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
+
     }
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+    public  void signOut() {
+        // Firebase sign out
+
     }
 
     @Override
@@ -198,6 +203,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            if(MainActivity.afterlogin.equals("Upload")) {
+                                startActivity(new Intent(getApplicationContext(),Upload.class));
+                            }
+                            if(MainActivity.afterlogin.equals("Profile")) {
+                                startActivity(new Intent(getApplicationContext(),Profile.class));
+                            }
                             Log.d("TAG", "onComplete: signed in");
                         } else {
                             // If sign in fails, display a message to the user.

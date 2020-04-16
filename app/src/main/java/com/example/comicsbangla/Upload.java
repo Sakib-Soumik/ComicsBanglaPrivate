@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Upload extends AppCompatActivity {
+    FirebaseAuth mAuth;
     CheckBox action,adventure,horror,contemp,fiction,comedy;
     ImageButton uploadFile;
     Button uploadSubmit;
@@ -25,6 +29,7 @@ public class Upload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+        mAuth=FirebaseAuth.getInstance();
 
         contemp= findViewById(R.id.checkBoxContemporary);
         action= findViewById(R.id.checkBoxAction);
@@ -98,16 +103,22 @@ public class Upload extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.add:
-                        startActivity(new Intent(getApplicationContext(),ADD.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.notification:
                         startActivity(new Intent(getApplicationContext(),Notifications.class));
                         overridePendingTransition(0,0);
                         return true;
-
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        FirebaseUser currentUser =mAuth.getCurrentUser();
+                        if(currentUser==null) {
+                            MainActivity.afterlogin="Profile";
+                            Log.d("user", "onNavigationItemSelected: going to login");
+                            startActivity(new Intent(getApplicationContext(),Login.class));
+                        }
+                        else {
+                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
+                            startActivity(new Intent(getApplicationContext(),Profile.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
 

@@ -19,7 +19,7 @@
 
 
     <ImageButton
-        android:id="@+id/imageButton9"
+        android:id="@+id/logoutbutton"
         android:layout_width="200dp"
         android:layout_height="59dp"
         android:layout_marginLeft="130dp"

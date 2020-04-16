@@ -42,12 +42,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE =1 ;
     ViewFlipper v_flipper;  //
+    private FirebaseAuth mAuth;
+    public static String afterlogin;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
 
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
 
         }
-         final FirebaseAuth mAuth;
+         /*final FirebaseAuth mAuth;
 // ...
 // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // ...
                     }
-                });
+                });*/
 
         setContentView(R.layout.activity_main);
 
@@ -101,7 +104,17 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.add:
-                        startActivity(new Intent(getApplicationContext(),ADD.class));
+                        FirebaseUser currentUser =mAuth.getCurrentUser();
+                        if(currentUser==null) {
+                            afterlogin="Upload";
+                            Log.d("user", "onNavigationItemSelected: going to login");
+                            startActivity(new Intent(getApplicationContext(),Login.class));
+                        }
+                        else {
+                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
+                            startActivity(new Intent(getApplicationContext(),Upload.class));
+                        }
+
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.notification:
@@ -110,7 +123,16 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                         currentUser =mAuth.getCurrentUser();
+                        if(currentUser==null) {
+                            afterlogin="Profile";
+                            Log.d("user", "onNavigationItemSelected: going to login");
+                            startActivity(new Intent(getApplicationContext(),Login.class));
+                        }
+                        else {
+                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
+                            startActivity(new Intent(getApplicationContext(),Profile.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
 
