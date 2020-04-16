@@ -17,6 +17,12 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>
+    <Button
+        android:id="@+id/button3"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload" />
 
     <ImageView
         android:id="@+id/imageView"

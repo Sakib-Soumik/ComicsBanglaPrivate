@@ -18,6 +18,16 @@
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menunavbar" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_40sdp"
-        android:layout_marginLeft="@dimen/_8sdp">
+        >
 
     <TextView
         android:id="@+id/comic_name"
@@ -58,19 +68,15 @@
         android:textSize="@dimen/_15sdp"
         android:fontFamily="@font/ss"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/author_name"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:id="@+id/l2">
 
             <RatingBar
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_below="@id/author_name"
                 android:id="@+id/ratingBarOutput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style = "?android:attr/ratingBarStyleSmall"
+                android:numStars="5"
                 android:max="5"
                 android:layout_gravity="center"
                 android:isIndicator="true"
@@ -79,25 +85,28 @@
 
                 <TextView
                     android:id="@+id/ratingValueOutput"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_18sdp"
+                    android:layout_below="@id/ratingBarOutput"
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:textColor="#CD000000"
                     android:fontFamily="@font/ss"
-
+                    android:text="4/5"
                      />
 
-                </LinearLayout>
+
 
         <Button
             android:id="@+id/read"
             android:layout_width="@dimen/_100sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_height="wrap_content"
             android:text="পড়ুন"
+            android:layout_centerInParent="true"
             android:background="@drawable/button_selector"
-            android:layout_below="@id/l2"
+            android:layout_below="@id/ratingValueOutput"
             android:textSize="@dimen/_20sdp"
             android:fontFamily="@font/ss"/>
     </RelativeLayout>
@@ -167,5 +176,34 @@
                 android:hint="আপনার রিভিউ দিন" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_height="wrap_content"
+        android:text="সাবমিট"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button_selector"
+        android:layout_below="@id/reviewLayout"
+        android:textSize="@dimen/_20sdp"
+        android:fontFamily="@font/ss"
+        android:layout_marginBottom="@dimen/_40sdp"/>
 
+    <ListView
+        android:layout_below="@id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_280sdp"
+        android:id="@+id/reviewList"
+        android:dividerHeight="2dp"
+        android:divider="#D2393030"
+        android:layout_marginBottom="@dimen/_100sdp"
+        >
+    </ListView>
+
+
+
+
+    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

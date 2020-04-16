@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:padding="@dimen/_15sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        android:textSize="@dimen/_18sdp"
+        android:gravity="center"
+        android:drawablePadding="@dimen/_15sdp"
+        android:drawableLeft="@drawable/ic_left_quote_sketch"
+        android:fontFamily="@font/st"
+        android:text="সত্যিই অসাধারণ। আগামীতে এরকম ভালো কিছু দেখার অপেক্ষায় রইলাম। গ্রাফিক্সের সাথে কোন কমিক্সের তুলনাই করা যাবেনা!! " />
+</RelativeLayout>
