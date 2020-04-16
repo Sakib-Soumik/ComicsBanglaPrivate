@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         login =findViewById(R.id.LoginButton);
         signUpTxt=findViewById(R.id.signUpClick);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("968828506181-c8npq73cr8gsqrqios9lbtkrl6oojh66.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
 
@@ -186,13 +186,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.d("TAG", "Google sign in failed", e);
+                e.printStackTrace();
                 // ...
             }
         }
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d("TAG", "firebaseAuthWithGoogle:" + acct.getId());
-        progressBar.setVisibility(View.GONE);
+
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -200,6 +201,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            progressBar.setVisibility(View.GONE);
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
