@@ -32,6 +32,7 @@ public class SignInWithGoogle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_with_google);
+        progressBar=findViewById(R.id.progressbar);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("968828506181-c8npq73cr8gsqrqios9lbtkrl6oojh66.apps.googleusercontent.com")
                 .requestEmail()
@@ -41,7 +42,7 @@ public class SignInWithGoogle extends AppCompatActivity {
         mGoogleSignInClient= GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
         signIn();
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
         //FirebaseAuth.getInstance().signOut();
         //FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.d("login", "onCreate: done");
@@ -71,6 +72,7 @@ public class SignInWithGoogle extends AppCompatActivity {
                 // Google Sign In failed, update UI appropriately
                 Log.d("TAG", "Google sign in failed", e);
                 e.printStackTrace();
+               this.finish();
                 // ...
             }
         }

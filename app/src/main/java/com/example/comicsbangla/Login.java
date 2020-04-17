@@ -31,8 +31,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthMultiFactorException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.MultiFactorResolver;
 
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -40,15 +42,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Button signIn,signInGoogle;
     EditText userEmail,userPass;
     TextView signUpTxt;
+    String TAG="LOGIN";
 
     TextInputLayout l1,l2;
     ProgressBar progressBar;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         progressBar=findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
+        mAuth=FirebaseAuth.getInstance();
         //finding everything
         l1=findViewById(R.id.l1);
         l2=findViewById(R.id.l2);
@@ -59,8 +65,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         signInGoogle= findViewById(R.id.signInGoogle);
 
         //When Sign In with Google is Clicked
+        signInGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, SignInWithGoogle.class));
+            }
 
-
+        });
         //When Sign Up is clicked
         signUpTxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,11 +153,51 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         });
     }
 
+
+    private void signIn(String email, String password) {
+        Log.d(TAG, "signIn:" + email);
+        progressBar.setVisibility(View.VISIBLE);
+
+        // [START sign_in_with_email]
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(getApplicationContext(),"Signed In!",Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "signInWithEmail:success");
+                            if(MainActivity.afterlogin.equals("Profile")) {
+                                startActivity(new Intent(getApplicationContext(),Profile.class));
+                            }
+                            if(MainActivity.afterlogin.equals("Upload")) {
+                                startActivity(new Intent(getApplicationContext(),Upload.class));
+                            }
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                try {
+                                    throw task.getException();
+                                } catch (Exception e) {
+                                    Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                                }
+
+                            // [END_EXCLUDE]
+                        }
+
+                        // [START_EXCLUDE]
+
+                       progressBar.setVisibility(View.GONE);
+                        // [END_EXCLUDE]
+                    }
+                });
+        // [END sign_in_with_email]
+    }
+
     @Override
     public void onClick(View v) {
 
         //Saved Email and Pass
-        String userEmailDatabase="u@gmail.com" ,userPassDatabase="12345";
 
         String signInEmailString,signInPassString;
         signInEmailString= userEmail.getText().toString();
@@ -171,16 +222,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             l2.setError("আপনার তথ্য সঠিক নয়!!");
             validInput=false;
         }
-
         //match operation will be done only if the input is valid
-        if(signInEmailString.matches(userEmailDatabase) && signInPassString.matches(userPassDatabase) && validInput){
-            Toast.makeText(this, signInEmailString+"\n"+signInPassString, Toast.LENGTH_LONG).show();
+        if(validInput){
+            signIn(signInEmailString,signInPassString);
         }
-        if(validInput && ((!signInEmailString.matches(userEmailDatabase) && !signInEmailString.matches(userPassDatabase)) || (signInEmailString.matches(userEmailDatabase) && !signInPassString.matches(userPassDatabase)) ||(!signInEmailString.matches(userEmailDatabase) && signInPassString.matches(userPassDatabase)))){
-            l2.setError("আপনার তথ্য সঠিক নয়!!");
-        }
-
-
 
     }
 }

@@ -9,26 +9,38 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
+    FirebaseAuth mAuth;
 
     TextInputEditText EmailInput, PasswordInput, RePasswordInput;
     TextInputLayout l1,l2;
     Button signUp;
+    final String TAG="Createuser";
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        mAuth=FirebaseAuth.getInstance();
+        progressBar=findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
         //Initialize and Assign Variable for Bottom navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
 
@@ -61,24 +73,52 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.add:
-                        startActivity(new Intent(getApplicationContext(),ADD.class));
-                        overridePendingTransition(0,0);
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(),Login.class));
                         return true;
                     case R.id.notification:
                         startActivity(new Intent(getApplicationContext(),Notifications.class));
                         overridePendingTransition(0,0);
                         return true;
-
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
                 }
                 return false;
             }
         });
 
+    }
+    private void createAccount(String email, String password) {
+        progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "createAccount:" + email);
+        // [START create_user_with_email]
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(getApplicationContext(),"Welcome!", Toast.LENGTH_LONG).show();
+
+                            Log.d(TAG, "createUserWithEmail:success");
+                            if(MainActivity.afterlogin.equals("Profile")) {
+                                startActivity(new Intent(getApplicationContext(),Profile.class));
+                            }
+                            if(MainActivity.afterlogin.equals("Upload")) {
+                                startActivity(new Intent(getApplicationContext(),Upload.class));
+                            }
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            try {
+                                throw task.getException();
+                            }catch (Exception e) {
+                                Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                            Log.d(TAG, "createUserWithEmail:failure", task.getException());
+                        }
+                    }
+
+
+                });
+        progressBar.setVisibility(View.GONE);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -112,12 +152,13 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             RePasswordInput.setError("আপনার পাসওয়ার্ড পুনরায় পূরণ করুন!",error);
             flag=false;
         }
-        if(SignUpPass.length()>0 && SignUpPass.length()<5){
+        if(SignUpPass.length()>0 && SignUpPass.length()<6){
             flag=false;
-            PasswordInput.setError("পাসওয়ার্ড সর্বনিম্ন ৫ ক্যারেক্টার হতে হবে!",error);
+            PasswordInput.setError("পাসওয়ার্ড সর্বনিম্ন ৬ ক্যারেক্টার হতে হবে!",error);
         }
         if(SignUpPass.matches(SignUpRePass) && flag) {
-            Toast.makeText(this, SignUpEmail + "\n" + "\n" + SignUpPass + "\n" + SignUpRePass, Toast.LENGTH_LONG).show();
+            createAccount(SignUpEmail,SignUpPass);
+            //Toast.makeText(this, SignUpEmail + "\n" + "\n" + SignUpPass + "\n" + SignUpRePass, Toast.LENGTH_LONG).show();
         }
         else if(flag && !SignUpPass.matches(SignUpRePass)){
             RePasswordInput.setError("আপনার পাসওয়ার্ড মিলে নি!",error);
