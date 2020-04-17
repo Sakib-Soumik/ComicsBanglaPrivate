@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back"
-    android:paddingTop="@dimen/_20sdp"
+    android:paddingTop="@dimen/_10sdp"
     tools:context=".Login">
     <ProgressBar
         android:id="@+id/progressbar"
         style="?android:attr/progressBarStyle"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical|center_horizontal"
         android:indeterminate="true"
@@ -35,16 +35,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_30sdp">
+        android:padding="@dimen/_20sdp">
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="@dimen/_170sdp"
-        android:layout_height="@dimen/_170sdp"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         app:srcCompat="@drawable/cc"
-        android:layout_marginBottom="@dimen/_30sdp"/>
+        android:layout_marginBottom="@dimen/_20sdp"/>
 
         <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/l1"
@@ -104,25 +104,25 @@
     </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/signInGoogle"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_45sdp"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_40sdp"
             android:background="@drawable/button_selector"
             android:fontFamily="@font/ss"
             app:errorEnabled="true"
-            android:textSize="@dimen/_22sdp"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:textSize="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_below="@id/signInButton"
             android:layout_centerInParent="true"
             android:text="গুগল সাইন-ইন" />
         <Button
             android:id="@+id/signInButton"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_45sdp"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_40sdp"
             android:background="@drawable/button_selector"
             android:fontFamily="@font/ss"
             app:errorEnabled="true"
-            android:textSize="@dimen/_22sdp"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:textSize="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_below="@id/l2"
             android:layout_centerInParent="true"
             android:text="সাইন-ইন " />
