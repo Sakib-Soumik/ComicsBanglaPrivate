@@ -20,11 +20,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/sv"
+        android:isScrollContainer="true"
         >
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginLeft="@dimen/_20sdp"
@@ -36,8 +37,8 @@
 
     <ImageView
         android:id="@+id/overview"
-        android:layout_width="210dp"
-        android:layout_height="320dp"
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="@dimen/_220sdp"
         android:layout_marginRight="10dp"
         app:srcCompat="@drawable/overview" />
 
@@ -60,13 +61,14 @@
 
     <TextView
         android:id="@+id/author_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/comic_name"
         android:gravity="center"
         android:text="মাসুদ রানা"
+        android:layout_centerInParent="true"
         android:textColor="#CD000000"
-        android:textSize="@dimen/_15sdp"
+        android:textSize="@dimen/_20sdp"
         android:fontFamily="@font/ss"/>
 
 
@@ -101,14 +103,14 @@
 
         <Button
             android:id="@+id/read"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_height="wrap_content"
             android:text="পড়ুন"
             android:layout_centerInParent="true"
             android:background="@drawable/button_selector"
             android:layout_below="@id/ratingValueOutput"
-            android:textSize="@dimen/_20sdp"
+            android:textSize="@dimen/_18sdp"
             android:fontFamily="@font/ss"/>
     </RelativeLayout>
     </LinearLayout>
@@ -118,7 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#CD000000"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_below="@id/linear1"
         android:fontFamily="@font/st"
@@ -189,27 +191,23 @@
         android:textSize="@dimen/_20sdp"
         android:fontFamily="@font/ss"
         android:layout_marginBottom="@dimen/_40sdp"/>
-
-
-
         <ListView
 
             android:layout_below="@id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/_280sdp"
             android:id="@+id/reviewList"
             android:dividerHeight="2dp"
             android:divider="#D2393030"
-            android:clickable="false"
-            android:scrollbars="none"
             android:layout_marginBottom="@dimen/_100sdp"
             >
         </ListView>
 
 
     </RelativeLayout>
+
     </ScrollView>
+
 
 
 </RelativeLayout>

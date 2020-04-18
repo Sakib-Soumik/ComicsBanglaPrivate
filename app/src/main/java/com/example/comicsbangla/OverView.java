@@ -9,13 +9,17 @@ import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +35,7 @@ public class OverView extends AppCompatActivity {
     EditText review;
     TextInputLayout l1;
     String Review;
+    ScrollView scrollView;
     ListView reviewList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class OverView extends AppCompatActivity {
         setContentView(R.layout.activity_over_view);
 
         //--------------Finding Everything-------------//
+        scrollView=findViewById(R.id.sv);
         overview= findViewById(R.id.overview);
         read= findViewById(R.id.read);
         description = findViewById(R.id.comic_description);
@@ -50,6 +56,9 @@ public class OverView extends AppCompatActivity {
         review= findViewById(R.id.reviewInput);
         reviewList = findViewById(R.id.reviewList);
 
+     //===========================================================================================
+
+     //===========================================================================================
         //Getting Review from user
         Review= review.getText().toString();
 
@@ -99,6 +108,7 @@ public class OverView extends AppCompatActivity {
         final String[] reviews = getResources().getStringArray(R.array.reviews);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.sample_review,R.id.textView4,reviews);
         reviewList.setAdapter(adapter);
+        setListViewHeightBasedOnChildren(reviewList);
 
 
         //Initialize and Assign Variable for Bottom Navbar
@@ -139,6 +149,28 @@ public class OverView extends AppCompatActivity {
         });
     }
 
+    private void setListViewHeightBasedOnChildren(ListView reviewList) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = reviewList.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) { // listAdapter.getCount()返回数据项的数目
+            View listItem = listAdapter.getView(i, null, reviewList);
+            listItem.measure(0, 0); // 计算子项View 的宽高
+            totalHeight += listItem.getMeasuredHeight(); // 统计所有子项的总高度
+        }
+
+        ViewGroup.LayoutParams params = reviewList.getLayoutParams();
+        params.height = totalHeight
+                + (reviewList.getDividerHeight() * (listAdapter.getCount() - 1));
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+        reviewList.setLayoutParams(params);
+    }
+
     private void TranslateNumber(char rating,int i, char[] ratingInBangla) {
         switch (rating){
             case '0': ratingInBangla[i]='0';
@@ -165,4 +197,6 @@ public class OverView extends AppCompatActivity {
 
         }
     }
+
+
 }
