@@ -5,4 +5,5 @@
     <color name="colorAccent">#BAED2E20</color>
     <color name="RedBackGround">#B2ED2E20</color>
     <color name="OnClickColor">#CBFFA31E</color>
+    <color name="placeholder_gray">#A9A9A9</color>
 </resources>
