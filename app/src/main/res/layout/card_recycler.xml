@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/cover1"
+                android:id="@+id/actioncover"
                 android:layout_width="match_parent"
                 android:layout_height="161dp"
                 android:background="@color/cardview_dark_background"

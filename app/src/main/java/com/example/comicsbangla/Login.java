@@ -30,6 +30,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthMultiFactorException;
 import com.google.firebase.auth.FirebaseUser;
@@ -154,7 +155,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    private void signIn(String email, String password) {
+    private void signIn(final String email, final String password) {
         Log.d(TAG, "signIn:" + email);
         progressBar.setVisibility(View.VISIBLE);
 
@@ -226,6 +227,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if(validInput){
             signIn(signInEmailString,signInPassString);
         }
-
     }
 }

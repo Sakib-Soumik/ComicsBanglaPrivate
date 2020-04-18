@@ -213,16 +213,7 @@ public class Upload extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
-                        FirebaseUser currentUser =mAuth.getCurrentUser();
-                        if(currentUser==null) {
-                            MainActivity.afterlogin="Profile";
-                            Log.d("user", "onNavigationItemSelected: going to login");
-                            startActivity(new Intent(getApplicationContext(),Login.class));
-                        }
-                        else {
-                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
-                            startActivity(new Intent(getApplicationContext(),Profile.class));
-                        }
+                        startActivity(new Intent(getApplicationContext(),Profile.class));
                         overridePendingTransition(0,0);
                         return true;
 
