@@ -89,12 +89,13 @@
         android:layout_marginTop="@dimen/_20sdp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler1"
-        android:layout_width="match_parent"
-        android:layout_height="173dp"
+        android:id="@+id/recyclerAction"
+        android:layout_width="wrap_content"
+        android:layout_height="218dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="400dp"
-        android:background="@color/cardview_light_background"
+
+        android:background="@drawable/back"
         android:orientation="horizontal">
 
     </androidx.recyclerview.widget.RecyclerView>

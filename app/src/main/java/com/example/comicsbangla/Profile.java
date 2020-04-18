@@ -92,16 +92,7 @@ public class Profile extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.add:
-                        FirebaseUser currentUser =mAuth.getCurrentUser();
-                        if(currentUser==null) {
-                            MainActivity.afterlogin="Upload";
-                            Log.d("user", "onNavigationItemSelected: going to login");
-                            startActivity(new Intent(getApplicationContext(),Login.class));
-                        }
-                        else {
-                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
-                            startActivity(new Intent(getApplicationContext(),Upload.class));
-                        }
+                        startActivity(new Intent(getApplicationContext(),Upload.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.notification:

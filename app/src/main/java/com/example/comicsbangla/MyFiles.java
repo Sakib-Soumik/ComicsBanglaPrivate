@@ -267,7 +267,7 @@ public class MyFiles extends AppCompatActivity {
                         return true;
                     case R.id.add:
                         FirebaseUser currentUser =mAuth.getCurrentUser();
-                        if(currentUser==null) {
+                        if(currentUser.isAnonymous()) {
                             MainActivity.afterlogin="Upload";
                             Log.d("user", "onNavigationItemSelected: going to login");
                             startActivity(new Intent(getApplicationContext(),Login.class));
@@ -286,7 +286,7 @@ public class MyFiles extends AppCompatActivity {
 
                     case R.id.profile:
                         currentUser =mAuth.getCurrentUser();
-                        if(currentUser==null) {
+                        if(currentUser.isAnonymous()) {
                             MainActivity.afterlogin="Profile";
                             Log.d("user", "onNavigationItemSelected: going to login");
                             startActivity(new Intent(getApplicationContext(),Login.class));

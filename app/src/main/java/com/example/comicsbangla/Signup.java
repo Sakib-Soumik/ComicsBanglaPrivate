@@ -22,7 +22,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
@@ -74,7 +76,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                         return true;
                     case R.id.add:
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Login.class));
+                        Toast.makeText(getApplicationContext(),"Continue Sign Up or go to previous page",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.notification:
                         startActivity(new Intent(getApplicationContext(),Notifications.class));
@@ -158,10 +160,26 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         }
         if(SignUpPass.matches(SignUpRePass) && flag) {
             createAccount(SignUpEmail,SignUpPass);
-            //Toast.makeText(this, SignUpEmail + "\n" + "\n" + SignUpPass + "\n" + SignUpRePass, Toast.LENGTH_LONG).show();
+            //linkAccount(SignUpEmail,SignUpPass);
         }
         else if(flag && !SignUpPass.matches(SignUpRePass)){
             RePasswordInput.setError("আপনার পাসওয়ার্ড মিলে নি!",error);
         }
+    }
+    public void linkAccount(String email,String pass) {
+        AuthCredential credential = EmailAuthProvider.getCredential(email, pass);
+        mAuth.getCurrentUser().linkWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("link", "linkWithCredential:success");
+                        } else {
+                            Log.w("link", "linkWithCredential:failure", task.getException());
+
+                        }
+
+                    }
+                });
     }
 }

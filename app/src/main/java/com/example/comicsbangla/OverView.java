@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class OverView extends AppCompatActivity {
     ImageView overview;
@@ -30,13 +31,14 @@ public class OverView extends AppCompatActivity {
     String banglaRatingString;
     EditText review;
     TextInputLayout l1;
+    FirebaseAuth mAuth;
     String Review;
     ListView reviewList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_over_view);
-
+        mAuth=FirebaseAuth.getInstance();
         //--------------Finding Everything-------------//
         overview= findViewById(R.id.overview);
         read= findViewById(R.id.read);
@@ -120,7 +122,11 @@ public class OverView extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.add:
-                        startActivity(new Intent(getApplicationContext(),ADD.class));
+                        if(mAuth.getCurrentUser().isAnonymous()) {
+                            MainActivity.afterlogin="Upload";
+                            startActivity(new Intent(getApplicationContext(),Login.class));
+                        }
+                        startActivity(new Intent(getApplicationContext(),Upload.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.notification:
@@ -129,6 +135,10 @@ public class OverView extends AppCompatActivity {
                         return true;
 
                     case R.id.profile:
+                        if(mAuth.getCurrentUser().isAnonymous()) {
+                            MainActivity.afterlogin="Profile";
+                            startActivity(new Intent(getApplicationContext(),Login.class));
+                        }
                         startActivity(new Intent(getApplicationContext(),Profile.class));
                         overridePendingTransition(0,0);
                         return true;
