@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         comic_id_photo_ref=new ArrayList<>();
         comicId=new ArrayList<>();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mAuth = FirebaseAuth.getInstance();
         action_images=findViewById(R.id.recyclerAction);
         storagepermission();
@@ -99,7 +99,10 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         ActionItemAdapter actionItemAdapter=new ActionItemAdapter(MainActivity.this,comic_id_photo_ref);
+
                         action_images.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        action_images.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                                DividerItemDecoration.VERTICAL));
                         action_images.setAdapter(actionItemAdapter);
                     }
                     @Override

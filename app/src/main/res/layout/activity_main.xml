@@ -91,12 +91,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAction"
         android:layout_width="wrap_content"
-        android:layout_height="218dp"
+        android:layout_height="350dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="400dp"
-
         android:background="@drawable/back"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
     </androidx.recyclerview.widget.RecyclerView>
 
