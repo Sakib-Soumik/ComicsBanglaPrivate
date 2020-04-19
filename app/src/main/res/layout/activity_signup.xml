@@ -80,12 +80,40 @@
                         android:paddingRight="@dimen/_10sdp"
                         android:textCursorDrawable="@drawable/cursor"
                         />
+            <TextView
+                android:id="@+id/textname"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_below="@id/SInEmail"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/ss"
+                android:gravity="center_vertical"
+                android:text="নাম :"
+                android:textColor="#B9272626"
+                android:textSize="@dimen/_28sdp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/SInName"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/st"
+                android:textSize="@dimen/_20sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:cursorVisible="true"
+                android:inputType="textEmailAddress"
+                android:layout_below="@id/textname"
+                android:layout_alignLeft="@id/textemail"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/rounded_edittext"
+                android:textColor="#000000"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:textCursorDrawable="@drawable/cursor"
+                />
 
             <TextView
                 android:id="@+id/textpass"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_below="@id/SInEmail"
+                android:layout_below="@id/SInName"
                 android:layout_alignLeft="@id/SInEmail"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/ss"

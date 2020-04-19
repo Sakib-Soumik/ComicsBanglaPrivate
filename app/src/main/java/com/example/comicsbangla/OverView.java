@@ -38,7 +38,6 @@ public class OverView extends AppCompatActivity {
     FirebaseAuth mAuth;
     String Review;
     ScrollView scrollView;
-    ListView reviewList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +55,13 @@ public class OverView extends AppCompatActivity {
         ratingBarOutput= findViewById(R.id.ratingBarOutput);
         l1= findViewById(R.id.reviewLayout);
         review= findViewById(R.id.reviewInput);
-        reviewList = findViewById(R.id.reviewList);
 
-     //===========================================================================================
 
-     //===========================================================================================
-        //Getting Review from user
+
+        //--------------------------Getting Review from user------------------------\\
         Review= review.getText().toString();
+
+        //--------------------------Showing The comic rating avg --------------------\\
 
         //Turning string rating into float rating
         String ratingOutputString ="3.5";
@@ -83,13 +82,12 @@ public class OverView extends AppCompatActivity {
         }
         banglaRatingString= stringBuilder.toString();
 
-
         //setting Value Of rating as Output
         rating_value_output.setText(banglaRatingString+"/৫");
         ratingBarOutput.setRating(ratingOutputValue);
 
 
-        //When user Inputs a Rating
+        //---------------------------Getting User Rating input --------------------------------\\
         ratingBarInput.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -98,7 +96,7 @@ public class OverView extends AppCompatActivity {
             }
         });
 
-        // Clicking "পড়ুন"
+        //-------------------------------- Clicking "পড়ুন"-------------------------------------\\
         read.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,16 +104,13 @@ public class OverView extends AppCompatActivity {
             }
         });
 
-        //Showing Reviews and Ratings
-        final String[] reviews = getResources().getStringArray(R.array.reviews);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.sample_review,R.id.textView4,reviews);
-        reviewList.setAdapter(adapter);
-        setListViewHeightBasedOnChildren(reviewList);
+        //-------------------------Showing the Review List of the comics ----------------------\\
+        //Values->String->reviews contain an array of possible reviews
 
 
+        //--------------------------------Navigation Bar-------------------------------------\\
         //Initialize and Assign Variable for Bottom Navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
-
         //perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -159,27 +154,6 @@ public class OverView extends AppCompatActivity {
         });
     }
 
-    private void setListViewHeightBasedOnChildren(ListView reviewList) {
-        // 获取ListView对应的Adapter
-        ListAdapter listAdapter = reviewList.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-
-        int totalHeight = 0;
-        for (int i = 0, len = listAdapter.getCount(); i < len; i++) { // listAdapter.getCount()返回数据项的数目
-            View listItem = listAdapter.getView(i, null, reviewList);
-            listItem.measure(0, 0); // 计算子项View 的宽高
-            totalHeight += listItem.getMeasuredHeight(); // 统计所有子项的总高度
-        }
-
-        ViewGroup.LayoutParams params = reviewList.getLayoutParams();
-        params.height = totalHeight
-                + (reviewList.getDividerHeight() * (listAdapter.getCount() - 1));
-        // listView.getDividerHeight()获取子项间分隔符占用的高度
-        // params.height最后得到整个ListView完整显示需要的高度
-        reviewList.setLayoutParams(params);
-    }
 
     private void TranslateNumber(char rating,int i, char[] ratingInBangla) {
         switch (rating){

@@ -10,7 +10,7 @@
         android:textSize="@dimen/_18sdp"
         android:gravity="center"
         android:drawablePadding="@dimen/_15sdp"
-        android:drawableLeft="@drawable/ic_left_quote_sketch"
+        android:drawableLeft="@drawable/ic_quote"
         android:fontFamily="@font/st"
         android:text="সত্যিই অসাধারণ। আগামীতে এরকম ভালো কিছু দেখার অপেক্ষায় রইলাম। গ্রাফিক্সের সাথে কোন কমিক্সের তুলনাই করা যাবেনা!! " />
 </RelativeLayout>
