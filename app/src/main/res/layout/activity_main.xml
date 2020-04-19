@@ -6,66 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@drawable/back">
-
-    <SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="294dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/v_flipper"
-        android:layout_marginTop="213dp" />
-
-    <LinearLayout
-        android:id="@+id/checkBoxLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/search_bar"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/checkBoxAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/st"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_16sdp"
-            android:textColor="#E6322C2C"
-            android:text="সব" />
-        <CheckBox
-            android:id="@+id/checkBoxComicName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/st"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_16sdp"
-            android:textColor="#E6322C2C"
-            android:text="কমিক-নাম" />
-        <CheckBox
-            android:id="@+id/checkBoxPublication"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/st"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_16sdp"
-            android:textColor="#E6322C2C"
-            android:text="প্রকাশনা" />
-        <CheckBox
-            android:id="@+id/checkBoxAuthor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/st"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_16sdp"
-            android:textColor="#E6322C2C"
-            android:text="লেখক" />
-
-    </LinearLayout>
-
-    <ViewFlipper
-        android:id="@+id/v_flipper"
-        android:layout_width="match_parent"
-        android:layout_height="202dp"
-        android:layout_marginTop="0dp" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
@@ -76,29 +16,253 @@
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>
 
-    <TextView
-        android:id="@+id/textView7"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ViewFlipper
+            android:id="@+id/v_flipper"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_180sdp"
+            android:layout_alignParentTop="true" />
+        <SearchView
+            android:padding="@dimen/_10sdp"
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/v_flipper"
+            />
+
+    <LinearLayout
+        android:id="@+id/checkBoxLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/search_bar"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkBoxAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/st"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:textColor="#E6322C2C"
+            android:text="সব" />
+
+        <CheckBox
+            android:id="@+id/checkBoxComicName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:fontFamily="@font/st"
+            android:text="কমিক-নাম"
+            android:textColor="#E6322C2C"
+            android:textSize="@dimen/_16sdp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxPublication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/st"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#E6322C2C"
+            android:text="প্রকাশনা" />
+        <CheckBox
+            android:id="@+id/checkBoxAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/st"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#E6322C2C"
+            android:text="লেখক" />
+
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/checkBoxLayout"
-        android:text="@string/action"
-        android:textSize="@dimen/_25sdp"
-        android:fontFamily="@font/ss"
-        android:layout_marginLeft="@dimen/_25sdp"
-        android:textColor="#B5000000"
-        android:layout_marginTop="@dimen/_20sdp"/>
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_60sdp"
+        >
+        <TextView
+            android:id="@+id/textRecommended"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="নির্বাচিত "
+            android:textSize="@dimen/_25sdp"
+            android:fontFamily="@font/ss"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="#B5000000"
+            android:layout_marginTop="@dimen/_20sdp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerAction"
-        android:layout_width="wrap_content"
-        android:layout_height="350dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="400dp"
-        android:background="@drawable/back"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerRecommended"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_below="@id/textRecommended"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/back"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:id="@+id/textAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recyclerRecommended"
+            android:text="@string/action"
+            android:textSize="@dimen/_25sdp"
+            android:fontFamily="@font/ss"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="#B5000000"
+            android:layout_marginTop="@dimen/_20sdp"/>
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerAction"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_below="@id/textAction"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/back"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/textAdventure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recyclerAction"
+            android:text="@string/adventure"
+            android:textSize="@dimen/_25sdp"
+            android:fontFamily="@font/ss"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="#B5000000"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerAdventure"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_below="@id/textAdventure"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/back"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/textComedy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recyclerAdventure"
+            android:text="@string/comedy"
+            android:textSize="@dimen/_25sdp"
+            android:fontFamily="@font/ss"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="#B5000000"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerComedy"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_below="@id/textComedy"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/back"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/textContemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recyclerComedy"
+            android:text="@string/contemporary"
+            android:textSize="@dimen/_25sdp"
+            android:fontFamily="@font/ss"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="#B5000000"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerContemporary"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_below="@id/textContemp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/back"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/textFiction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recyclerContemporary"
+            android:text="@string/fiction"
+            android:textSize="@dimen/_25sdp"
+            android:fontFamily="@font/ss"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="#B5000000"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerFiction"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_below="@id/textFiction"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/back"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:id="@+id/textHorror"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recyclerFiction"
+            android:text="@string/horror"
+            android:textSize="@dimen/_25sdp"
+            android:fontFamily="@font/ss"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="#B5000000"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerHorror"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_below="@id/textHorror"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/back"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        </androidx.recyclerview.widget.RecyclerView>
 
 
+    </RelativeLayout>
+
+    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
