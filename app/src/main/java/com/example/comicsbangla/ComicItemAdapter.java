@@ -51,7 +51,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
 
         ComicItemHolder comicItemHolder=(ComicItemHolder) holder;
         RequestOptions requestOptions = new RequestOptions()
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
                 .centerCrop()
                 .dontAnimate()
