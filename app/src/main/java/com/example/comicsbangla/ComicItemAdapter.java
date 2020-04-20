@@ -36,6 +36,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
         private ComicItemHolder(View view) {
             super(view);
             comic_image=view.findViewById(R.id.comic_image);
+
         }
     }
 
@@ -48,8 +49,8 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder  holder, int position) {
-
         ComicItemHolder comicItemHolder=(ComicItemHolder) holder;
+        int comic_size=comic_images.size();
         RequestOptions requestOptions = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)
@@ -61,14 +62,33 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
                 .priority(Priority.IMMEDIATE)
                 .encodeFormat(Bitmap.CompressFormat.PNG)
                 .format(DecodeFormat.DEFAULT);
-        Log.d("linik", "onBindViewHolder: "+comic_images.get(position).toString());
+
         Glide.with(context)
                 .load(comic_images.get(position))
                 .apply(requestOptions)
                 .dontTransform()
                 .into(comicItemHolder.comic_image);
+        if(position<2) {
+            if (position + 1 < comic_size) {
+                Glide.with(context)
+                        .load(comic_images.get(position + 1))
+                        .apply(requestOptions)
+                        .preload();
+                if (position + 2 < comic_size) {
+                    Glide.with(context)
+                            .load(comic_images.get(position + 2))
+                            .apply(requestOptions)
+                            .preload();
+                    if (position + 3 < comic_size) {
+                        Glide.with(context)
+                                .load(comic_images.get(position + 3))
+                                .apply(requestOptions)
+                                .preload();
+                    }
+                }
+            }
+        }
     }
-
     @Override
     public int getItemCount() {
         return comic_images.size();
