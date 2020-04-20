@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -58,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView action_images;
 
     private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE =1 ;
-    ViewFlipper v_flipper;  //
     private FirebaseAuth mAuth;
+    ViewFlipper v_flipper;
     public static String afterlogin;
     ArrayList<Pair<String,StorageReference>> comic_id_photo_ref;
     ArrayList<String> comicId;
@@ -67,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         comic_id_photo_ref=new ArrayList<>();
         comicId=new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
@@ -181,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i< images.length;i++)
         {
             flipperImage(images[i]);
-        }//
+        }
 
 
     }

@@ -34,6 +34,7 @@
             android:id="@+id/search_bar"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
+            android:windowSoftInputMode="stateHidden"
             android:layout_marginLeft="@dimen/_15sdp"
             android:background="@drawable/rounded_edittext"
             android:iconifiedByDefault="false"

@@ -36,11 +36,10 @@
         android:id="@+id/linear1">
 
     <ImageView
-        android:id="@+id/overview"
+        android:id="@+id/comic_cover"
         android:layout_width="@dimen/_140sdp"
         android:layout_height="@dimen/_220sdp"
-        android:layout_marginRight="10dp"
-        app:srcCompat="@drawable/overview" />
+        android:layout_marginRight="10dp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -54,7 +53,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:layout_alignParentTop="true"
-        android:text="অগ্নি নাগা"
         android:textColor="#CD000000"
         android:textSize="@dimen/_25sdp"
         android:fontFamily="@font/ss"/>
@@ -65,7 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/comic_name"
         android:gravity="center"
-        android:text="মাসুদ রানা"
         android:layout_centerInParent="true"
         android:textColor="#CD000000"
         android:textSize="@dimen/_20sdp"
@@ -124,7 +121,6 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_below="@id/linear1"
         android:fontFamily="@font/st"
-        android:text="পৃথিবীতে আবির্ভাব ঘটছে নতুন নতুন রোগের, পাশাপাশি পাল্টে যাচ্ছে অনেক চেনা রোগের লক্ষণ আর উপসর্গ। ব্যাকটেরিয়ারা এন্টিবায়োটিকের ধরণ বুঝে নিজেদের রূপ পাল্টে ফেলছে, পরিণত হচ্ছে ‘সুপারবাগ' এ, রোগ প্রতিরোধ করতে পারছে না এন্টিবায়োটিকও! কিন্তু কেন? আর কী করে মোকাবেলা করা যাবে এই সুপারবাগদের?"
         />
 
     <RatingBar

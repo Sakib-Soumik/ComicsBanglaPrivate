@@ -23,12 +23,25 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class OverView extends AppCompatActivity {
-    ImageView overview;
+    ImageView comic_cover;
     Button read;
     TextView description,comic_name,comic_author,rating_value_output;
     RatingBar ratingBarInput, ratingBarOutput;
@@ -45,7 +58,7 @@ public class OverView extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         //--------------Finding Everything-------------//
         scrollView=findViewById(R.id.sv);
-        overview= findViewById(R.id.overview);
+        comic_cover= findViewById(R.id.comic_cover);
         read= findViewById(R.id.read);
         description = findViewById(R.id.comic_description);
         comic_name = findViewById(R.id.comic_name);
@@ -55,6 +68,101 @@ public class OverView extends AppCompatActivity {
         ratingBarOutput= findViewById(R.id.ratingBarOutput);
         l1= findViewById(R.id.reviewLayout);
         review= findViewById(R.id.reviewInput);
+        //------------------------showing everything from database------------------//
+        final String comicid=getIntent().getStringExtra("ComicId");
+        DatabaseReference cover_ref= FirebaseDatabase.getInstance().getReference();
+        cover_ref=cover_ref.child("Comics").child("PhotoUrl");
+        cover_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String photo_url=dataSnapshot.child(comicid).getValue(String.class);
+                Glide.with(getApplicationContext())
+                        .load(FirebaseStorage.getInstance().getReferenceFromUrl(photo_url))
+                        .placeholder(R.drawable.comic_load)
+                        //.apply(requestOptions)
+                        .dontTransform()
+                        .into(comic_cover);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        DatabaseReference name_ref= FirebaseDatabase.getInstance().getReference();
+        name_ref=name_ref.child("Comics").child("ComicName");
+        name_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                comic_name.setText(dataSnapshot.child(comicid).getValue(String.class));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        DatabaseReference author_ref= FirebaseDatabase.getInstance().getReference();
+        author_ref=author_ref.child("Comics").child("AuthorName");
+        author_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                comic_author.setText(dataSnapshot.child(comicid).getValue(String.class));
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        final String[] db_rating = new String[1];
+        DatabaseReference rating_ref= FirebaseDatabase.getInstance().getReference();
+        rating_ref=rating_ref.child("Comics").child("Avg_Rating");
+        rating_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                db_rating[0] =dataSnapshot.child(comicid).getValue(String.class);
+                float ratingOutputValue;
+                ratingOutputValue= Float.parseFloat(db_rating[0]);
+
+                //Converting Rating Value to Bangla String
+                int size= db_rating[0].length();
+                char ratings[] =new char[size];
+                char ratingInBangla[]=new char[size];
+                ratings= db_rating[0].toCharArray();
+                for(int i = 0; i <ratings.length; i++){
+                    TranslateNumber(ratings[i],i,ratingInBangla);
+                }
+                StringBuilder stringBuilder= new StringBuilder();
+                for(char ch:ratingInBangla){
+                    stringBuilder.append(ch);
+                }
+                banglaRatingString= stringBuilder.toString();
+
+                //setting Value Of rating as Output
+                rating_value_output.setText(banglaRatingString+"/৫");
+                ratingBarOutput.setRating(ratingOutputValue);
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        DatabaseReference description_ref= FirebaseDatabase.getInstance().getReference();
+        description_ref=description_ref.child("Comics").child("Description");
+        description_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                description.setText(dataSnapshot.child(comicid).getValue(String.class));
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -64,27 +172,8 @@ public class OverView extends AppCompatActivity {
         //--------------------------Showing The comic rating avg --------------------\\
 
         //Turning string rating into float rating
-        String ratingOutputString ="3.5";
-        float ratingOutputValue;
-        ratingOutputValue= Float.parseFloat(ratingOutputString);
 
-        //Converting Rating Value to Bangla String
-        int size= ratingOutputString.length();
-        char ratings[] =new char[size];
-        char ratingInBangla[]=new char[size];
-        ratings= ratingOutputString.toCharArray();
-        for(int i = 0; i <ratings.length; i++){
-            TranslateNumber(ratings[i],i,ratingInBangla);
-        }
-        StringBuilder stringBuilder= new StringBuilder();
-        for(char ch:ratingInBangla){
-            stringBuilder.append(ch);
-        }
-        banglaRatingString= stringBuilder.toString();
 
-        //setting Value Of rating as Output
-        rating_value_output.setText(banglaRatingString+"/৫");
-        ratingBarOutput.setRating(ratingOutputValue);
 
 
         //---------------------------Getting User Rating input --------------------------------\\
@@ -100,7 +189,38 @@ public class OverView extends AppCompatActivity {
         read.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OverView.this, "Ei Dushtu tiple keno!", Toast.LENGTH_SHORT).show();
+                DatabaseReference name_ref= FirebaseDatabase.getInstance().getReference();
+                name_ref=name_ref.child("Comics").child("ComicName");
+                name_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        StorageReference comicref=FirebaseStorage.getInstance().getReference().child("Comic/"+dataSnapshot.child(comicid).getValue(String.class));
+                        final ArrayList<StorageReference> comic_images=new ArrayList<>();
+
+                        comicref.listAll()
+                                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                                    @Override
+                                    public void onSuccess(ListResult listResult) {
+                                        comic_images.addAll(listResult.getItems());
+                                        Intent intent;
+                                        MainActivity.main_comic_images=comic_images;
+                                        intent=new Intent(getApplicationContext(),ReadComic.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Uh-oh, an error occurred!
+                                    }
+                                });
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 

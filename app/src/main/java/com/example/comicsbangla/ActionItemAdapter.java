@@ -71,7 +71,9 @@ public class ActionItemAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,comic_id_storageref.get(position).first,Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(context,OverView.class);
+                intent.putExtra("ComicId",comic_id_storageref.get(position).first);
+                context.startActivity(intent);
             }
         });
     }
