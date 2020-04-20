@@ -19,6 +19,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
         this.comic_images=comic_images;
     }
     public class ComicItemHolder extends RecyclerView.ViewHolder{
-        private ImageView comic_image;
+        private PhotoView comic_image;
         private ComicItemHolder(View view) {
             super(view);
             comic_image=view.findViewById(R.id.comic_image);
