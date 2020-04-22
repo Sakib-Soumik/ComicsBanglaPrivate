@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@drawable/back">
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>
+
 
     <ScrollView
         android:layout_width="match_parent"
