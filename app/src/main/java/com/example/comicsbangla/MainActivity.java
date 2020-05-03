@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if(ds.getValue().toString().contains("একশন")) {
+                    if(ds.getValue().toString().contains("অ্যাকশন")) {
                         comicId.add(ds.getKey());
                     }
                 }
