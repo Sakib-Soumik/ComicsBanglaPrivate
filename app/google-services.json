@@ -1,34 +1,50 @@
 {
   "project_info": {
-    "project_number": "968828506181",
-    "firebase_url": "https://comicsbangla.firebaseio.com",
-    "project_id": "comicsbangla",
-    "storage_bucket": "comicsbangla.appspot.com"
+    "project_number": "1098172688450",
+    "firebase_url": "https://comicsbangla-f0d35.firebaseio.com",
+    "project_id": "comicsbangla-f0d35",
+    "storage_bucket": "comicsbangla-f0d35.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:968828506181:android:f471a07a1849ec2e21532c",
+        "mobilesdk_app_id": "1:1098172688450:android:aa68fc12a25592509465db",
         "android_client_info": {
           "package_name": "com.example.comicsbangla"
         }
       },
       "oauth_client": [
         {
-          "client_id": "968828506181-c8npq73cr8gsqrqios9lbtkrl6oojh66.apps.googleusercontent.com",
+          "client_id": "1098172688450-25p839a9if7glpl858f34jukl7nmqrll.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.comicsbangla",
+            "certificate_hash": "01540c2212e0536b127b51b15ad179d7dd9c9303"
+          }
+        },
+        {
+          "client_id": "1098172688450-qa5rsprhnvhmvmq34prg5i904glbgpof.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.comicsbangla",
+            "certificate_hash": "c1a28eeb15bd88872a42dc39280129bfc070e9c9"
+          }
+        },
+        {
+          "client_id": "1098172688450-p7082cdd4tdgou8ud9hdfm7so6fon3ge.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBAc2ySuD8YQcoSCLeOChlCMi1cbSFncHo"
+          "current_key": "AIzaSyDd3ArYMpgRpo9xDVPuEY2jV7FUV1rFmOs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "968828506181-c8npq73cr8gsqrqios9lbtkrl6oojh66.apps.googleusercontent.com",
+              "client_id": "1098172688450-p7082cdd4tdgou8ud9hdfm7so6fon3ge.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

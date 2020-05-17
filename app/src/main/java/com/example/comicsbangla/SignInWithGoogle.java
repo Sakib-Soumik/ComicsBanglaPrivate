@@ -41,7 +41,7 @@ public class SignInWithGoogle extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in_with_google);
         progressBar=findViewById(R.id.progressbar);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("968828506181-c8npq73cr8gsqrqios9lbtkrl6oojh66.apps.googleusercontent.com")
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
