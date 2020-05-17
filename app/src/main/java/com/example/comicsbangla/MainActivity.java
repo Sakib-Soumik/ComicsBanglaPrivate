@@ -83,7 +83,36 @@ public class MainActivity extends AppCompatActivity {
         if(mAuth.getCurrentUser()==null) {
             signInAnonymously();
         }
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
+        StorageReference comicref=FirebaseStorage.getInstance().getReference().child("Action");
+        final ArrayList<StorageReference> action_cover_images=new ArrayList<>();
+
+        comicref.listAll()
+                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                    @Override
+                    public void onSuccess(ListResult listResult) {
+                        action_cover_images.addAll(listResult.getItems());
+                        for(int i=0;i<action_cover_images.size();i++) {
+                            String comicId=action_cover_images.get(i).toString();
+                            comicId=comicId.replace("gs://comicsbangla-f0d35.appspot.com/Action/","");
+                            comicId=comicId.replace(".png","");
+                            comic_id_photo_ref.add(new Pair("Comic"+comicId,action_cover_images.get(i)));
+                        }
+                        ActionItemAdapter actionItemAdapter=new ActionItemAdapter(MainActivity.this,comic_id_photo_ref);
+
+                        action_images.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        action_images.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                                DividerItemDecoration.VERTICAL));
+                        action_images.setAdapter(actionItemAdapter);
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Uh-oh, an error occurred!
+                    }
+                });
+        /*DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
         reference=reference.child("Comics").child("Categories");
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -120,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        });
+        });*/
         //Initialize and Assign Variable for Bottom navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
         //set home selected
