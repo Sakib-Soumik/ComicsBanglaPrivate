@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/back">
+    android:background="@drawable/cb">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@drawable/nav_back"
+        android:background="#A9A9A9"
         app:itemTextColor="@drawable/selector"
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menunavbar"
@@ -118,7 +118,7 @@
             android:textSize="@dimen/_25sdp"
             android:fontFamily="@font/ss"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:textColor="#B5000000"
+            android:textColor="#fefefe"
             android:layout_marginTop="@dimen/_20sdp"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -140,7 +140,7 @@
             android:textSize="@dimen/_25sdp"
             android:fontFamily="@font/ss"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:textColor="#B5000000"
+            android:textColor="#fefefe"
             android:layout_marginTop="@dimen/_20sdp"/>
 
         <androidx.recyclerview.widget.RecyclerView

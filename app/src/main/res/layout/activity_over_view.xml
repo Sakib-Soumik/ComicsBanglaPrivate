@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".OverView"
-    android:background="@drawable/back">
+    android:background="@drawable/cb">
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/nav_back"
+
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menunavbar" />
@@ -44,7 +44,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_40sdp"
+
         >
 
     <TextView
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:layout_alignParentTop="true"
-        android:textColor="#CD000000"
+        android:textColor="#fefefe"
         android:textSize="@dimen/_25sdp"
         android:fontFamily="@font/ss"/>
 
@@ -64,7 +64,7 @@
         android:layout_below="@id/comic_name"
         android:gravity="center"
         android:layout_centerInParent="true"
-        android:textColor="#CD000000"
+        android:textColor="#fefefe"
         android:textSize="@dimen/_20sdp"
         android:fontFamily="@font/ss"/>
 
@@ -91,7 +91,7 @@
                     android:textSize="@dimen/_18sdp"
                     android:layout_below="@id/ratingBarOutput"
                     android:layout_marginLeft="@dimen/_8sdp"
-                    android:textColor="#CD000000"
+                    android:textColor="#fefefe"
                     android:fontFamily="@font/ss"
                     android:text="4/5"
                      />
@@ -134,7 +134,7 @@
         android:max="5"
         android:numStars="5"
         android:stepSize="0.5"
-        android:progressBackgroundTint="#59C8483D"
+        android:progressBackgroundTint="#C0C0C0"
         android:progressTint="@color/RedBackGround"
          />
 
@@ -150,7 +150,7 @@
         android:textSize="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_50sdp"
         android:text="রেটিং/রিভিউ দিন"
-        android:textColor="#CD000000"/>
+        android:textColor="#fefefe"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/reviewLayout"
