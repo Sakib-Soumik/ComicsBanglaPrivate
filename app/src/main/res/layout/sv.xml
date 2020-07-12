@@ -10,6 +10,6 @@
         android:fontFamily="@font/st"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
-        android:textColor="#fefefe"
+        android:textColor="#C1000000"
         android:text="রঙ পিশাচ" />
 </RelativeLayout>
