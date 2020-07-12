@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Profile"
-    android:background="@drawable/back2">
+    android:background="@drawable/back">
 
 
     <ImageView
@@ -24,7 +24,7 @@
         android:layout_height="59dp"
         android:layout_marginLeft="130dp"
         android:layout_marginTop="500dp"
-        app:srcCompat="@drawable/log_out_button" />
+         />
 
     <ImageView
         android:id="@+id/imageView7"
@@ -32,7 +32,7 @@
         android:layout_height="53dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="400dp"
-        app:srcCompat="@drawable/edit_profile" />
+         />
 
     <ImageButton
         android:id="@+id/edit_profile"
@@ -40,7 +40,7 @@
         android:layout_height="58dp"
         android:layout_marginLeft="130dp"
         android:layout_marginTop="400dp"
-        app:srcCompat="@drawable/edit_profile_button" />
+         />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -55,9 +55,7 @@
         android:layout_width="200dp"
         android:layout_height="54dp"
         android:layout_marginLeft="130dp"
-        android:layout_marginTop="300dp"
-
-        app:srcCompat="@drawable/noification_button" />
+        android:layout_marginTop="300dp" />
 
     <TextView
         android:id="@+id/textView3"
@@ -80,7 +78,7 @@
         android:layout_height="131dp"
         android:layout_marginLeft="150dp"
         android:layout_marginTop="60dp"
-        app:srcCompat="@drawable/user_profile" />
+         />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -98,7 +96,6 @@
         android:layout_width="96dp"
         android:layout_height="48dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="60dp"
-        app:srcCompat="@drawable/wow" />
+        android:layout_marginTop="60dp" />
 
 </RelativeLayout>

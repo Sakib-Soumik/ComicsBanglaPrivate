@@ -21,7 +21,7 @@
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#A9A9A9"
+        android:background="@color/RedBackGround"
         app:itemTextColor="@drawable/selector"
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menunavbar"
