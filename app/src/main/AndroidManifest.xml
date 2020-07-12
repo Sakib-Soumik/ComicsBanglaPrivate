@@ -16,6 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.mypackage.MyGlideModule"
@@ -28,8 +35,7 @@
         <activity android:name=".Editprofile" />
         <activity android:name=".Upload" />
         <activity android:name=".Login" />
-        <activity android:name=".SignInWithGoogle"/>
-
+        <activity android:name=".SignInWithGoogle" />
         <activity android:name=".Signup" />
         <activity
             android:name=".ui.login.Login"
@@ -39,11 +45,7 @@
         <activity android:name=".MyFiles" />
         <activity android:name=".Profile" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
