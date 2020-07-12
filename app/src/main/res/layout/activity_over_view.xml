@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".OverView"
-    android:background="@drawable/cb">
+    android:background="@drawable/back">
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-
+        android:background="#1a1a1a"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menunavbar" />
@@ -27,7 +27,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_60sdp"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp">
     <LinearLayout
@@ -35,11 +35,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/linear1">
 
-    <ImageView
-        android:id="@+id/comic_cover"
-        android:layout_width="@dimen/_140sdp"
-        android:layout_height="@dimen/_220sdp"
-        android:layout_marginRight="10dp" />
+        <ImageView
+            android:id="@+id/comic_cover"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
         android:id="@+id/comic_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#CD000000"
+        android:textColor="#fefefe"
         android:textSize="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_below="@id/linear1"
