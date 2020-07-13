@@ -40,9 +40,10 @@
 
     <string name="fiction">ফিকশন</string>
     <string name="adventure">অ্যাডভেঞ্চার</string>
-    <string name="action">একশন</string>
-    <string name="horror">হরোর</string>
+    <string name="action">অ্যাকশন</string>
+    <string name="fantasy">ফ্যান্টাসি</string>
+    <string name="mystery">রহস্য</string>
     <string name="comedy">কমেডি</string>
-    <string name="contemporary">কনটেমপোরারি</string>
+    <string name="children">শিশুতোষ</string>
 
 </resources>

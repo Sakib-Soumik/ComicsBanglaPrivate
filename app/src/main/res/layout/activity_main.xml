@@ -30,82 +30,22 @@
         <ViewFlipper
             android:id="@+id/v_flipper"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_180sdp"
+            android:layout_height="@dimen/_200sdp"
             android:layout_alignParentTop="true" />
-        <SearchView
-            android:id="@+id/search_bar"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:windowSoftInputMode="stateHidden"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:background="@drawable/rounded_edittext"
-            android:iconifiedByDefault="false"
-            android:clickable="true"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_below="@id/v_flipper"
-            />
+        <ImageButton
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/searchicon"
+            android:id="@+id/search_button"
+            >
 
-    <LinearLayout
-        android:id="@+id/checkBoxLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/search_bar"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/checkBoxAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/st"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_16sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:textColor="#E6322C2C"
-            android:text="সব" />
-
-        <CheckBox
-            android:id="@+id/checkBoxComicName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:fontFamily="@font/st"
-            android:text="কমিক-নাম"
-            android:textColor="#E6322C2C"
-            android:textSize="@dimen/_16sdp" />
-
-        <CheckBox
-            android:id="@+id/checkBoxPublication"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/st"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:textSize="@dimen/_16sdp"
-            android:textColor="#E6322C2C"
-            android:text="প্রকাশনা" />
-        <CheckBox
-            android:id="@+id/checkBoxAuthor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/st"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_16sdp"
-            android:textColor="#E6322C2C"
-            android:text="লেখক" />
-
-    </LinearLayout>
-
-
+        </ImageButton>
 
     <RelativeLayout
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/checkBoxLayout"
+        android:layout_below="@id/v_flipper"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_60sdp"
@@ -114,7 +54,7 @@
             android:id="@+id/textRecommended"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="রেকমেন্ডেড"
+            android:text="পপুলার আপলোড"
             android:textSize="@dimen/_25sdp"
             android:fontFamily="@font/ss"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -205,7 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/recyclerComedy"
-            android:text="@string/contemporary"
+            android:text="@string/children"
             android:textSize="@dimen/_25sdp"
             android:fontFamily="@font/ss"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -250,7 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/recyclerFiction"
-            android:text="@string/horror"
+            android:text="@string/mystery"
             android:textSize="@dimen/_25sdp"
             android:fontFamily="@font/ss"
             android:layout_marginLeft="@dimen/_10sdp"

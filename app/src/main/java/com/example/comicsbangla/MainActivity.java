@@ -20,9 +20,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE =1 ;
     private FirebaseAuth mAuth;
     ViewFlipper v_flipper;
+    ImageButton search;
     public static String afterlogin;
     ArrayList<Pair<String,StorageReference>> comic_id_photo_ref;
     ArrayList<String> comicId;
@@ -150,6 +153,19 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });*/
+
+
+        //--------------------------Search Icon-------------------------//
+        ImageButton search= findViewById(R.id.search_button);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, search_page.class));
+            }
+
+        });
+
+
         //Initialize and Assign Variable for Bottom navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
         //set home selected

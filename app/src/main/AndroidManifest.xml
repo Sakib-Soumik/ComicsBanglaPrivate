@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +30,7 @@
             android:value="GlideModule" />
 
         <activity android:name=".ReadComic" />
-        <activity android:name=".Read_PDF" />
-        <activity android:name=".data.Read_PDF" />
+
         <activity android:name=".OverView" />
         <activity android:name=".Editprofile" />
         <activity android:name=".Upload" />
@@ -41,12 +41,12 @@
             android:name=".ui.login.Login"
             android:label="@string/title_activity_login" />
         <activity android:name=".Notifications" />
-        <activity android:name=".ADD" />
+       
         <activity android:name=".MyFiles" />
         <activity android:name=".Profile" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".search_page"/>
 
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

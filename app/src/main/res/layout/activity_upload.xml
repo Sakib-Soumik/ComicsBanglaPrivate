@@ -197,7 +197,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/_15sdp"
             android:textColor="#E6322C2C"
-            android:text="@string/contemporary" />
+            android:text="@string/children" />
 
 
     </LinearLayout>
@@ -235,7 +235,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/_16sdp"
             android:textColor="#E6322C2C"
-            android:text="@string/horror" />
+            android:text="@string/fantasy" />
 
 
     </LinearLayout>
