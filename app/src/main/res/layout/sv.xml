@@ -8,7 +8,7 @@
         android:layout_height="@dimen/_38sdp"
         android:gravity="center_vertical"
         android:fontFamily="@font/st"
-        android:textSize="@dimen/_22sdp"
+        android:textSize="@dimen/_18sdp"
         android:padding="@dimen/_10sdp"
         android:textColor="#C1000000"
         android:text="রঙ পিশাচ" />

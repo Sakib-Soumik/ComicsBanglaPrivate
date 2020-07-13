@@ -9,12 +9,15 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -25,11 +28,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class search_page extends AppCompatActivity {
 
     ImageButton searchClick;
     ListView searchresult;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +43,31 @@ public class search_page extends AppCompatActivity {
         searchresult=findViewById(R.id.searchlist);
         searchClick=findViewById(R.id.searchClicked);
         final TextInputEditText searchinput=findViewById(R.id.searchInput);
-        final ArrayList<String> comicid=new ArrayList<>();
-        final ArrayList<String> comicname=new ArrayList<>();
+        progressBar=findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.VISIBLE);
+        searchinput.setVisibility(View.GONE);
+
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = rootRef.child("Comics").child("Categories");
+        final ArrayList<Pair<String,String>> comicid_category = new ArrayList<>();
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String category = ds.getValue().toString();
+                    comicid_category.add(new Pair<String, String>(ds.getKey().toString(),ds.getValue().toString()));
+                }
+                progressBar.setVisibility(View.GONE);
+                searchinput.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        ref.addListenerForSingleValueEvent(eventListener);
+
         searchClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,46 +79,46 @@ public class search_page extends AppCompatActivity {
         searchinput .addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-
-                final String searchtext=searchinput.getText().toString();
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference ref = rootRef.child("Comics").child("Categories");
-                comicid.clear();
-                comicname.clear();
+                final ArrayList<String> comicid=new ArrayList<>();
+                final ArrayList<String> comicname=new ArrayList<>();
                 searchresult.setAdapter(null);
-                ValueEventListener eventListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                            String category=ds.getValue().toString();
-                            if(category.contains(searchtext)) {
-                                if(!comicid.contains(ds.getKey())) {
-                                    comicid.add(ds.getKey().toString());
-                                    comicname.add(category.substring(category.indexOf( "(" ) + 1, category.indexOf( ")" )));
+                final String searchtext = searchinput.getText().toString();
+                if (!searchtext.isEmpty()) {
+                    String[] splited = searchtext.split("\\s+");
+                    for(int i=0;i<splited.length;i++) {
+                        for(int j=0;j<comicid_category.size();j++) {
+                            Pair<String,String> pair= comicid_category.get(j);
+                            if( Pattern.compile(Pattern.quote(splited[i]), Pattern.CASE_INSENSITIVE).matcher(pair.second).find()) {
+                                if(!comicid.contains(pair.first)) {
+                                    comicid.add(pair.first);
+                                    comicname.add(pair.second.substring(pair.second.indexOf("(") + 1, pair.second.indexOf(")")));
                                 }
                             }
                         }
-                        ArrayList<String> comicname2=comicname;
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                                getApplicationContext(),
-                                android.R.layout.simple_list_item_1,
-                                comicname2 );
-
-                        searchresult.setAdapter(arrayAdapter);
                     }
+                }
+                if(comicname.isEmpty() && !searchtext.isEmpty()) comicname.add("No Result Found");
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.sv,R.id.textView10,comicname);
+                searchresult.setAdapter(adapter);
+                searchresult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {}
-                };
-                ref.addListenerForSingleValueEvent(eventListener);
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        if(!comicname.get(position).contains("No Result Found")) {
+                            Intent intent=new Intent(getApplicationContext(),OverView.class);
+                            intent.putExtra("ComicId",comicid.get(position));
+                            getApplicationContext().startActivity(intent);
+                        }
+                    }
+                });
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
-
-
-
 
 
 
