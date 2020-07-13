@@ -330,5 +330,11 @@ public class MainActivity extends AppCompatActivity {
             window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        // put your code here...
+        hideSystemUI();
 
+    }
 }
