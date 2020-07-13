@@ -41,7 +41,7 @@
             android:name=".ui.login.Login"
             android:label="@string/title_activity_login" />
         <activity android:name=".Notifications" />
-       
+
         <activity android:name=".MyFiles" />
         <activity android:name=".Profile" />
         <activity android:name=".search_page"/>
