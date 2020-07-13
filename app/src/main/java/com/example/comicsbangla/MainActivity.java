@@ -12,15 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
@@ -34,6 +39,7 @@ import android.widget.ViewFlipper;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.module.AppGlideModule;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,43 +59,105 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.telecom.Call.Details.hasProperty;
 
 public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<StorageReference> main_comic_images;
-    RecyclerView action_images;
+    RecyclerView action_images,new_uploads;
 
     private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE =1 ;
     private FirebaseAuth mAuth;
     ViewFlipper v_flipper;
     ImageButton search;
     public static String afterlogin;
-    ArrayList<Pair<String,StorageReference>> comic_id_photo_ref;
     ArrayList<String> comicId;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        hideSystemUI();
+
         setContentView(R.layout.activity_main);
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        comic_id_photo_ref=new ArrayList<>();
         comicId=new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         action_images=findViewById(R.id.recyclerAction);
+        new_uploads=findViewById(R.id.new_upload);
         storagepermission();
         if(mAuth.getCurrentUser()==null) {
             signInAnonymously();
         }
-        StorageReference comicref=FirebaseStorage.getInstance().getReference().child("Action");
-        final ArrayList<StorageReference> action_cover_images=new ArrayList<>();
+        //
+        //view flipper
+        //
+        StorageReference newuploadref=FirebaseStorage.getInstance().getReference().child("NewUploads");
+        final ArrayList<StorageReference> newupload_cover_images=new ArrayList<>();
+        final ArrayList<Pair<String,StorageReference>> newupload_id_photo_ref=new ArrayList<>();
+        newuploadref.listAll()
+                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                    @Override
+                    public void onSuccess(ListResult listResult) {
+                        newupload_cover_images.addAll(listResult.getItems());
+                        for(int i=0;i<newupload_cover_images.size();i++) {
+                            String comicId=newupload_cover_images.get(i).toString();
+                            comicId=comicId.replace("gs://comicsbangla-f0d35.appspot.com/NewUploads/","");
+                            comicId=comicId.replace(".png","");
+                            newupload_id_photo_ref.add(new Pair("Comic"+comicId,newupload_cover_images.get(i)));
+                        }
+                        final ActionItemAdapter2 actionItemAdapter=new ActionItemAdapter2(MainActivity.this,newupload_id_photo_ref);
+                        new_uploads.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        new_uploads.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                                DividerItemDecoration.VERTICAL));
+                        new_uploads.setAdapter(actionItemAdapter);
+                        Timer timer = new Timer();
 
-        comicref.listAll()
+                        final int[] position = {0};
+                        final boolean[] end = {false};
+                         class AutoScrollTask extends TimerTask {
+                            @Override
+                            public void run() {
+                                if(position[0] == newupload_id_photo_ref.size() -1){
+                                    end[0] = true;
+                                } else if (position[0] == 0) {
+                                    end[0] = false;
+                                }
+                                if(!end[0]){
+                                    position[0]++;
+                                } else {
+                                    position[0]--;
+                                }
+                                new_uploads.smoothScrollToPosition(position[0]);
+                            }
+
+                        }
+                        timer.scheduleAtFixedRate(new AutoScrollTask(), 2000, 4000);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Uh-oh, an error occurred!
+                    }
+                });
+
+        //Action folder
+        //
+        StorageReference actionref=FirebaseStorage.getInstance().getReference().child("Action");
+        final ArrayList<StorageReference> action_cover_images=new ArrayList<>();
+        final ArrayList<Pair<String,StorageReference>> action_id_photo_ref=new ArrayList<>();
+
+        actionref.listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
@@ -98,9 +166,9 @@ public class MainActivity extends AppCompatActivity {
                             String comicId=action_cover_images.get(i).toString();
                             comicId=comicId.replace("gs://comicsbangla-f0d35.appspot.com/Action/","");
                             comicId=comicId.replace(".png","");
-                            comic_id_photo_ref.add(new Pair("Comic"+comicId,action_cover_images.get(i)));
+                            action_id_photo_ref.add(new Pair("Comic"+comicId,action_cover_images.get(i)));
                         }
-                        ActionItemAdapter actionItemAdapter=new ActionItemAdapter(MainActivity.this,comic_id_photo_ref);
+                        ActionItemAdapter actionItemAdapter=new ActionItemAdapter(MainActivity.this,action_id_photo_ref);
 
                         action_images.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
                         action_images.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
@@ -115,44 +183,11 @@ public class MainActivity extends AppCompatActivity {
                         // Uh-oh, an error occurred!
                     }
                 });
-        /*DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
-        reference=reference.child("Comics").child("Categories");
+        //
+        //action folder end
+        //
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if(ds.getValue().toString().contains("অ্যাকশন")) {
-                        comicId.add(ds.getKey());
-                    }
-                }
-                DatabaseReference reference2=FirebaseDatabase.getInstance().getReference();
-                reference2=reference2.child("Comics").child("PhotoUrl");
-                reference2.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                            if(comicId.contains(ds.getKey())) {
-                                StorageReference ref=FirebaseStorage.getInstance().getReferenceFromUrl(ds.getValue().toString());
-                                comic_id_photo_ref.add(new Pair(ds.getKey().toString(),ref));
-                            }
-                        }
-                        ActionItemAdapter actionItemAdapter=new ActionItemAdapter(MainActivity.this,comic_id_photo_ref);
 
-                        action_images.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                        action_images.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
-                                DividerItemDecoration.VERTICAL));
-                        action_images.setAdapter(actionItemAdapter);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });*/
 
 
         //--------------------------Search Icon-------------------------//
@@ -225,15 +260,8 @@ public class MainActivity extends AppCompatActivity {
         //
         int images[] = {R.drawable.slide1,R.drawable.slide2,R.drawable.slide3};
 
-        //
-        //ViewFlipper ID
-        //
-        v_flipper = findViewById(R.id.v_flipper);
 
-        for(int i=0; i< images.length;i++)
-        {
-            flipperImage(images[i]);
-        }
+
 
 
     }
@@ -283,4 +311,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    void hideSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+    }
+
 }

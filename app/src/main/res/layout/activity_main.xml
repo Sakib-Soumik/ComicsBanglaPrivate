@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:fitsSystemWindows="true"
     android:background="@drawable/back">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,11 +28,14 @@
         android:layout_height="wrap_content"
         >
 
-        <ViewFlipper
-            android:id="@+id/v_flipper"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/new_upload"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:layout_alignParentTop="true" />
+            android:layout_height="@dimen/_250sdp"
+
+            android:background="@drawable/back"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></androidx.recyclerview.widget.RecyclerView>
 
         <ImageButton
             android:layout_width="@dimen/_40sdp"
@@ -48,7 +52,7 @@
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/v_flipper"
+        android:layout_below="@id/new_upload"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_60sdp"
