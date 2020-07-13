@@ -138,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
                                     position[0]--;
                                 }
                                 new_uploads.smoothScrollToPosition(position[0]);
+                                //new_uploads.addItemDecoration(null);
+                                //new_uploads.addItemDecoration(new DividerItemDecoration(getApplicationContext(), 0));
                             }
 
                         }
