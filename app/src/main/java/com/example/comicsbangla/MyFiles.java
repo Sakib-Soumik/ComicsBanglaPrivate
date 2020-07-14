@@ -70,7 +70,7 @@ import java.util.jar.Attributes;
 
 public class MyFiles extends AppCompatActivity {
 
-
+    private final static  int home=2,file=1, profile=3;
     ListView keepReading;
     ListView Myuploads;
     FirebaseAuth mAuth;
@@ -251,13 +251,12 @@ public class MyFiles extends AppCompatActivity {
 
         //Initialize and Assign Variable for Bottom navbar
 
+
         MeowBottomNavigation meo= findViewById(R.id.meowNav);
         meo.add(new MeowBottomNavigation.Model(1,R.drawable.ic_f));
         meo.add(new MeowBottomNavigation.Model(2,R.drawable.ic_h));
         meo.add(new MeowBottomNavigation.Model(3,R.drawable.ic_p));
 
 
-
-            }
-}
+}}
 
