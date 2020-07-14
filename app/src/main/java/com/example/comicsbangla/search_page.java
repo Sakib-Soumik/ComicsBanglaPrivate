@@ -107,6 +107,7 @@ public class search_page extends AppCompatActivity {
                         if(!comicname.get(position).contains("No Result Found")) {
                             Intent intent=new Intent(getApplicationContext(),OverView.class);
                             intent.putExtra("ComicId",comicid.get(position));
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             getApplicationContext().startActivity(intent);
                         }
                     }
