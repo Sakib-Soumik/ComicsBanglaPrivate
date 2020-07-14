@@ -74,7 +74,7 @@ public class Notifications extends AppCompatActivity {
         //Initialize and Assign Variable for Bottom navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
         //set home selected
-        bottomNavigationView.setSelectedItemId(R.id.notification);
+        bottomNavigationView.setSelectedItemId(R.id.profile);
 
         //perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -104,8 +104,7 @@ public class Notifications extends AppCompatActivity {
                         }
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.notification:
-                        return true;
+
                     case R.id.profile:
                         currentUser =mAuth.getCurrentUser();
                         if(currentUser.isAnonymous()) {

@@ -41,10 +41,7 @@ public class Editprofile extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),Upload.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.notification:
-                        startActivity(new Intent(getApplicationContext(),Notifications.class));
-                        overridePendingTransition(0,0);
-                        return true;
+
 
                     case R.id.profile:
                         startActivity(new Intent(getApplicationContext(),Profile.class));

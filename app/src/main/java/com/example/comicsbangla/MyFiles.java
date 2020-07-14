@@ -29,6 +29,7 @@ import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.etebarian.meowbottomnavigation.MeowBottomNavigationCell;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -66,6 +67,8 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.jar.Attributes;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 
 public class MyFiles extends AppCompatActivity {
@@ -258,5 +261,6 @@ public class MyFiles extends AppCompatActivity {
         meo.add(new MeowBottomNavigation.Model(3,R.drawable.ic_p));
 
 
-}}
+
+    }}
 

@@ -79,10 +79,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                     case R.id.profile:
                         Toast.makeText(getApplicationContext(),"Continue Sign Up or go to previous page",Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.notification:
-                        startActivity(new Intent(getApplicationContext(),Notifications.class));
-                        overridePendingTransition(0,0);
-                        return true;
+
                 }
                 return false;
             }

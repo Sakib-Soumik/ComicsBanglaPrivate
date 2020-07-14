@@ -11,13 +11,12 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/RedBackGround"
-        app:itemTextColor="@drawable/selector"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:paddingTop="@dimen/_10sdp"
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>
-
 
     <ScrollView
         android:layout_width="match_parent"

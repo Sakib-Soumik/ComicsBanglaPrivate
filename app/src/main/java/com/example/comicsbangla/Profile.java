@@ -91,14 +91,7 @@ public class Profile extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),MyFiles.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.add:
-                        startActivity(new Intent(getApplicationContext(),Upload.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.notification:
-                        startActivity(new Intent(getApplicationContext(),Notifications.class));
-                        overridePendingTransition(0,0);
-                        return true;
+
                     case R.id.profile:
                         return true;
 

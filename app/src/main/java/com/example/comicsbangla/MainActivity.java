@@ -234,10 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.notification:
-                        startActivity(new Intent(getApplicationContext(),Notifications.class));
-                        overridePendingTransition(0,0);
-                        return true;
+
 
                     case R.id.profile:
                          currentUser =mAuth.getCurrentUser();

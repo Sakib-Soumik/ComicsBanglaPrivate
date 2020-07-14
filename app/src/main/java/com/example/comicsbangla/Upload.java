@@ -208,10 +208,7 @@ public class Upload extends AppCompatActivity {
                         return true;
                     case R.id.add:
                         return true;
-                    case R.id.notification:
-                        startActivity(new Intent(getApplicationContext(),Notifications.class));
-                        overridePendingTransition(0,0);
-                        return true;
+
                     case R.id.profile:
                         startActivity(new Intent(getApplicationContext(),Profile.class));
                         overridePendingTransition(0,0);

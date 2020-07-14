@@ -144,10 +144,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     case R.id.profile:
                         Toast.makeText(getApplicationContext(),"You have to login or sign up first",Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.notification:
-                        startActivity(new Intent(getApplicationContext(),Notifications.class));
-                        overridePendingTransition(0,0);
-                        return true;
+
                 }
                 return false;
             }
