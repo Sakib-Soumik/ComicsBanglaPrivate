@@ -28,6 +28,7 @@ import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -68,6 +69,8 @@ import java.util.jar.Attributes;
 
 
 public class MyFiles extends AppCompatActivity {
+
+
     ListView keepReading;
     ListView Myuploads;
     FirebaseAuth mAuth;
@@ -247,66 +250,14 @@ public class MyFiles extends AppCompatActivity {
         });
 
         //Initialize and Assign Variable for Bottom navbar
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
-        //set home selected
-        bottomNavigationView.setSelectedItemId(R.id.myfiles);
 
-        //perform ItemSelectedListener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        MeowBottomNavigation meo= findViewById(R.id.meowNav);
+        meo.add(new MeowBottomNavigation.Model(1,R.drawable.ic_f));
+        meo.add(new MeowBottomNavigation.Model(2,R.drawable.ic_h));
+        meo.add(new MeowBottomNavigation.Model(3,R.drawable.ic_p));
 
-                switch (item.getItemId()) {
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
 
-                    case R.id.myfiles:
 
-                        return true;
-                    case R.id.add:
-                        FirebaseUser currentUser =mAuth.getCurrentUser();
-                        if(currentUser.isAnonymous()) {
-                            MainActivity.afterlogin="Upload";
-                            Log.d("user", "onNavigationItemSelected: going to login");
-                            startActivity(new Intent(getApplicationContext(),Login.class));
-                        }
-                        else {
-                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
-                            startActivity(new Intent(getApplicationContext(),Upload.class));
-                        }
-
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.notification:
-                        startActivity(new Intent(getApplicationContext(),Notifications.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.profile:
-                        currentUser =mAuth.getCurrentUser();
-                        if(currentUser.isAnonymous()) {
-                            MainActivity.afterlogin="Profile";
-                            Log.d("user", "onNavigationItemSelected: going to login");
-                            startActivity(new Intent(getApplicationContext(),Login.class));
-                        }
-                        else {
-                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
-                            startActivity(new Intent(getApplicationContext(),Profile.class));
-                        }
-                        overridePendingTransition(0,0);
-                        return true;
-
-                }
-                return false;
             }
-        });
-    }
-
-
-
-
-
 }
 

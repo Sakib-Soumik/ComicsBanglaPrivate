@@ -36,15 +36,20 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navbar"
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/meowNav"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@drawable/nav_back"
-        app:itemTextColor="@drawable/selector"
-        app:itemIconTint="@drawable/selector"
-        app:menu="@menu/menunavbar"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:mbn_backgroundBottomColor="@color/colorAccent"
+        app:mbn_countBackgroundColor="#fefefe"
+        app:mbn_selectedIconColor="#000000"
+        app:mbn_defaultIconColor="#000000"
+        app:mbn_rippleColor="#2f424242"
+
+        >
+
+    </com.etebarian.meowbottomnavigation.MeowBottomNavigation>
 
     <ListView
         android:layout_width="370dp"
