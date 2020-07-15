@@ -12,8 +12,9 @@
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:paddingTop="@dimen/_10sdp"
+        android:enabled="true"
+        app:labelVisibilityMode="unlabeled"
+        android:background="#a50000"
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>

@@ -44,13 +44,7 @@ public class Profile extends AppCompatActivity {
 
         editprofile=(ImageButton)findViewById(R.id.edit_profile) ;
 
-        editprofile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentLoadNewActivity = new Intent(Profile.this,Editprofile.class);
-                startActivity(intentLoadNewActivity);
-            }
-        });
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

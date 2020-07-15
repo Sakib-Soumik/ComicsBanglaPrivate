@@ -117,9 +117,7 @@ public class SignInWithGoogle extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("TAG", "signInWithCredential:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                if(MainActivity.afterlogin.equals("Upload")) {
-                                    startActivity(new Intent(getApplicationContext(),Upload.class));
-                                }
+
                                 if(MainActivity.afterlogin.equals("Profile")) {
                                     startActivity(new Intent(getApplicationContext(),Profile.class));
                                 }

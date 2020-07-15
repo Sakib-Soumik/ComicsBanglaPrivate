@@ -253,7 +253,7 @@ public class OverView extends AppCompatActivity {
                             MainActivity.afterlogin="Upload";
                             startActivity(new Intent(getApplicationContext(),Login.class));
                         }
-                        startActivity(new Intent(getApplicationContext(),Upload.class));
+
                         overridePendingTransition(0,0);
                         return true;
 

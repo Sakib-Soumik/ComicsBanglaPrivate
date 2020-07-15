@@ -28,8 +28,6 @@ import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.etebarian.meowbottomnavigation.MeowBottomNavigationCell;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -254,11 +252,6 @@ public class MyFiles extends AppCompatActivity {
 
         //Initialize and Assign Variable for Bottom navbar
 
-
-        MeowBottomNavigation meo= findViewById(R.id.meowNav);
-        meo.add(new MeowBottomNavigation.Model(1,R.drawable.ic_f));
-        meo.add(new MeowBottomNavigation.Model(2,R.drawable.ic_h));
-        meo.add(new MeowBottomNavigation.Model(3,R.drawable.ic_p));
 
 
 

@@ -4,16 +4,21 @@
     <item
         android:icon="@drawable/ic_f"
         android:id="@+id/myfiles"
+        android:enabled="true"
          />
 
     <item
         android:icon="@drawable/ic_h"
         android:id="@+id/home"
+        android:enabled="true"
+
         />
 
     <item
-        android:icon="@drawable/ic_p"
+        android:icon="@drawable/ic_proff"
         android:id="@+id/profile"
+        android:enabled="true"
+
          />
 
 </menu>

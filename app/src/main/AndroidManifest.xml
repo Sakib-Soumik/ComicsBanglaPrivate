@@ -31,15 +31,15 @@
 
         <activity android:name=".ReadComic" />
         <activity android:name=".OverView" />
-        <activity android:name=".Editprofile" />
-        <activity android:name=".Upload" />
+
+
         <activity android:name=".Login" />
         <activity android:name=".SignInWithGoogle" />
         <activity android:name=".Signup" />
         <activity
             android:name=".ui.login.Login"
             android:label="@string/title_activity_login" />
-        <activity android:name=".Notifications" />
+
         <activity android:name=".MyFiles" />
         <activity android:name=".Profile" />
         <activity android:name=".search_page" />

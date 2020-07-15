@@ -168,9 +168,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             if(MainActivity.afterlogin.equals("Profile")) {
                                 startActivity(new Intent(getApplicationContext(),Profile.class));
                             }
-                            if(MainActivity.afterlogin.equals("Upload")) {
-                                startActivity(new Intent(getApplicationContext(),Upload.class));
-                            }
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
