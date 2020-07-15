@@ -62,7 +62,7 @@
             android:id="@+id/textRecommended"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="পপুলার আপলোড"
+            android:text="পপুলার"
             android:textSize="@dimen/_25sdp"
             android:fontFamily="@font/ss"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -206,7 +206,7 @@
             android:layout_marginTop="@dimen/_20sdp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerHorror"
+            android:id="@+id/recyclerMystery"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_150sdp"
             android:layout_below="@id/textHorror"

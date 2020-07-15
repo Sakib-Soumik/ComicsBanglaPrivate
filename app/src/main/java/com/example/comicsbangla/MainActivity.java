@@ -1,24 +1,8 @@
 package com.example.comicsbangla;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,21 +11,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
-import android.widget.Toast;
-import android.widget.ViewFlipper;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Registry;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.module.AppGlideModule;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,7 +28,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,28 +37,23 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static android.telecom.Call.Details.hasProperty;
 
 public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<StorageReference> main_comic_images;
-    RecyclerView action_images,new_uploads;
+    RecyclerView action_images,new_uploads,most_viewed_recycler,adventure,comedy,children,fiction,mystery;
 
     private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE =1 ;
     private FirebaseAuth mAuth;
-    ViewFlipper v_flipper;
     ImageButton search;
     public static String afterlogin;
     ArrayList<String> comicId;
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    //@RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,103 +67,24 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         action_images=findViewById(R.id.recyclerAction);
         new_uploads=findViewById(R.id.new_upload);
+        adventure=findViewById(R.id.recyclerAdventure);
+        comedy=findViewById(R.id.recyclerComedy);
+        children=findViewById(R.id.recyclerContemporary);
+        fiction=findViewById(R.id.recyclerFiction);
+        mystery=findViewById(R.id.recyclerMystery);
+        most_viewed_recycler=findViewById(R.id.recyclerRecommended);
         storagepermission();
         if(mAuth.getCurrentUser()==null) {
             signInAnonymously();
         }
-        //
-        //view flipper
-        //
-        StorageReference newuploadref=FirebaseStorage.getInstance().getReference().child("NewUploads");
-        final ArrayList<StorageReference> newupload_cover_images=new ArrayList<>();
-        final ArrayList<Pair<String,StorageReference>> newupload_id_photo_ref=new ArrayList<>();
-        newuploadref.listAll()
-                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                    @Override
-                    public void onSuccess(ListResult listResult) {
-                        newupload_cover_images.addAll(listResult.getItems());
-                        for(int i=0;i<newupload_cover_images.size();i++) {
-                            String comicId=newupload_cover_images.get(i).toString();
-                            comicId=comicId.replace("gs://comicsbangla-f0d35.appspot.com/NewUploads/","");
-                            comicId=comicId.replace(".png","");
-                            newupload_id_photo_ref.add(new Pair("Comic"+comicId,newupload_cover_images.get(i)));
-                        }
-                        final ActionItemAdapter2 actionItemAdapter=new ActionItemAdapter2(MainActivity.this,newupload_id_photo_ref);
-                        new_uploads.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                        new_uploads.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
-                                DividerItemDecoration.VERTICAL));
-                        new_uploads.setAdapter(actionItemAdapter);
-                        Timer timer = new Timer();
-
-                        final int[] position = {0};
-                        final boolean[] end = {false};
-                         class AutoScrollTask extends TimerTask {
-                            @Override
-                            public void run() {
-                                if(position[0] == newupload_id_photo_ref.size() -1){
-                                    end[0] = true;
-                                } else if (position[0] == 0) {
-                                    end[0] = false;
-                                }
-                                if(!end[0]){
-                                    position[0]++;
-                                } else {
-                                    position[0]--;
-                                }
-                                new_uploads.smoothScrollToPosition(position[0]);
-                                //new_uploads.addItemDecoration(null);
-                                //new_uploads.addItemDecoration(new DividerItemDecoration(getApplicationContext(), 0));
-                            }
-
-                        }
-                        timer.scheduleAtFixedRate(new AutoScrollTask(), 2000, 4000);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Uh-oh, an error occurred!
-                    }
-                });
-
-        //Action folder
-        //
-        StorageReference actionref=FirebaseStorage.getInstance().getReference().child("Action");
-        final ArrayList<StorageReference> action_cover_images=new ArrayList<>();
-        final ArrayList<Pair<String,StorageReference>> action_id_photo_ref=new ArrayList<>();
-
-        actionref.listAll()
-                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                    @Override
-                    public void onSuccess(ListResult listResult) {
-                        action_cover_images.addAll(listResult.getItems());
-                        for(int i=0;i<action_cover_images.size();i++) {
-                            String comicId=action_cover_images.get(i).toString();
-                            comicId=comicId.replace("gs://comicsbangla-f0d35.appspot.com/Action/","");
-                            comicId=comicId.replace(".png","");
-                            action_id_photo_ref.add(new Pair("Comic"+comicId,action_cover_images.get(i)));
-                        }
-                        ActionItemAdapter actionItemAdapter=new ActionItemAdapter(MainActivity.this,action_id_photo_ref);
-
-                        action_images.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                        action_images.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
-                                DividerItemDecoration.VERTICAL));
-                        action_images.setAdapter(actionItemAdapter);
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Uh-oh, an error occurred!
-                    }
-                });
-        //
-        //action folder end
-        //
-
-
-
+        new_upload_call();
+        most_viewed_call();
+        category_call("Action",action_images);
+        category_call("Adventure",adventure);
+        category_call("Comedy",comedy);
+        category_call("Children",children);
+        category_call("Fiction",fiction);
+        category_call("Mystery",mystery);
 
         //--------------------------Search Icon-------------------------//
         ImageButton search= findViewById(R.id.search_button);
@@ -228,15 +122,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //array for ViewFlipper
-        //
-        int images[] = {R.drawable.slide1,R.drawable.slide2,R.drawable.slide3};
-
-
-
-
-
     }
+
     void storagepermission() {
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -247,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
     void signInAnonymously() {
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -266,23 +152,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-    //
-    //ViewFlipper
-    //
-    public void flipperImage(int image)
-    {
-        ImageView imageView = new ImageView(this);
-        imageView.setBackgroundResource(image);
-
-        v_flipper.addView(imageView);
-        v_flipper.setFlipInterval(4000);
-        v_flipper.setAutoStart(true);
-
-        v_flipper.setInAnimation(this,android.R.anim.slide_in_left);
-        v_flipper.setOutAnimation(this,android.R.anim.slide_out_right);
 
 
-    }
     void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
@@ -306,5 +177,138 @@ public class MainActivity extends AppCompatActivity {
         // put your code here...
         hideSystemUI();
 
+    }
+    void new_upload_call() {
+        StorageReference newuploadref=FirebaseStorage.getInstance().getReference().child("NewUploads");
+        final ArrayList<StorageReference> newupload_cover_images=new ArrayList<>();
+        final ArrayList<Pair<String,StorageReference>> newupload_id_photo_ref=new ArrayList<>();
+        newuploadref.listAll()
+                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                    @Override
+                    public void onSuccess(ListResult listResult) {
+                        newupload_cover_images.addAll(listResult.getItems());
+                        for(int i=0;i<newupload_cover_images.size();i++) {
+                            String comicId=newupload_cover_images.get(i).toString();
+                            comicId=comicId.replace("gs://comicsbangla-f0d35.appspot.com/NewUploads/","");
+                            comicId=comicId.replace(".png","");
+                            newupload_id_photo_ref.add(new Pair("Comic"+comicId,newupload_cover_images.get(i)));
+                        }
+                        final ActionItemAdapter2 actionItemAdapter=new ActionItemAdapter2(MainActivity.this,newupload_id_photo_ref);
+                        new_uploads.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        new_uploads.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                                DividerItemDecoration.VERTICAL));
+                        new_uploads.setAdapter(actionItemAdapter);
+                        Timer timer = new Timer();
+
+                        final int[] position = {0};
+                        final boolean[] end = {false};
+                        class AutoScrollTask extends TimerTask {
+                            @Override
+                            public void run() {
+                                if(position[0] == newupload_id_photo_ref.size() -1){
+                                    end[0] = true;
+                                } else if (position[0] == 0) {
+                                    end[0] = false;
+                                }
+                                if(!end[0]){
+                                    position[0]++;
+                                } else {
+                                    position[0]--;
+                                }
+                                new_uploads.smoothScrollToPosition(position[0]);
+                                //new_uploads.addItemDecoration(null);
+                                //new_uploads.addItemDecoration(new DividerItemDecoration(getApplicationContext(), 0));
+                            }
+
+                        }
+                        timer.scheduleAtFixedRate(new AutoScrollTask(), 2000, 4000);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Uh-oh, an error occurred!
+                    }
+                });
+
+    }
+    void most_viewed_call() {
+        DatabaseReference popular= FirebaseDatabase.getInstance().getReference();
+        popular = popular.child("Comics").child("Views");
+
+        final ArrayList<Pair<Integer,String>> most_viewed=new ArrayList<>();
+        popular.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    most_viewed.add(new Pair<Integer, String>(Integer.parseInt(ds.getValue().toString()),ds.getKey()));
+                    //Toast.makeText(getApplicationContext(),ds.getValue().toString(),Toast.LENGTH_LONG).show();
+                    //Log.d("views", "onDataChange: "+ds.getValue().toString());
+                }
+                Collections.sort(most_viewed, new Comparator<Pair<Integer,String>>() {
+                    @Override
+                    public int compare(Pair<Integer,String> p1, Pair<Integer,String> p2) {
+                        return p2.first.compareTo(p1.first);
+                    }
+                });
+                final ArrayList<Pair<String,StorageReference>> popular_id_photo_ref=new ArrayList<>();
+                for(int i=0;i<9;i++) {
+                    final String id=most_viewed.get(i).second;
+                    DatabaseReference pic_ref= FirebaseDatabase.getInstance().getReference();
+                    pic_ref=pic_ref.child("Comics").child("PhotoUrl");
+                    pic_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            popular_id_photo_ref.add(new Pair<String, StorageReference>(id,FirebaseStorage.getInstance().getReferenceFromUrl(dataSnapshot.child(id).getValue(String.class))));
+                            ActionItemAdapter mostviewedItemAdapter=new ActionItemAdapter(MainActivity.this,popular_id_photo_ref);
+                            most_viewed_recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                            most_viewed_recycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                                    DividerItemDecoration.VERTICAL));
+                            most_viewed_recycler.setAdapter(mostviewedItemAdapter);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    void category_call(final String name, final RecyclerView view) {
+        StorageReference categoryref=FirebaseStorage.getInstance().getReference().child(name);
+        final ArrayList<StorageReference> category_cover_images=new ArrayList<>();
+        final ArrayList<Pair<String,StorageReference>> category_id_photo_ref=new ArrayList<>();
+
+        categoryref.listAll()
+                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                    @Override
+                    public void onSuccess(ListResult listResult) {
+                        category_cover_images.addAll(listResult.getItems());
+                        for(int i=0;i<category_cover_images.size();i++) {
+                            String comicId=category_cover_images.get(i).toString();
+                            comicId=comicId.replace("gs://comicsbangla-f0d35.appspot.com/"+name+"/","");
+                            comicId=comicId.replace(".png","");
+                            category_id_photo_ref.add(new Pair("Comic"+comicId,category_cover_images.get(i)));
+                        }
+                        ActionItemAdapter categoryItemAdapter=new ActionItemAdapter(MainActivity.this,category_id_photo_ref);
+
+                        view.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        view.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                                DividerItemDecoration.VERTICAL));
+                        view.setAdapter(categoryItemAdapter );
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Uh-oh, an error occurred!
+                    }
+                });
     }
 }
