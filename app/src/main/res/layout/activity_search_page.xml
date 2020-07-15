@@ -7,6 +7,16 @@
     android:background="@drawable/back"
     tools:context=".search_page"
     >
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:enabled="true"
+        app:labelVisibilityMode="unlabeled"
+        android:background="@color/persian_red"
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/menunavbar"
+        android:layout_alignParentBottom="true"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginTop="@dimen/_20sdp"

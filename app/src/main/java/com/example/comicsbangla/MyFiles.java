@@ -73,7 +73,7 @@ public class MyFiles extends AppCompatActivity {
 
     private final static  int home=2,file=1, profile=3;
     ListView keepReading;
-    ListView Myuploads;
+
     FirebaseAuth mAuth;
     static ArrayList<StorageReference> comicimages=new ArrayList<>();
 
@@ -173,7 +173,7 @@ public class MyFiles extends AppCompatActivity {
         }
         final ArrayList<String> bookname=book;
         final ArrayList<String> pagenumber=page;
-        Myuploads=findViewById(R.id.myulpoads);
+
         final String[] mycomics={"comic1","comic2","comic3","comic4","comic5","comic6"};
 
         ArrayAdapter<String> keepreadAdapter = new ArrayAdapter<String>(this,R.layout.sv,R.id.textView10,bookname);
@@ -182,7 +182,7 @@ public class MyFiles extends AppCompatActivity {
 
         ArrayAdapter<String> myuploadsAdapter = new ArrayAdapter<>(this,R.layout.sv,R.id.textView10,mycomics);
 
-        Myuploads.setAdapter(myuploadsAdapter);
+
 
         keepReading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -241,17 +241,32 @@ public class MyFiles extends AppCompatActivity {
         });
 
 
-        Myuploads.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        //---------------------------------------Navigation-----------------------------------------
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
+        bottomNavigationView.setSelectedItemId(R.id.myfiles);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String value= mycomics[position];
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
 
+                    case R.id.myfiles:
+                        return true;
+
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
             }
         });
-
-        //Initialize and Assign Variable for Bottom navbar
-
 
 
 

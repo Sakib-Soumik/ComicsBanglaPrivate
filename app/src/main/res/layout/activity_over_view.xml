@@ -11,12 +11,13 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/RedBackGround"
+        android:layout_height="@dimen/_35sdp"
+        android:enabled="true"
+        app:labelVisibilityMode="unlabeled"
+        android:background="@color/persian_red"
         app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
-        app:menu="@menu/menunavbar" />
+        app:menu="@menu/menunavbar"
+        android:layout_alignParentBottom="true"/>
 
 
     <RelativeLayout

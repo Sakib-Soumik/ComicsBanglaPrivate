@@ -167,16 +167,6 @@ public class OverView extends AppCompatActivity {
 
 
 
-        //--------------------------Getting Review from user------------------------\\
-        Review= review.getText().toString();
-
-        //--------------------------Showing The comic rating avg --------------------\\
-
-        //Turning string rating into float rating
-
-
-
-
         //---------------------------Getting User Rating input --------------------------------\\
         ratingBarInput.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -230,9 +220,7 @@ public class OverView extends AppCompatActivity {
 
 
         //--------------------------------Navigation Bar-------------------------------------\\
-        //Initialize and Assign Variable for Bottom Navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
-        //perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -247,21 +235,8 @@ public class OverView extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),MyFiles.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.add:
-                        if(mAuth.getCurrentUser().isAnonymous()) {
-                            MainActivity.afterlogin="Upload";
-                            startActivity(new Intent(getApplicationContext(),Login.class));
-                        }
-
-                        overridePendingTransition(0,0);
-                        return true;
-
 
                     case R.id.profile:
-                        if(mAuth.getCurrentUser().isAnonymous()) {
-                            MainActivity.afterlogin="Profile";
-                            startActivity(new Intent(getApplicationContext(),Login.class));
-                        }
                         startActivity(new Intent(getApplicationContext(),Profile.class));
                         overridePendingTransition(0,0);
                         return true;

@@ -120,11 +120,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-        //Initialize and Assign Variable for Bottom navbar
+        //--------------------------------Navigation Bar-------------------------------------\\
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
-
-
-        //perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -139,10 +136,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         startActivity(new Intent(getApplicationContext(),MyFiles.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.add:
 
                     case R.id.profile:
-                        Toast.makeText(getApplicationContext(),"You have to login or sign up first",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        overridePendingTransition(0,0);
                         return true;
 
                 }

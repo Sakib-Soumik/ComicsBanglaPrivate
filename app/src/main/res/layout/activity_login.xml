@@ -20,9 +20,10 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/RedBackGround"
-        app:itemTextColor="@drawable/selector"
+        android:layout_height="@dimen/_35sdp"
+        android:enabled="true"
+        app:labelVisibilityMode="unlabeled"
+        android:background="@color/persian_red"
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>
@@ -140,7 +141,7 @@
             android:layout_marginBottom="@dimen/_40sdp"
             android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/st"
-            android:text="অ্যাকাউন্ট নেই? তাহলে " />
+            android:text="অ্যাকাউন্ট নেই?  " />
 
 
             <TextView

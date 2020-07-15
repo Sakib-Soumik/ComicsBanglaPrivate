@@ -43,8 +43,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         mAuth=FirebaseAuth.getInstance();
         progressBar=findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
-        //Initialize and Assign Variable for Bottom navbar
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
 
         //Finding Components
         NameInput=findViewById(R.id.SInName);
@@ -61,6 +59,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
 
 
         //perform ItemSelectedListener
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
+        //perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -75,9 +75,10 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                         startActivity(new Intent(getApplicationContext(),MyFiles.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.add:
+
                     case R.id.profile:
-                        Toast.makeText(getApplicationContext(),"Continue Sign Up or go to previous page",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        overridePendingTransition(0,0);
                         return true;
 
                 }

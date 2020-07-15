@@ -203,12 +203,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //Initialize and Assign Variable for Bottom navbar
+        //--------------------------------Navigation Bar-------------------------------------\\
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
-        //set home selected
         bottomNavigationView.setSelectedItemId(R.id.home);
-
-        //perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -220,30 +217,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),MyFiles.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.add:
-                        FirebaseUser currentUser =mAuth.getCurrentUser();
-                        if(currentUser.isAnonymous()) {
-                            afterlogin="Upload";
-                            Log.d("user", "onNavigationItemSelected: going to login");
-                            startActivity(new Intent(getApplicationContext(),Login.class));
-                        }
-
-
-                        overridePendingTransition(0,0);
-                        return true;
-
 
                     case R.id.profile:
-                         currentUser =mAuth.getCurrentUser();
-                        if(currentUser.isAnonymous()) {
-                            afterlogin="Profile";
-                            Log.d("user", "onNavigationItemSelected: going to login");
-                            startActivity(new Intent(getApplicationContext(),Login.class));
-                        }
-                        else {
-                            Log.d("user", "onNavigationItemSelected: "+currentUser.getDisplayName());
-                            startActivity(new Intent(getApplicationContext(),Profile.class));
-                        }
+                        startActivity(new Intent(getApplicationContext(),Profile.class));
                         overridePendingTransition(0,0);
                         return true;
 
