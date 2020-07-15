@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,26 +46,24 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
     public static ArrayList<StorageReference> main_comic_images;
     RecyclerView action_images,new_uploads,most_viewed_recycler,adventure,comedy,children,fiction,mystery;
-
-    private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE =1 ;
     private FirebaseAuth mAuth;
-    ImageButton search;
     public static String afterlogin;
     ArrayList<String> comicId;
     //@RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        storagepermission();
 
         hideSystemUI();
-
         setContentView(R.layout.activity_main);
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         comicId=new ArrayList<>();
-        mAuth = FirebaseAuth.getInstance();
+
         action_images=findViewById(R.id.recyclerAction);
         new_uploads=findViewById(R.id.new_upload);
         adventure=findViewById(R.id.recyclerAdventure);
@@ -73,10 +72,8 @@ public class MainActivity extends AppCompatActivity {
         fiction=findViewById(R.id.recyclerFiction);
         mystery=findViewById(R.id.recyclerMystery);
         most_viewed_recycler=findViewById(R.id.recyclerRecommended);
-        storagepermission();
-        if(mAuth.getCurrentUser()==null) {
-            signInAnonymously();
-        }
+
+
         new_upload_call();
         most_viewed_call();
         category_call("Action",action_images);
@@ -124,34 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void storagepermission() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
 
-        }
-    }
-    void signInAnonymously() {
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInAnonymously:success");
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInAnonymously:failure", task.getException());
-
-                        }
-
-                        // ...
-                    }
-                });
-    }
 
 
     void hideSystemUI() {
@@ -237,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         popular = popular.child("Comics").child("Views");
 
         final ArrayList<Pair<Integer,String>> most_viewed=new ArrayList<>();
-        popular.addListenerForSingleValueEvent(new ValueEventListener() {
+        popular.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -245,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(),ds.getValue().toString(),Toast.LENGTH_LONG).show();
                     //Log.d("views", "onDataChange: "+ds.getValue().toString());
                 }
+
                 Collections.sort(most_viewed, new Comparator<Pair<Integer,String>>() {
                     @Override
                     public int compare(Pair<Integer,String> p1, Pair<Integer,String> p2) {
@@ -307,8 +278,20 @@ public class MainActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        // Uh-oh, an error occurred!
+                        //Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    void storagepermission() {
+        if(ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
+        }
+
+
     }
 }
