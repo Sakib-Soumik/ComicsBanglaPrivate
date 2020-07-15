@@ -59,7 +59,7 @@ public class OverView extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         mAuth=FirebaseAuth.getInstance();
         //--------------Finding Everything-------------//
-        scrollView=findViewById(R.id.sv);
+
         comic_cover= findViewById(R.id.comic_cover);
         read= findViewById(R.id.read);
         description = findViewById(R.id.comic_description);
@@ -68,8 +68,7 @@ public class OverView extends AppCompatActivity {
         rating_value_output= findViewById(R.id.ratingValueOutput);
         ratingBarInput= findViewById(R.id.ratingBarInput);
         ratingBarOutput= findViewById(R.id.ratingBarOutput);
-        l1= findViewById(R.id.reviewLayout);
-        review= findViewById(R.id.reviewInput);
+
         //------------------------showing everything from database------------------//
         final String comicid=getIntent().getStringExtra("ComicId");
         DatabaseReference cover_ref= FirebaseDatabase.getInstance().getReference();

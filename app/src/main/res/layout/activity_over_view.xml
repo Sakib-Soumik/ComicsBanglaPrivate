@@ -18,12 +18,7 @@
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menunavbar" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/sv"
-        android:isScrollContainer="true"
-        >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,11 +36,9 @@
             android:layout_height="match_parent"
             android:layout_marginRight="10dp" />
 
-    <RelativeLayout
+        <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        >
+        android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/comic_name"
@@ -149,61 +142,8 @@
         android:fontFamily="@font/ss"
         android:textSize="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_50sdp"
-        android:text="রেটিং/রিভিউ দিন"
+        android:text="রেটিং দিন"
         android:textColor="#C1000000"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/reviewLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ratingBarInput"
-        android:textColorHint="#97000000"
-        >
-
-            <EditText
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:layout_width="match_parent"
-                android:id="@+id/reviewInput"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
-                android:drawablePadding="@dimen/_10sdp"
-                android:textSize="@dimen/_16sdp"
-                android:drawableLeft="@drawable/ic_feedback"
-                android:fontFamily="@font/st"
-                android:hint="আপনার রিভিউ দিন" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_height="wrap_content"
-        android:text="সাবমিট"
-        android:layout_centerInParent="true"
-        android:background="@drawable/button_selector"
-        android:layout_below="@id/reviewLayout"
-        android:textSize="@dimen/_20sdp"
-        android:fontFamily="@font/ss"
-        android:layout_marginBottom="@dimen/_40sdp"/>
-        <ListView
-
-            android:layout_below="@id/submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/reviewList"
-            android:dividerHeight="2dp"
-            android:divider="#D2393030"
-            android:layout_marginBottom="@dimen/_100sdp"
-            >
-        </ListView>
-
-
     </RelativeLayout>
-
-    </ScrollView>
-
-
-
 </RelativeLayout>
