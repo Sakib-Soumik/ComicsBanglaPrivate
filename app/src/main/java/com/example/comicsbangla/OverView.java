@@ -44,11 +44,9 @@ import java.util.ArrayList;
 public class OverView extends AppCompatActivity {
     ImageView comic_cover;
     Button read;
-    TextView description,comic_name,comic_author,rating_value_output;
+    TextView description,comic_name,comic_author,rating_value_output,view;
     RatingBar ratingBarInput, ratingBarOutput;
     String banglaRatingString;
-    EditText review;
-    TextInputLayout l1;
     FirebaseAuth mAuth;
     String Review;
     ScrollView scrollView;
@@ -67,7 +65,7 @@ public class OverView extends AppCompatActivity {
         comic_author = findViewById(R.id.author_name);
         rating_value_output= findViewById(R.id.ratingValueOutput);
         ratingBarInput= findViewById(R.id.ratingBarInput);
-
+        view= findViewById(R.id.viewCount);
         //------------------------showing everything from database------------------//
         final String comicid=getIntent().getStringExtra("ComicId");
         DatabaseReference cover_ref= FirebaseDatabase.getInstance().getReference();
