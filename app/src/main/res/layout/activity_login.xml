@@ -129,6 +129,7 @@
             android:text="সাইন-ইন " />
 
         <LinearLayout
+            android:id="@+id/ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/signInGoogle"
@@ -138,7 +139,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_40sdp"
             android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/st"
             android:text="অ্যাকাউন্ট নেই?  " />
@@ -151,12 +151,39 @@
                 android:textColor="@color/RedBackGround"
                 android:textSize="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_40sdp"
                 android:fontFamily="@font/st"
                 android:textStyle="bold"
                 android:clickable="true"
                 android:onClick="onClick"
                 android:text="সাইন আপ" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/st"
+                android:text="পাসওয়ার্ড ভুলে গেছেন? " />
+
+
+            <TextView
+                android:id="@+id/reset_pass_click"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/RedBackGround"
+                android:textSize="@dimen/_14sdp"
+                android:fontFamily="@font/st"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="রিসেট পাসওয়ার্ড" />
 
 
         </LinearLayout>

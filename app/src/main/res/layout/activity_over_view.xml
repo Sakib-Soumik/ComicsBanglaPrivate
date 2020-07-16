@@ -37,7 +37,7 @@
             </ImageView>
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_180sdp"
+                android:layout_marginTop="@dimen/_200sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:background="@drawable/curve"
                 >
@@ -46,6 +46,7 @@
             <TextView
                 android:paddingLeft="@dimen/_30sdp"
                 android:paddingRight="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:id="@+id/comic_name"
                 android:layout_below="@id/comic_cover"
                 android:layout_width="match_parent"
@@ -60,8 +61,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/comic_name"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:textColor="#000000"
+                android:textColor="#C1000000"
                 android:textSize="@dimen/_25sdp"
                 android:fontFamily="@font/st"/>
             <TextView
@@ -83,10 +85,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/comic_description"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_35sdp"
                 android:layout_alignParentStart="true">
                 <LinearLayout
                     android:id="@+id/linear"

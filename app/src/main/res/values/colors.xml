@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#607D8B</color>
     <color name="colorPrimaryDark">#FF9800</color>
-    <color name="colorAccent">#BAED2E20</color>
+    <color name="colorAccent">#F13A2C</color>
     <color name="RedBackGround">#B2ED2E20</color>
     <color name="lightRed">#57EF2B1D</color>
     <color name="OnClickColor">#CBFFA31E</color>
