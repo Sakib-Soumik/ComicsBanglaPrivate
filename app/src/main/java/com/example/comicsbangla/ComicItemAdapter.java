@@ -53,8 +53,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
         int comic_size=comic_images.size();
         ReadComic.current_page=position;
         RequestOptions requestOptions = new RequestOptions()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .centerCrop()
                 .dontAnimate()
                 .dontTransform()
