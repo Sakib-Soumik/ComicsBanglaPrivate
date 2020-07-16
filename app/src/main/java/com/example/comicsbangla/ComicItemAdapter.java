@@ -51,6 +51,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder  holder, int position) {
         ComicItemHolder comicItemHolder=(ComicItemHolder) holder;
         int comic_size=comic_images.size();
+        ReadComic.current_page=position;
         RequestOptions requestOptions = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true)

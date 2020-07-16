@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,21 +47,29 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
+    static int page_number=0;
+    static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
     public static ArrayList<StorageReference> main_comic_images;
     RecyclerView action_images,new_uploads,most_viewed_recycler,adventure,comedy,children,fiction,mystery;
     private FirebaseAuth mAuth;
     public static String afterlogin;
     ArrayList<String> comicId;
+    protected boolean _active = true;
+    protected int _splashTime = 2000;
     //@RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        storagepermission();
-
         hideSystemUI();
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            storagepermission();
+
+        }
         setContentView(R.layout.activity_main);
+
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         comicId=new ArrayList<>();
@@ -284,14 +294,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void storagepermission() {
-        if(ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
+    }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
         }
-
-
     }
 }
