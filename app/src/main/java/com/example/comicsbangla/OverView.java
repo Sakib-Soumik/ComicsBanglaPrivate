@@ -139,7 +139,7 @@ public class OverView extends AppCompatActivity {
                 }
                 banglaRatingString= stringBuilder.toString();
 
-
+                rating_value_output.setText(banglaRatingString);
 
             }
             @Override
@@ -147,6 +147,8 @@ public class OverView extends AppCompatActivity {
 
             }
         });
+
+
         DatabaseReference description_ref= FirebaseDatabase.getInstance().getReference();
         description_ref=description_ref.child("Comics").child("Description");
         description_ref.addListenerForSingleValueEvent(new ValueEventListener() {
