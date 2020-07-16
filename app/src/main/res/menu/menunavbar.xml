@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:icon="@drawable/ic_f"
+        android:icon="@drawable/ic_book"
         android:id="@+id/myfiles"
         android:enabled="true"
          />
@@ -15,7 +15,7 @@
         />
 
     <item
-        android:icon="@drawable/ic_proff"
+        android:icon="@drawable/ic_head"
         android:id="@+id/profile"
         android:enabled="true"
 
