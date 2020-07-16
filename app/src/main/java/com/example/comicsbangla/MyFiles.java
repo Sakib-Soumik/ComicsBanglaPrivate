@@ -1,6 +1,7 @@
 package com.example.comicsbangla;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -16,6 +19,8 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -61,6 +66,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.jar.Attributes;
@@ -71,173 +77,62 @@ import kotlin.jvm.functions.Function1;
 
 public class MyFiles extends AppCompatActivity {
 
-    private final static  int home=2,file=1, profile=3;
-    ListView keepReading;
-
     FirebaseAuth mAuth;
-    static ArrayList<StorageReference> comicimages=new ArrayList<>();
-
-
-    //
-    //append reading history to file
-    //
-    public void generateNoteOnSD(Context context, String sFileName, String sBody) {
-        try {
-            File root = new File(Environment.getExternalStorageDirectory(), "comics_bangla");
-            if (!root.exists()) {
-                root.mkdirs();
-            }
-            File gpxfile = new File(root, sFileName);
-
-            FileWriter fw = new FileWriter(gpxfile,true); //the true will append the new data
-            fw.write(sBody);//appends the string to the file
-            fw.close();
-            //Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    //
-    //get the current reading info from file
-    //
-   Stack<Pair<String,String>> GetKeepReadingName(String info) {
-
-        generateNoteOnSD(this,"keep_reading.bin",info);
-        Stack<Pair<String,String>> st=new Stack<Pair<String,String>>();
-        String bookname;
-        String page_number;
-        try {
-            FileInputStream is;
-            BufferedReader reader;
-            File file=Environment.getExternalStorageDirectory();
-            file=new File(file,"comics_bangla");
-            file=new File(file,"keep_reading.bin");
-
-            if (file.exists()) {
-                is = new FileInputStream(file);
-                reader = new BufferedReader(new InputStreamReader(is));
-                bookname = reader.readLine();
-                while(bookname != null){
-                    page_number=reader.readLine();
-                    Log.d("book read", "GetKeepReadingName: "+bookname+page_number);
-                    Pair<String,String> p=new Pair<>(bookname,page_number);
-                    st.push(p);
-                    bookname= reader.readLine();
-                }
-            }
-        }catch (Exception e) {
-        }
-        return st;
-    }
+    FirebaseUser user;
+    ListView keepReading;
+    ArrayList<String> comics_list;
+    ArrayList<Pair<String,Integer>> comicname_page_number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        hideSystemUI();
         setContentView(R.layout.activity_my_files);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-
-
-        mAuth=FirebaseAuth.getInstance();
-        myRef.setValue("Hello, World!");
-
-
         keepReading = findViewById(R.id.keep_reading);
-        Stack<Pair<String,String>> content = new Stack<Pair<String, String>>();
-        //
-        //demo new reading history
-        //
-        String newreadinHistory="প্রফেসর শংকু ও ইজিপ্সিও আতংক\n" +
-                "8\n" +
-                "মানরো দ্বীপ রহস্য\n" +
-                "9\n";
-        content=GetKeepReadingName(newreadinHistory);
-        Pair<String,String> p;
-        ArrayList<String> book=new ArrayList<String>();
-        ArrayList<String> page=new ArrayList<String>();
-        //
-        //preparing the history to show
-        //
-        while(true) {
-            if(content.empty()) break;
-            p=content.pop();
-            if(!book.contains(p.first)) {
-                book.add(p.first);
-                page.add(p.second);
+        mAuth=FirebaseAuth.getInstance();
+        user=mAuth.getCurrentUser();
+        comics_list=new ArrayList<>();
+        comicname_page_number=new ArrayList<>();
+        if(user.isAnonymous()) {
+            SharedPreferences sharedPref = this.getSharedPreferences(
+                    "kr", MODE_PRIVATE);
+            Map<String,?> keys = sharedPref.getAll();
+
+            for(Map.Entry<String,?> entry : keys.entrySet()){
+              comicname_page_number.add(new Pair<>(entry.getKey(), Integer.parseInt(entry.getValue().toString())));
+              comics_list.add(entry.getKey());
             }
+            if(comics_list.isEmpty()) {
+                comics_list.add("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন");
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.sv,R.id.textView10,comics_list);
+            keepReading.setAdapter(adapter);
         }
-        if(book.isEmpty()) {
-            book.add("কমিক্স পড়তে শুরু করলেই সেগুলো এখানে দেখতে পারবেন");
-            page.add("-1");
-        }
-        final ArrayList<String> bookname=book;
-        final ArrayList<String> pagenumber=page;
-
-        final String[] mycomics={"comic1","comic2","comic3","comic4","comic5","comic6"};
-
-        ArrayAdapter<String> keepreadAdapter = new ArrayAdapter<String>(this,R.layout.sv,R.id.textView10,bookname);
-
-        keepReading.setAdapter(keepreadAdapter);
-
-        ArrayAdapter<String> myuploadsAdapter = new ArrayAdapter<>(this,R.layout.sv,R.id.textView10,mycomics);
-
-
-
         keepReading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-                final String name= bookname.get(position);
-                String page_number= pagenumber.get(position);
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference NameRef= rootRef.child("Comics");
-                NameRef=NameRef.child("ComicName");
-                ValueEventListener eventListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                             if(ds.getValue().equals(name)) {
-                                 String name2=ds.getValue().toString();
-                                 Log.d("found", "onDataChange: found");
-                                 StorageReference comicref=FirebaseStorage.getInstance().getReference().child("Comic/"+name2);
-                                 Log.d("link", "onDataChange: "+comicref.toString());
-                                 comicimages.clear();
-                                 // Find all the prefixes and items.
-                                 comicref.listAll()
-                                         .addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                                             @Override
-                                             public void onSuccess(ListResult listResult) {
-
-                                                 for (StorageReference item : listResult.getItems()) {
-                                                     comicimages.add(item);
-
-                                                 }
-                                                 Log.d("intent", "onDataChange: next");
-
-                                                 Intent intent;
-                                                 
-                                                 MainActivity.main_comic_images=comicimages;
-                                                 intent=new Intent(MyFiles.this,ReadComic.class);
-                                                 startActivity(intent);
-                                             }
-                                         })
-                                         .addOnFailureListener(new OnFailureListener() {
-                                             @Override
-                                             public void onFailure(@NonNull Exception e) {
-                                                 // Uh-oh, an error occurred!
-                                             }
-                                         });
-                             }
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {}
-                };
-                NameRef.addValueEventListener(eventListener);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!comics_list.get(position).equals("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন")) {
+                    ReadComic.comic_name = comicname_page_number.get(position).first;
+                    StorageReference comicref = FirebaseStorage.getInstance().getReference().child("Comic/" + ReadComic.comic_name);
+                    final ArrayList<StorageReference> comic_images = new ArrayList<>();
+                    comicref.listAll()
+                            .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                                @Override
+                                public void onSuccess(ListResult listResult) {
+                                    comic_images.addAll(listResult.getItems());
+                                    Intent intent;
+                                    MainActivity.main_comic_images = comic_images;
+                                    intent = new Intent(getApplicationContext(), ReadComic.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Uh-oh, an error occurred!
+                                }
+                            });
+                }
             }
-
         });
 
 
@@ -270,5 +165,37 @@ public class MyFiles extends AppCompatActivity {
 
 
 
-    }}
+    }
+    void hideSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        // put your code here...
+        hideSystemUI();
+
+    }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+}
 

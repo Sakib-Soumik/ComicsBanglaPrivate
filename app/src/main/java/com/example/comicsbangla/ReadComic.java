@@ -1,6 +1,8 @@
 package com.example.comicsbangla;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,14 +29,14 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-import static com.example.comicsbangla.MainActivity.MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE;
-
 public class ReadComic extends AppCompatActivity {
 
     static int current_page;
+    static String comic_name;
     RecyclerView comic_images;
     FirebaseAuth mauth;
     private FirebaseUser user;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         hideSystemUI();
@@ -51,11 +53,18 @@ public class ReadComic extends AppCompatActivity {
 
         ComicItemAdapter comicItemAdapter=new ComicItemAdapter(ReadComic.this,MainActivity.main_comic_images);
         comic_images.setLayoutManager(new LinearLayoutManager(ReadComic.this));
-        comic_images.getLayoutManager().scrollToPosition(MainActivity.page_number);
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                "kr", MODE_PRIVATE);
+        int pagenumber = sharedPref.getInt(comic_name, -1);
+
+        if(pagenumber==-1) {
+            comic_images.getLayoutManager().scrollToPosition(0);
+        }
+        else {
+            comic_images.getLayoutManager().scrollToPosition(pagenumber);
+        }
 
         comic_images.setAdapter(comicItemAdapter);
-        MainActivity.page_number=0;
-
 
 
 
@@ -68,16 +77,21 @@ public class ReadComic extends AppCompatActivity {
         if(user.isAnonymous()) {
             writeOnStorage();
         }
-
     }
     void writeOnStorage() {
-        if (ContextCompat.checkSelfPermission(ReadComic.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(), "Please allow storage permission to update your comic reading history", Toast.LENGTH_LONG).show();
+        if(current_page==MainActivity.main_comic_images.size()-1) {
+            SharedPreferences sharedPref = this.getSharedPreferences(
+                    "kr", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.remove(comic_name);
+            editor.apply();
             return;
         }
-
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                "kr", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(comic_name,current_page);
+        editor.apply();
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     void hideSystemUI() {

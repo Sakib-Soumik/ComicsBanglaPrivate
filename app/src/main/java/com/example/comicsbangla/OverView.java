@@ -69,7 +69,7 @@ public class OverView extends AppCompatActivity {
         //------------------------showing everything from database------------------//
         final String comicid=getIntent().getStringExtra("ComicId");
         DatabaseReference cover_ref= FirebaseDatabase.getInstance().getReference();
-        cover_ref=cover_ref.child("Comics").child("PhotoUrl");
+        cover_ref=cover_ref.child("Comics").child("PhotoUrl2");
         cover_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -93,6 +93,7 @@ public class OverView extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 comic_name.setText(dataSnapshot.child(comicid).getValue(String.class));
+                ReadComic.comic_name=comic_name.getText().toString();
 
             }
 
