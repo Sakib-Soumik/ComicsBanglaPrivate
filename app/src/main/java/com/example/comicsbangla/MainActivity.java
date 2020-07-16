@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     public static String afterlogin;
     ArrayList<String> comicId;
-    protected boolean _active = true;
-    protected int _splashTime = 2000;
     //@RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
         fiction=findViewById(R.id.recyclerFiction);
         mystery=findViewById(R.id.recyclerMystery);
         most_viewed_recycler=findViewById(R.id.recyclerRecommended);
-
-
         new_upload_call();
         most_viewed_call();
         category_call("Action",action_images);
@@ -161,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
                             comicId=comicId.replace(".png","");
                             newupload_id_photo_ref.add(new Pair("Comic"+comicId,newupload_cover_images.get(i)));
                         }
+                        Collections.shuffle(newupload_id_photo_ref);
                         final ActionItemAdapter2 actionItemAdapter=new ActionItemAdapter2(MainActivity.this,newupload_id_photo_ref);
                         new_uploads.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
                         new_uploads.addItemDecoration(new DividerItemDecoration(getApplicationContext(),

@@ -31,6 +31,7 @@ public class SplashScreen extends AppCompatActivity {
     protected int _splashTime = 2000;
     private FirebaseAuth mAuth;
 
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
