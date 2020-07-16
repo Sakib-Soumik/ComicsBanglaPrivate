@@ -66,6 +66,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
@@ -110,18 +111,18 @@ public class MyFiles extends AppCompatActivity {
         keepReading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(!comics_list.get(position).equals("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন")) {
-                    ReadComic.comic_name = comicname_page_number.get(position).first;
-                    StorageReference comicref = FirebaseStorage.getInstance().getReference().child("Comic/" + ReadComic.comic_name);
-                    final ArrayList<StorageReference> comic_images = new ArrayList<>();
+                if(!comics_list.get(position).equals("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন"));
+                    ReadComic.comic_name=comicname_page_number.get(position).first;
+                    StorageReference comicref=FirebaseStorage.getInstance().getReference().child("Comic/"+ReadComic.comic_name);
+                    final ArrayList<StorageReference> comic_images=new ArrayList<>();
                     comicref.listAll()
                             .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                                 @Override
                                 public void onSuccess(ListResult listResult) {
                                     comic_images.addAll(listResult.getItems());
                                     Intent intent;
-                                    MainActivity.main_comic_images = comic_images;
-                                    intent = new Intent(getApplicationContext(), ReadComic.class);
+                                    MainActivity.main_comic_images=comic_images;
+                                    intent=new Intent(getApplicationContext(),ReadComic.class);
                                     startActivity(intent);
                                 }
                             })
@@ -131,7 +132,6 @@ public class MyFiles extends AppCompatActivity {
                                     // Uh-oh, an error occurred!
                                 }
                             });
-                }
             }
         });
 
