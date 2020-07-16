@@ -67,7 +67,6 @@ public class OverView extends AppCompatActivity {
         comic_author = findViewById(R.id.author_name);
         rating_value_output= findViewById(R.id.ratingValueOutput);
         ratingBarInput= findViewById(R.id.ratingBarInput);
-        ratingBarOutput= findViewById(R.id.ratingBarOutput);
 
         //------------------------showing everything from database------------------//
         final String comicid=getIntent().getStringExtra("ComicId");
@@ -129,7 +128,7 @@ public class OverView extends AppCompatActivity {
 
                 //Converting Rating Value to Bangla String
                 int size= db_rating[0].length();
-                char ratings[] =new char[size];
+                char ratings[] = new char[size];
                 char ratingInBangla[]=new char[size];
                 ratings= db_rating[0].toCharArray();
                 for(int i = 0; i <ratings.length; i++){
@@ -141,9 +140,7 @@ public class OverView extends AppCompatActivity {
                 }
                 banglaRatingString= stringBuilder.toString();
 
-                //setting Value Of rating as Output
-                rating_value_output.setText(banglaRatingString+"/৫");
-                ratingBarOutput.setRating(ratingOutputValue);
+
 
             }
             @Override
@@ -215,8 +212,7 @@ public class OverView extends AppCompatActivity {
             }
         });
 
-        //-------------------------Showing the Review List of the comics ----------------------\\
-        //Values->String->reviews contain an array of possible reviews
+
 
 
         //--------------------------------Navigation Bar-------------------------------------\\
