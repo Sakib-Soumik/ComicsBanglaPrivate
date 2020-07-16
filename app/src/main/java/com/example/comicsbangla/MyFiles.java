@@ -107,15 +107,15 @@ public class MyFiles extends AppCompatActivity {
             Collections.sort(sortedKeys);
             ArrayList<Pair<String,String>> list=new ArrayList<>();
             for (int i=0;i<sortedKeys.size();i++) {
-
-                list.add(new Pair<String, String>(sortedKeys.get(i),Integer.toString(keys.get(sortedKeys.get(i)))));
+                int value=Integer.parseInt(String.valueOf(keys.get(sortedKeys.get(i))));
+                if(value!=-1) {
+                    list.add(new Pair<String, String>(sortedKeys.get(i), Integer.toString(keys.get(sortedKeys.get(i)))));
+                }
                 // do something
             }
             Collections.reverse(list);
-
             for(int i=0;i<list.size();i++){
                 String key=list.get(i).first;
-                Log.d("string", "onCreate: "+key);
                 StringBuilder sb=new StringBuilder(key);
                 while(true) {
                     char c=sb.charAt(0);
@@ -125,7 +125,6 @@ public class MyFiles extends AppCompatActivity {
                     }
                     sb.deleteCharAt(0);
                 }
-
                 key=sb.toString();
                 comicname_page_number.add(new Pair<>(key, Integer.parseInt(list.get(i).second)));
                 comics_list.add(key);
@@ -162,8 +161,6 @@ public class MyFiles extends AppCompatActivity {
                             });
             }
         });
-
-
 
         //---------------------------------------Navigation-----------------------------------------
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);

@@ -50,6 +50,7 @@ public class ReadComic extends AppCompatActivity {
         for(Map.Entry<String,?> entry : keys.entrySet()){
             if(entry.getKey().contains(comic_name)) {
                 pagenumber=Integer.parseInt(entry.getValue().toString());
+                break;
             }
         }
         if(pagenumber==-1) {
@@ -69,6 +70,14 @@ public class ReadComic extends AppCompatActivity {
             writeOnStorage();
         }
     }
+    @Override
+    public void onStop() {
+        super.onStop();
+        user=mauth.getCurrentUser();
+        if(user.isAnonymous()) {
+            writeOnStorage();
+        }
+    }
     void writeOnStorage() {
         if(current_page==MainActivity.main_comic_images.size()-1) {
             SharedPreferences sharedPref = this.getSharedPreferences(
@@ -78,7 +87,7 @@ public class ReadComic extends AppCompatActivity {
             Map<String,?> keys = sharedPref.getAll();
             for(Map.Entry<String,?> entry : keys.entrySet()){
                 if(entry.getKey().contains(comic_name)) {
-                    editor.remove(entry.getKey());
+                    editor.putInt(entry.getKey(),-1);
                     editor.apply();
                     break;
                 }
