@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_vi"
             android:textSize="@dimen/_16sdp"
-            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
             />
 
         <TextView
