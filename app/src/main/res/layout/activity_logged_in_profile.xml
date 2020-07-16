@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    tools:context=".LoggedInProfile">
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_buttons"
+        android:layout_centerInParent="true"
+        android:text="Log Out"
+        >
+
+    </Button>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:enabled="true"
+        app:labelVisibilityMode="unlabeled"
+        android:background="@color/persian_red"
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/menunavbar"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>
