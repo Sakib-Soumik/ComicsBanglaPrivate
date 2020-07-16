@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,14 +25,29 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Profile extends AppCompatActivity {
     FirebaseAuth mAuth;
-    ImageButton editprofile;
+    TextView loginClicked;
     private GoogleSignInClient mGoogleSignInClient;
     ImageButton logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        logout=(ImageButton) findViewById(R.id.logoutbutton);
+        loginClicked= findViewById(R.id.login_clicked);
+        //--------------------------------Login Button Clicked-------------------------------
+
+        loginClicked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this, Login.class));
+            }
+
+        });
+
+
+
+
+
+        //logout=(ImageButton) findViewById(R.id.logoutbutton);
         mAuth=FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -39,13 +55,15 @@ public class Profile extends AppCompatActivity {
                 .build();
         // [END config_signin]
 
+
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         //Button Edit profile starts
 
-        editprofile=(ImageButton)findViewById(R.id.edit_profile) ;
+        //editprofile=(ImageButton)findViewById(R.id.edit_profile) ;
 
 
-        logout.setOnClickListener(new View.OnClickListener() {
+        /*logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
@@ -59,7 +77,7 @@ public class Profile extends AppCompatActivity {
 
 
             }
-        });
+        });*/
         //Button Edit profile ends
 
 

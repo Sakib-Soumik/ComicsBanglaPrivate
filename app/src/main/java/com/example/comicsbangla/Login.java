@@ -42,9 +42,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button signIn,signInGoogle;
     EditText userEmail,userPass;
-    TextView signUpTxt;
+    TextView signUpTxt,resetPassClicked;
     String TAG="LOGIN";
-
     TextInputLayout l1,l2;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
@@ -64,6 +63,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         signIn =findViewById(R.id.signInButton);
         signUpTxt=findViewById(R.id.signUpClick);
         signInGoogle= findViewById(R.id.signInGoogle);
+        resetPassClicked= findViewById(R.id.reset_pass_click);
 
         //When Sign In with Google is Clicked
         signInGoogle.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +118,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void afterTextChanged(Editable s) {
             }
+        });
+
+        resetPassClicked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Login.this, "Reset Pass Click", Toast.LENGTH_SHORT).show();
+            }
+
         });
 
         //--------------------------------Navigation Bar-------------------------------------\\
