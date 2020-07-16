@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
@@ -66,10 +67,15 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.SortedSet;
 import java.util.Stack;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.jar.Attributes;
 
 import kotlin.Unit;
@@ -96,11 +102,33 @@ public class MyFiles extends AppCompatActivity {
         if(user.isAnonymous()) {
             SharedPreferences sharedPref = this.getSharedPreferences(
                     "kr", MODE_PRIVATE);
-            Map<String,?> keys = sharedPref.getAll();
+            Map<String,Integer> keys = (Map<String, Integer>) sharedPref.getAll();
+            List<String> sortedKeys=new ArrayList(keys.keySet());
+            Collections.sort(sortedKeys);
+            ArrayList<Pair<String,String>> list=new ArrayList<>();
+            for (int i=0;i<sortedKeys.size();i++) {
 
-            for(Map.Entry<String,?> entry : keys.entrySet()){
-              comicname_page_number.add(new Pair<>(entry.getKey(), Integer.parseInt(entry.getValue().toString())));
-              comics_list.add(entry.getKey());
+                list.add(new Pair<String, String>(sortedKeys.get(i),Integer.toString(keys.get(sortedKeys.get(i)))));
+                // do something
+            }
+            Collections.reverse(list);
+
+            for(int i=0;i<list.size();i++){
+                String key=list.get(i).first;
+                Log.d("string", "onCreate: "+key);
+                StringBuilder sb=new StringBuilder(key);
+                while(true) {
+                    char c=sb.charAt(0);
+                    if(c==']') {
+                        sb.deleteCharAt(0);
+                        break;
+                    }
+                    sb.deleteCharAt(0);
+                }
+
+                key=sb.toString();
+                comicname_page_number.add(new Pair<>(key, Integer.parseInt(list.get(i).second)));
+                comics_list.add(key);
             }
             if(comics_list.isEmpty()) {
                 comics_list.add("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন");

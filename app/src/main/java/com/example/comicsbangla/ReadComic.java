@@ -1,33 +1,23 @@
 package com.example.comicsbangla;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.solver.widgets.Helper;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ReadComic extends AppCompatActivity {
 
@@ -55,19 +45,20 @@ public class ReadComic extends AppCompatActivity {
         comic_images.setLayoutManager(new LinearLayoutManager(ReadComic.this));
         SharedPreferences sharedPref = this.getSharedPreferences(
                 "kr", MODE_PRIVATE);
-        int pagenumber = sharedPref.getInt(comic_name, -1);
-
+        int pagenumber=-1;
+        Map<String,?> keys = sharedPref.getAll();
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+            if(entry.getKey().contains(comic_name)) {
+                pagenumber=Integer.parseInt(entry.getValue().toString());
+            }
+        }
         if(pagenumber==-1) {
             comic_images.getLayoutManager().scrollToPosition(0);
         }
         else {
             comic_images.getLayoutManager().scrollToPosition(pagenumber);
         }
-
         comic_images.setAdapter(comicItemAdapter);
-
-
-
     }
 
     @Override
@@ -83,14 +74,31 @@ public class ReadComic extends AppCompatActivity {
             SharedPreferences sharedPref = this.getSharedPreferences(
                     "kr", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.remove(comic_name);
-            editor.apply();
+
+            Map<String,?> keys = sharedPref.getAll();
+            for(Map.Entry<String,?> entry : keys.entrySet()){
+                if(entry.getKey().contains(comic_name)) {
+                    editor.remove(entry.getKey());
+                    editor.apply();
+                    break;
+                }
+            }
             return;
         }
         SharedPreferences sharedPref = this.getSharedPreferences(
                 "kr", MODE_PRIVATE);
+        Map<String,?> keys = sharedPref.getAll();
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(comic_name,current_page);
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+            if(entry.getKey().contains(comic_name)) {
+                editor.putInt(entry.getKey(),current_page);
+                editor.apply();
+                return;
+            }
+        }
+        Map<String,?> m=sharedPref.getAll();
+        String key="["+ Integer.toString((int)m.size()) +"]"+comic_name;
+        editor.putInt(key,current_page);
         editor.apply();
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
