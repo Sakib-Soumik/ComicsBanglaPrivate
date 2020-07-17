@@ -14,7 +14,7 @@ public class DialogEmailFound extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
         builder.setTitle("")
-                .setMessage("আপনার পাসওয়ার্ড রিসেট করা হল।")
+                .setMessage("আপনার পাসওয়ার্ড রিসেট করা হল। নতুন পাসওয়ার্ড আপনাকে ইমেইল করা হয়েছে।")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

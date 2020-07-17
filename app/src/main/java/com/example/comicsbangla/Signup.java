@@ -156,9 +156,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             Toast.makeText(getApplicationContext(),"Welcome!", Toast.LENGTH_LONG).show();
 
                             Log.d(TAG, "createUserWithEmail:success");
-                            if(MainActivity.afterlogin.equals("Profile")) {
+
                                 startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
-                            }
+
 
                         } else {
                             // If sign in fails, display a message to the user.
