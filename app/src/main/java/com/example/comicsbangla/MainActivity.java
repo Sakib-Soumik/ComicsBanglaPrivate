@@ -43,6 +43,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -157,7 +158,8 @@ public class MainActivity extends AppCompatActivity {
                             comicId=comicId.replace(".png","");
                             newupload_id_photo_ref.add(new Pair("Comic"+comicId,newupload_cover_images.get(i)));
                         }
-                        Collections.shuffle(newupload_id_photo_ref);
+                        Random rand = new Random(System.currentTimeMillis());
+                        Collections.shuffle(newupload_id_photo_ref,rand);
                         final ActionItemAdapter2 actionItemAdapter=new ActionItemAdapter2(MainActivity.this,newupload_id_photo_ref);
                         new_uploads.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
                         new_uploads.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
@@ -225,6 +227,8 @@ public class MainActivity extends AppCompatActivity {
                     pic_ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Random rand = new Random(System.currentTimeMillis());
+                            Collections.shuffle(popular_id_photo_ref,rand);
                             popular_id_photo_ref.add(new Pair<String, StorageReference>(id,FirebaseStorage.getInstance().getReferenceFromUrl(dataSnapshot.child(id).getValue(String.class))));
                             ActionItemAdapter mostviewedItemAdapter=new ActionItemAdapter(MainActivity.this,popular_id_photo_ref);
                             most_viewed_recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
@@ -261,6 +265,8 @@ public class MainActivity extends AppCompatActivity {
                             comicId=comicId.replace(".png","");
                             category_id_photo_ref.add(new Pair("Comic"+comicId,category_cover_images.get(i)));
                         }
+                        Random rand = new Random(System.currentTimeMillis());
+                        Collections.shuffle(category_id_photo_ref,rand);
                         ActionItemAdapter categoryItemAdapter=new ActionItemAdapter(MainActivity.this,category_id_photo_ref);
 
                         view.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
