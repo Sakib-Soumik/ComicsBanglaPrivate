@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_20sdp"
+    >
+
+    
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_230sdp"
+            android:background="@drawable/comicbubble"
+            >
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_35sdp"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/ss"
+                android:textSize="@dimen/_32sdp"
+                android:text="রেটিং দিন :"
+                android:textColor="#C1000000" />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/redcross"
+                android:marginRight="@dimen/_90sdp">
+
+            </ImageView>
+
+            <RatingBar
+                android:id="@+id/ratingBarInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView8"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:max="5"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:progressBackgroundTint="@color/lightRed"
+                android:progressTint="@color/persian_red"
+                />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/ratingBarInput"
+                android:layout_marginRight="@dimen/_20sdp"
+
+                android:background="@drawable/tick1"
+                android:marginRight="@dimen/_90sdp">
+
+            </ImageView>
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
