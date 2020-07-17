@@ -77,6 +77,7 @@ public class search_page extends AppCompatActivity {
         searchClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Toast.makeText(search_page.this, "clicked", Toast.LENGTH_SHORT).show();
             }
 
@@ -85,6 +86,7 @@ public class search_page extends AppCompatActivity {
         searchinput .addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
+                hideSystemUI();
                 final ArrayList<String> comicid=new ArrayList<>();
                 final ArrayList<String> comicname=new ArrayList<>();
                 searchresult.setAdapter(null);
@@ -121,10 +123,10 @@ public class search_page extends AppCompatActivity {
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                hideSystemUI();
                 }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {hideSystemUI();}
         });
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

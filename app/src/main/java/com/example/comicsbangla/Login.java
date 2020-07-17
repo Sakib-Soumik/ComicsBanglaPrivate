@@ -95,15 +95,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                hideSystemUI();
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             l1.setError(null);
+            hideSystemUI();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                hideSystemUI();
             }
         });
 

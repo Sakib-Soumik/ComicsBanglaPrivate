@@ -49,14 +49,14 @@ public class LoggedInProfile extends AppCompatActivity {
 
                 // Google sign out
                 mGoogleSignInClient.signOut();
-                signInAnonymously();
+
                 Toast.makeText(getApplicationContext(),"signed out",Toast.LENGTH_LONG).show();
                 FirebaseUser user=mAuth.getCurrentUser();
-                if(user.isAnonymous()) {
-                Intent intentLoadNewActivity = new Intent(LoggedInProfile.this,MainActivity.class);
+
+                Intent intentLoadNewActivity = new Intent(LoggedInProfile.this,SplashScreen.class);
                 startActivity(intentLoadNewActivity);}
 
-            }
+
         });
 
     }
@@ -91,24 +91,5 @@ public class LoggedInProfile extends AppCompatActivity {
             window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
-    void signInAnonymously() {
-        FirebaseAuth mAuth;
-        mAuth=FirebaseAuth.getInstance();
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInAnonymously:success");
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInAnonymously:failure", task.getException());
-                            Toast.makeText(getApplicationContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
-                        }
 
-                        // ...
-                    }
-                });
-    }
 }

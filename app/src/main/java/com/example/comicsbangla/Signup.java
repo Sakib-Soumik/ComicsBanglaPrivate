@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
@@ -54,7 +56,60 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         l1= findViewById(R.id.xx);
         l2 = findViewById(R.id.x1);
 
+       EmailInput.addTextChangedListener(new TextWatcher() {
 
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                hideSystemUI();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                l1.setError(null);
+                hideSystemUI();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hideSystemUI();
+            }
+        });
+        PasswordInput.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                hideSystemUI();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                l1.setError(null);
+                hideSystemUI();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hideSystemUI();
+            }
+        });
+        RePasswordInput.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                hideSystemUI();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                l1.setError(null);
+                hideSystemUI();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hideSystemUI();
+            }
+        });
         //When Button is clicked, information is received
         signUp = findViewById(R.id.SignUpButton);
         signUp.setOnClickListener(this);
