@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView action_images,new_uploads,most_viewed_recycler,adventure,comedy,children,fiction,mystery;
     private FirebaseAuth mAuth;
     public static String afterlogin;
+    FirebaseUser user;
     ArrayList<String> comicId;
     //@RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         comicId=new ArrayList<>();
+        mAuth=FirebaseAuth.getInstance();
+        user=mAuth.getCurrentUser();
         action_images=findViewById(R.id.recyclerAction);
         new_uploads=findViewById(R.id.new_upload);
         adventure=findViewById(R.id.recyclerAdventure);
@@ -105,8 +109,14 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
-                        overridePendingTransition(0,0);
+                        if(user.isAnonymous()) {
+                            startActivity(new Intent(getApplicationContext(),Profile.class));
+                            overridePendingTransition(0,0);
+                        }
+                        else {
+                            startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
+                            overridePendingTransition(0,0);
+                        }
                         return true;
 
                 }

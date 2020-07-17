@@ -180,8 +180,14 @@ public class MyFiles extends AppCompatActivity {
                         return true;
 
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
-                        overridePendingTransition(0,0);
+                        if(user.isAnonymous()) {
+                            startActivity(new Intent(getApplicationContext(),Profile.class));
+                            overridePendingTransition(0,0);
+                        }
+                        else {
+                            startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
+                            overridePendingTransition(0,0);
+                        }
                         return true;
                 }
                 return false;

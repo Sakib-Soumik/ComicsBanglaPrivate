@@ -45,7 +45,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         progressBar.setVisibility(View.GONE);
 
         //Finding Components
-        NameInput=findViewById(R.id.SInName);
         EmailInput = findViewById(R.id.SInEmail);
         PasswordInput = findViewById(R.id.SInPass);
         RePasswordInput = findViewById(R.id.SInRePass);
@@ -133,7 +132,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         SignUpEmail= EmailInput.getText().toString();
         SignUpPass = PasswordInput.getText().toString();
         SignUpRePass = RePasswordInput.getText().toString();
-        SignUpName = NameInput.getText().toString();
         boolean flag=true;
         //Showing Error msg in case of null input
         if(TextUtils.isEmpty(SignUpEmail)){
@@ -144,10 +142,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             flag=false;
             EmailInput.setError("আপনার ই-মেইল গ্রহণযোগ্য নয়!",error2);
         }
-        if(TextUtils.isEmpty(SignUpName)){
-            NameInput.setError("আপনার নাম পূরণ করুন!",error2);
-            flag=false;
-        }
+
         if(TextUtils.isEmpty(SignUpPass)){
             PasswordInput.setError("আপনার পাসওয়ার্ড পূরণ করুন!",error);
             flag=false;
