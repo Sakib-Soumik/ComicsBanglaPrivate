@@ -130,7 +130,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         resetPassClicked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Login.this, "Reset Pass Click", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Login.this, ResetPassword.class));
             }
 
         });
@@ -152,6 +152,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        overridePendingTransition(0,0);
                         return true;
 
                 }
