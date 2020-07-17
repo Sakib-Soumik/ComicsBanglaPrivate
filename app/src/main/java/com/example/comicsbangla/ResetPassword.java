@@ -24,6 +24,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.storage.StreamDownloadTask;
+
+import java.util.ArrayList;
 
 public class ResetPassword extends AppCompatActivity implements View.OnClickListener{
 
@@ -143,8 +146,7 @@ public class ResetPassword extends AppCompatActivity implements View.OnClickList
                                     }
                                 }
                             });
-                }
-
+                }  
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
