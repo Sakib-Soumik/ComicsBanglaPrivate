@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,7 +21,10 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +38,8 @@ public class search_page extends AppCompatActivity {
 
     ImageButton searchClick;
     ListView searchresult;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
     ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +125,39 @@ public class search_page extends AppCompatActivity {
                 }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.myfiles:
+                        startActivity(new Intent(getApplicationContext(),MyFiles.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.profile:
+                        mAuth=FirebaseAuth.getInstance();
+                        user=mAuth.getCurrentUser();
+                        if(user.isAnonymous()) {
+                            startActivity(new Intent(getApplicationContext(),Profile.class));
+                            overridePendingTransition(0,0);
+                        }
+                        else {
+                            startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
+                            overridePendingTransition(0,0);
+                        }
+                        return true;
+
+                }
+                return false;
+            }
         });
 
 

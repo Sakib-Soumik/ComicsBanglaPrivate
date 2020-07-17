@@ -171,9 +171,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(getApplicationContext(),"Signed In!",Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "signInWithEmail:success");
-                            if(MainActivity.afterlogin.equals("Profile")) {
-                                startActivity(new Intent(getApplicationContext(),Profile.class));
-                            }
+
+                                startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
+
 
                         } else {
                             // If sign in fails, display a message to the user.
