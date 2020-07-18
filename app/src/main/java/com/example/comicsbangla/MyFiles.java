@@ -84,8 +84,7 @@ import kotlin.jvm.functions.Function1;
 
 public class MyFiles extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
-    FirebaseUser user;
+
     ListView keepReading;
     ArrayList<String> comics_list;
     ArrayList<Pair<String,Integer>> comicname_page_number;
@@ -95,11 +94,11 @@ public class MyFiles extends AppCompatActivity {
         hideSystemUI();
         setContentView(R.layout.activity_my_files);
         keepReading = findViewById(R.id.keep_reading);
-        mAuth=FirebaseAuth.getInstance();
-        user=mAuth.getCurrentUser();
+        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+
         comics_list=new ArrayList<>();
         comicname_page_number=new ArrayList<>();
-        if(user.isAnonymous()) {
+        if(mAuth.getCurrentUser().isAnonymous()) {
             readFromDevice("kr");
         }
         else {
@@ -118,9 +117,10 @@ public class MyFiles extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(ListResult listResult) {
                                     comic_images.addAll(listResult.getItems());
-                                    Intent intent;
                                     MainActivity.main_comic_images = comic_images;
-                                    intent = new Intent(getApplicationContext(), ReadComic.class);
+                                    MainActivity.previous_page="keep_reading";
+                                    Intent intent;
+                                    intent = new Intent(MyFiles.this, ReadComic.class);
                                     startActivity(intent);
                                 }
                             })
@@ -152,7 +152,8 @@ public class MyFiles extends AppCompatActivity {
                         return true;
 
                     case R.id.profile:
-                        if(user.isAnonymous()) {
+                        FirebaseAuth auth=FirebaseAuth.getInstance();
+                        if(auth.getCurrentUser().isAnonymous()) {
                             startActivity(new Intent(getApplicationContext(),Profile.class));
                             overridePendingTransition(0,0);
                         }

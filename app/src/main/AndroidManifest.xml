@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustResize"
         android:usesCleartextTraffic="true">
         <activity android:name=".ResetPassword"></activity>
         <activity android:name=".LoggedInProfile" />

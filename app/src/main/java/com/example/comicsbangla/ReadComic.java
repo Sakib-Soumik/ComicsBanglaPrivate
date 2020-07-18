@@ -1,5 +1,6 @@
 package com.example.comicsbangla;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +29,6 @@ public class ReadComic extends AppCompatActivity {
     static int current_page;
     static String comic_name;
     RecyclerView comic_images;
-    FirebaseAuth mauth;
     boolean adjust=false;
     private FirebaseUser user;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -61,8 +61,7 @@ public class ReadComic extends AppCompatActivity {
         Map<String,?> keys = sharedPref.getAll();
         for(Map.Entry<String,?> entry : keys.entrySet()){
             if(entry.getKey().contains(comic_name)) {
-                pagenumber=Integer.parseInt(entry.getValue().toString());
-                break;
+                pagenumber=Math.max(Integer.parseInt(entry.getValue().toString()),pagenumber);
             }
         }
         if(pagenumber==-1) {
@@ -74,54 +73,30 @@ public class ReadComic extends AppCompatActivity {
         comic_images.setAdapter(comicItemAdapter);
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(!adjust) {
-            current_page-=2;
-            if(current_page<0) current_page=0;
-            adjust=true;
-        }
-        mauth=FirebaseAuth.getInstance();
-        user=mauth.getCurrentUser();
-        if(user.isAnonymous()) {
-            writeOnStorage("kr");
+        if(MainActivity.previous_page.equals("keep_reading")) {
+            startActivity(new Intent(ReadComic.this,MyFiles.class));
         }
         else {
-            writeOnStorage("kr_online");
-            FirebaseAuth mAuth=FirebaseAuth.getInstance();
-            final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("kr_online", MODE_PRIVATE);
-            Map<String,Integer> history = (Map<String, Integer>) sharedPref.getAll();
-
-            DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("User").child(mAuth.getCurrentUser().getUid()).child("History");
-            mDatabaseReference.setValue(history)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("TAG", "onSuccess: History updated on database");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("TAG", "onFailure: " + e.getMessage());
-                        }
-                    });
+            Intent intent=new Intent(ReadComic.this,OverView.class);
+            intent.putExtra("ComicId",MainActivity.previous_page);
+            this.startActivity(intent);
         }
 
-    }
+    }*/
 
     @Override
     public void onPause() {
         super.onPause();
-        mauth=FirebaseAuth.getInstance();
         if(!adjust) {
             current_page-=2;
             if(current_page<0) current_page=0;
             adjust=true;
         }
-        user=mauth.getCurrentUser();
-        if(user.isAnonymous()) {
+        FirebaseAuth auth=FirebaseAuth.getInstance();
+        if(auth.getCurrentUser().isAnonymous()) {
             writeOnStorage("kr");
         }
         else {
@@ -129,13 +104,12 @@ public class ReadComic extends AppCompatActivity {
             FirebaseAuth mAuth=FirebaseAuth.getInstance();
             final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("kr_online", MODE_PRIVATE);
             Map<String,Integer> history = (Map<String, Integer>) sharedPref.getAll();
-
             DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("User").child(mAuth.getCurrentUser().getUid()).child("History");
             mDatabaseReference.setValue(history)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d("TAG", "onSuccess: History updated on database");
+                            Log.d("TAG", "onSuccess:onpause History updated on database");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -182,7 +156,10 @@ public class ReadComic extends AppCompatActivity {
         }
     }
     void writeOnStorage(String file_name) {
-        if(current_page==MainActivity.main_comic_images.size()-1) {
+        int page=current_page;
+        if(adjust) page=current_page+2;
+        if(page==MainActivity.main_comic_images.size()-1) {
+
             SharedPreferences sharedPref = this.getSharedPreferences(
                     file_name, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -202,7 +179,7 @@ public class ReadComic extends AppCompatActivity {
         Map<String,?> keys = sharedPref.getAll();
         SharedPreferences.Editor editor = sharedPref.edit();
         for(Map.Entry<String,?> entry : keys.entrySet()){
-            if(entry.getKey().contains(ReadComic.comic_name)) {
+            if(entry.getKey().contains(ReadComic.comic_name) && Integer.parseInt(entry.getValue().toString())!=-1) {
                 editor.putInt(entry.getKey(),ReadComic.current_page);
                 editor.apply();
                 return;

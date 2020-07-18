@@ -185,7 +185,12 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                                                 editor.apply();
                                             }
                                             Intent maintIntent = new Intent(Signup.this, LoggedInProfile.class);
+                                            maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            maintIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(maintIntent);
+                                            killActivity();
+                                            return;
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -271,6 +276,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         hideSystemUI();
 
     }
+    void killActivity() {
+        finish();
+    }
     void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
@@ -288,5 +296,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
+
 
 }

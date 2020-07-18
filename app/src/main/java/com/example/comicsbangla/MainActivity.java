@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView action_images,new_uploads,most_viewed_recycler,adventure,comedy,children,fiction,mystery;
     private FirebaseAuth mAuth;
     public static String afterlogin;
+    ProgressBar progressBar;
+    public static String previous_page;
     FirebaseUser user;
     ArrayList<String> comicId;
     //@RequiresApi(api = Build.VERSION_CODES.M)
@@ -64,9 +67,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_main);
+        progressBar=findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
         mAuth=FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser();
-        if(!user.isAnonymous()) {
+        if(user==null) {
+            signInAnonymously();
+        }
+        else if(!user.isAnonymous()) {
+            progressBar.setVisibility(View.VISIBLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             SharedPreferences settings = getApplicationContext().getSharedPreferences("kr_online", Context.MODE_PRIVATE);
             settings.edit().clear().apply();
             SharedPreferences sharedPref = this.getSharedPreferences(
@@ -81,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                         editor.putInt(ds.getKey(),Integer.parseInt(ds.getValue().toString()));
                         editor.apply();
                     }
+                    progressBar.setVisibility(View.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
 
                 @Override
@@ -155,7 +168,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    void signInAnonymously() {
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
 
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("TAG", "signInAnonymously:success");
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("TAG", "signInAnonymously:failure", task.getException());
+                            Toast.makeText(getApplicationContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
+                        }
+
+                        // ...
+                    }
+                });
+    }
 
     void hideSystemUI() {
         View decorView = getWindow().getDecorView();
@@ -329,4 +360,5 @@ public class MainActivity extends AppCompatActivity {
             hideSystemUI();
         }
     }
+
 }

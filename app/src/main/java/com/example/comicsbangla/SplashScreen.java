@@ -59,29 +59,31 @@ public class SplashScreen extends AppCompatActivity {
             signInAnonymously();
         }
 
-        final Thread splashTread = new Thread() {
-            @Override
-            public void run() {
+            final Thread splashTread = new Thread() {
+                @Override
+                public void run() {
 
-                try {
-                    int waited = 0;
-                    while (_active && (waited < _splashTime)) {
-                        sleep(100);
-                        if (_active) {
-                            waited += 100;
+                    try {
+                        int waited = 0;
+                        while (_active && (waited < _splashTime)) {
+                            sleep(100);
+                            if (_active) {
+                                waited += 100;
+                            }
                         }
+                    } catch (Exception e) {
+
+                    } finally {
+                        startActivity(new Intent(SplashScreen.this,
+                                MainActivity.class));
+                        finish();
                     }
-                } catch (Exception e) {
-
-                } finally {
-
-                    startActivity(new Intent(SplashScreen.this,
-                            MainActivity.class));
-                    finish();
                 }
+
+                ;
             };
-        };
-        splashTread.start();
+            splashTread.start();
+
     }
 
     void signInAnonymously() {
@@ -90,6 +92,7 @@ public class SplashScreen extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInAnonymously:success");
                         } else {

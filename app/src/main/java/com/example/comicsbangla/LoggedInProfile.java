@@ -3,6 +3,8 @@ package com.example.comicsbangla;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -66,10 +68,17 @@ public class LoggedInProfile extends AppCompatActivity {
                 FirebaseUser user=mAuth.getCurrentUser();
 
                 Intent intentLoadNewActivity = new Intent(LoggedInProfile.this,SplashScreen.class);
-                startActivity(intentLoadNewActivity);}
+                intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intentLoadNewActivity);
+                killActivity();
+
+            }
 
 
         });
+
         //--------------------------------Navigation Bar-------------------------------------\\
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -79,16 +88,17 @@ public class LoggedInProfile extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        startActivity(new Intent(LoggedInProfile.this,MainActivity.class));
                         overridePendingTransition(0,0);
+                        killActivity();
                         return true;
 
                     case R.id.myfiles:
-                        startActivity(new Intent(getApplicationContext(),MyFiles.class));
+                        startActivity(new Intent(LoggedInProfile.this,MyFiles.class));
                         overridePendingTransition(0,0);
+                        killActivity();
                         return true;
                     case R.id.profile:
-
                         return true;
 
                 }
@@ -127,6 +137,9 @@ public class LoggedInProfile extends AppCompatActivity {
             Window window = getWindow();
             window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
+    }
+    public void killActivity() {
+        finish();
     }
 
 }

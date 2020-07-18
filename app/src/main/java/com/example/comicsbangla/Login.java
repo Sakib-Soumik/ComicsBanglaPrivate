@@ -152,15 +152,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         overridePendingTransition(0,0);
+                        Login.this.finish();
                         return true;
 
                     case R.id.myfiles:
                         startActivity(new Intent(getApplicationContext(),MyFiles.class));
                         overridePendingTransition(0,0);
+                        Login.this.finish();
                         return true;
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
-                        overridePendingTransition(0,0);
+                        mAuth=FirebaseAuth.getInstance();
+                        if(mAuth.getCurrentUser().isAnonymous()) {
+                            Toast.makeText(getApplicationContext(),"Login/Signup to view profile and get comic reading history",Toast.LENGTH_LONG).show();
+                        }
+                        Login.this.finish();
                         return true;
 
                 }
@@ -198,9 +203,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                         editor.putInt(ds.getKey(),Integer.parseInt(ds.getValue().toString()));
                                         editor.apply();
                                     }
-                                    startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
+                                    Intent maintIntent = new Intent(Login.this, MainActivity.class);
+                                    maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    maintIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(maintIntent);
+                                    killActivity();
+                                    return;
                                 }
-
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
 
@@ -277,6 +287,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         // put your code here...
         hideSystemUI();
 
+    }
+    void killActivity() {
+        finish();
     }
     void hideSystemUI() {
         View decorView = getWindow().getDecorView();
