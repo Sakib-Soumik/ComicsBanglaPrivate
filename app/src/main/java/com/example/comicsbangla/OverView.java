@@ -61,11 +61,8 @@ public class OverView extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
     float ratingGiven;
-
     Dialog ratingDialog;
     LinearLayout linearLayout;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,9 +94,6 @@ public class OverView extends AppCompatActivity {
             }
 
         });
-        
-
-
 
 
 
@@ -282,6 +276,16 @@ public class OverView extends AppCompatActivity {
         close = (ImageView) ratingDialog.findViewById(R.id.close);
         tick = (ImageView) ratingDialog.findViewById(R.id.tick);
         ratingBarInput =(RatingBar) ratingDialog.findViewById(R.id.ratingBarInput);
+
+        //-------------If the rating is given once, it will be highlighted in ratingbar-------------
+        boolean ratingAlreadyGiven=true;
+        String  ratingByUser= "3.0";
+        if(ratingAlreadyGiven){
+            ratingBarInput.setRating(Float.parseFloat(ratingByUser));
+        }
+        //-----------Ending-------------------------------------------------------------------------
+
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
