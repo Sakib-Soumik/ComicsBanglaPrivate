@@ -86,12 +86,31 @@ public class ReadComic extends AppCompatActivity {
         }
         else {
             writeOnStorage("kr_online");
+            FirebaseAuth mAuth=FirebaseAuth.getInstance();
+            final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("kr_online", MODE_PRIVATE);
+            Map<String,Integer> history = (Map<String, Integer>) sharedPref.getAll();
+
+            DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("User").child(mAuth.getCurrentUser().getUid()).child("History");
+            mDatabaseReference.setValue(history)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("TAG", "onSuccess: History updated on database");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("TAG", "onFailure: " + e.getMessage());
+                        }
+                    });
         }
 
     }
-    @Override
-    public void onPause() {
-        super.onPause();
+
+    /*@Override
+    public void onStop() {
+        super.onStop();
         user=mauth.getCurrentUser();
         if(user.isAnonymous()) {
             writeOnStorage("kr");
@@ -117,7 +136,7 @@ public class ReadComic extends AppCompatActivity {
                         }
                     });
         }
-    }
+    }*/
     void writeOnStorage(String file_name) {
         if(current_page==MainActivity.main_comic_images.size()-1) {
             SharedPreferences sharedPref = this.getSharedPreferences(

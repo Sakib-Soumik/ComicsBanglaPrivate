@@ -29,8 +29,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,8 +109,8 @@ public class SignInWithGoogle extends AppCompatActivity {
                                     FirebaseAuth mAuth=FirebaseAuth.getInstance();
                                     SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("kr", MODE_PRIVATE);
                                     Map<String,Integer> history = (Map<String, Integer>) sharedPref.getAll();
-
-                                    DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("User").child(mAuth.getCurrentUser().getUid()).child("History");
+                                    FirebaseAuth auth=FirebaseAuth.getInstance();
+                                    DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("User").child(auth.getCurrentUser().getUid()).child("History");
                                     mDatabaseReference.setValue(history)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
@@ -137,7 +140,30 @@ public class SignInWithGoogle extends AppCompatActivity {
                                             });
 
                                 } else {
-                                    startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
+                                    SharedPreferences settings = getApplicationContext().getSharedPreferences("kr_online", Context.MODE_PRIVATE);
+                                    settings.edit().clear().apply();
+                                    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                                            "kr_online", MODE_PRIVATE);
+                                    final SharedPreferences.Editor editor = sharedPref.edit();
+                                    DatabaseReference userRef= FirebaseDatabase.getInstance().getReference();
+                                    FirebaseAuth auth=FirebaseAuth.getInstance();
+                                    userRef = userRef.child("User").child(auth.getCurrentUser().getUid()).child("History");
+                                    userRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                                editor.putInt(ds.getKey(),Integer.parseInt(ds.getValue().toString()));
+                                                editor.apply();
+                                            }
+                                            startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
                                 }
 
                             } else {

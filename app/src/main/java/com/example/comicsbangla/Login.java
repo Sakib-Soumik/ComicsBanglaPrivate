@@ -3,7 +3,9 @@ package com.example.comicsbangla;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -39,6 +41,11 @@ import com.google.firebase.auth.FirebaseAuthMultiFactorException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.MultiFactorResolver;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -176,8 +183,31 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(getApplicationContext(),"Signed In!",Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "signInWithEmail:success");
+                            SharedPreferences settings = getApplicationContext().getSharedPreferences("kr_online", Context.MODE_PRIVATE);
+                            settings.edit().clear().apply();
+                            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                                    "kr_online", MODE_PRIVATE);
+                            final SharedPreferences.Editor editor = sharedPref.edit();
+                            DatabaseReference userRef= FirebaseDatabase.getInstance().getReference();
+                            FirebaseAuth auth=FirebaseAuth.getInstance();
+                            userRef = userRef.child("User").child(auth.getCurrentUser().getUid()).child("History");
+                            userRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        editor.putInt(ds.getKey(),Integer.parseInt(ds.getValue().toString()));
+                                        editor.apply();
+                                    }
+                                    startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
+                                }
 
-                                startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
 
 
                         } else {
