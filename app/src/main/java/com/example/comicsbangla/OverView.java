@@ -312,6 +312,7 @@ public class OverView extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(OverView.this, "Rating given"+ratingGiven, Toast.LENGTH_SHORT).show();
+                    ratingDialog.dismiss();
                 }
             }
 
