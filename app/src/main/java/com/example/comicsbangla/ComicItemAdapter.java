@@ -1,7 +1,9 @@
 package com.example.comicsbangla;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -22,12 +24,16 @@ import com.bumptech.glide.request.RequestOptions;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.firebase.storage.StorageReference;
 
+
 import java.util.ArrayList;
+import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ComicItemAdapter extends RecyclerView.Adapter {
     ArrayList<StorageReference> comic_images=new ArrayList<>();
     Context context;
-    public ComicItemAdapter(Context context,ArrayList<StorageReference> comic_images) {
+    public ComicItemAdapter(Context context, ArrayList<StorageReference> comic_images) {
         this.context=context;
         this.comic_images=comic_images;
     }
@@ -93,5 +99,6 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return comic_images.size();
     }
+
 
 }

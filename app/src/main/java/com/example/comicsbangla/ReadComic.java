@@ -1,12 +1,9 @@
 package com.example.comicsbangla;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Map;
-import java.util.TreeMap;
 
 public class ReadComic extends AppCompatActivity {
 
@@ -33,13 +29,13 @@ public class ReadComic extends AppCompatActivity {
     static String comic_name;
     RecyclerView comic_images;
     FirebaseAuth mauth;
+    boolean adjust=false;
     private FirebaseUser user;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         hideSystemUI();
         super.onCreate(savedInstanceState);
-        mauth=FirebaseAuth.getInstance();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -52,7 +48,8 @@ public class ReadComic extends AppCompatActivity {
         ComicItemAdapter comicItemAdapter=new ComicItemAdapter(ReadComic.this,MainActivity.main_comic_images);
         comic_images.setLayoutManager(new LinearLayoutManager(ReadComic.this));
         SharedPreferences sharedPref = null;
-        if(mauth.getCurrentUser().isAnonymous()) {
+        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser().isAnonymous()) {
             sharedPref = this.getSharedPreferences(
                     "kr", MODE_PRIVATE);
         }
@@ -80,6 +77,12 @@ public class ReadComic extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        if(!adjust) {
+            current_page-=2;
+            if(current_page<0) current_page=0;
+            adjust=true;
+        }
+        mauth=FirebaseAuth.getInstance();
         user=mauth.getCurrentUser();
         if(user.isAnonymous()) {
             writeOnStorage("kr");
@@ -108,9 +111,15 @@ public class ReadComic extends AppCompatActivity {
 
     }
 
-    /*@Override
-    public void onStop() {
-        super.onStop();
+    @Override
+    public void onPause() {
+        super.onPause();
+        mauth=FirebaseAuth.getInstance();
+        if(!adjust) {
+            current_page-=2;
+            if(current_page<0) current_page=0;
+            adjust=true;
+        }
         user=mauth.getCurrentUser();
         if(user.isAnonymous()) {
             writeOnStorage("kr");
@@ -136,39 +145,8 @@ public class ReadComic extends AppCompatActivity {
                         }
                     });
         }
-    }*/
-    void writeOnStorage(String file_name) {
-        if(current_page==MainActivity.main_comic_images.size()-1) {
-            SharedPreferences sharedPref = this.getSharedPreferences(
-                    file_name, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-
-            Map<String,?> keys = sharedPref.getAll();
-            for(Map.Entry<String,?> entry : keys.entrySet()){
-                if(entry.getKey().contains(comic_name)) {
-                    editor.putInt(entry.getKey(),-1);
-                    editor.apply();
-                    break;
-                }
-            }
-            return;
-        }
-        SharedPreferences sharedPref = this.getSharedPreferences(
-                file_name, MODE_PRIVATE);
-        Map<String,?> keys = sharedPref.getAll();
-        SharedPreferences.Editor editor = sharedPref.edit();
-        for(Map.Entry<String,?> entry : keys.entrySet()){
-            if(entry.getKey().contains(comic_name)) {
-                editor.putInt(entry.getKey(),current_page);
-                editor.apply();
-                return;
-            }
-        }
-        Map<String,?> m=sharedPref.getAll();
-        String key="{"+ Integer.toString((int)m.size()) +"}"+comic_name;
-        editor.putInt(key,current_page);
-        editor.apply();
     }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     void hideSystemUI() {
         View decorView = getWindow().getDecorView();
@@ -203,6 +181,40 @@ public class ReadComic extends AppCompatActivity {
             hideSystemUI();
         }
     }
+    void writeOnStorage(String file_name) {
+        if(current_page==MainActivity.main_comic_images.size()-1) {
+            SharedPreferences sharedPref = this.getSharedPreferences(
+                    file_name, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            Map<String,?> keys = sharedPref.getAll();
+            for(Map.Entry<String,?> entry : keys.entrySet()){
+                if(entry.getKey().contains(comic_name)) {
+                    editor.putInt(entry.getKey(),-1);
+                    editor.apply();
+                    break;
+                }
+            }
+            return;
+        }
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                file_name, MODE_PRIVATE);
+        Map<String,?> keys = sharedPref.getAll();
+        SharedPreferences.Editor editor = sharedPref.edit();
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+            if(entry.getKey().contains(ReadComic.comic_name)) {
+                editor.putInt(entry.getKey(),ReadComic.current_page);
+                editor.apply();
+                return;
+            }
+        }
+        Map<String,?> m=sharedPref.getAll();
+        String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name;
+        editor.putInt(key,ReadComic.current_page);
+        editor.apply();
+    }
+
+
 }
 
 
