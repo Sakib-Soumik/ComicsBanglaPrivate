@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -27,6 +29,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoggedInProfile extends AppCompatActivity {
     FirebaseAuth mAuth;
     Button logout;
+    TextView userEmail,userName;
+    ImageView userPic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +45,14 @@ public class LoggedInProfile extends AppCompatActivity {
                 .build();
 
         final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         //-------------------------------------Finding Views----------------------------------------
         logout= findViewById(R.id.logout);
+        userEmail= findViewById(R.id.profileEmail);
+        userName= findViewById(R.id.profileName);
+        userPic= findViewById(R.id.profilePic);
+        //Default Image
+        userPic.setImageResource(R.drawable.defaultpropic);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

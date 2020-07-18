@@ -5,14 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back"
-    tools:context=".LoggedInProfile">
+    tools:context=".LoggedInProfile"
+    >
+    <ImageView
+        android:id="@+id/profilePic"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/_60sdp"
+        >
+    </ImageView>
+    <TextView
+        android:id="@+id/profileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/_200sdp"
+        android:text="Proffile name"
+        android:textSize="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        >
 
+    </TextView>
+    <TextView
+        android:id="@+id/profileEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile name"
+        android:textSize="@dimen/_20sdp"
+        android:layout_alignLeft="@id/profileName"
+        android:layout_below="@id/profileName"
+        android:layout_marginBottom="@dimen/_20sdp"
+        >
+
+    </TextView>
     <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/round_buttons"
-        android:layout_centerInParent="true"
+        android:layout_alignLeft="@id/profileName"
+        android:layout_below="@id/profileEmail"
         android:text="Log Out"
         >
 
