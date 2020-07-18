@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +24,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,7 +34,13 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
     FirebaseAuth mAuth;
@@ -153,13 +163,38 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseAuth mAuth=FirebaseAuth.getInstance();
+                            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("kr", MODE_PRIVATE);
+                            Map<String,Integer> history = (Map<String, Integer>) sharedPref.getAll();
+
+                            DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("User").child(mAuth.getCurrentUser().getUid()).child("History");
+                            mDatabaseReference.setValue(history)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            SharedPreferences settings = getApplicationContext().getSharedPreferences("kr_online", Context.MODE_PRIVATE);
+                                            settings.edit().clear().apply();
+                                            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                                                    "kr_online", MODE_PRIVATE);
+                                            final SharedPreferences.Editor editor = sharedPref.edit();
+                                            SharedPreferences kr = getApplicationContext().getSharedPreferences(
+                                                    "kr", MODE_PRIVATE);
+                                            Map<String,?> keys = kr.getAll();
+                                            for(Map.Entry<String,?> entry : keys.entrySet()){
+                                                editor.putInt(entry.getKey(),Integer.parseInt(entry.getValue().toString()));
+                                                editor.apply();
+                                            }
+                                            Intent maintIntent = new Intent(Signup.this, LoggedInProfile.class);
+                                            startActivity(maintIntent);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "onFailure: " + e.getMessage());
+                                        }
+                                    });
                             Toast.makeText(getApplicationContext(),"Welcome!", Toast.LENGTH_LONG).show();
-
-                            Log.d(TAG, "createUserWithEmail:success");
-
-                                startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
-
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -221,22 +256,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             RePasswordInput.setError("আপনার পাসওয়ার্ড মিলে নি!",error);
         }
     }
-    public void linkAccount(String email,String pass) {
-        AuthCredential credential = EmailAuthProvider.getCredential(email, pass);
-        mAuth.getCurrentUser().linkWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("link", "linkWithCredential:success");
-                        } else {
-                            Log.w("link", "linkWithCredential:failure", task.getException());
 
-                        }
-
-                    }
-                });
-    }
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -268,4 +288,5 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
+
 }

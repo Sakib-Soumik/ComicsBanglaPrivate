@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
@@ -34,7 +36,6 @@ public class ResetPassword extends AppCompatActivity implements View.OnClickList
     TextInputLayout l0;
     EditText resetEmail;
 
-    boolean EmailFoundInDB= true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,31 @@ public class ResetPassword extends AppCompatActivity implements View.OnClickList
 
         //-------------------------------------Submit Button Is Clicked-----------------------------
         submit.setOnClickListener(this);
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
+        //perform ItemSelectedListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.myfiles:
+                        startActivity(new Intent(getApplicationContext(),MyFiles.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(),Profile.class));
+                        return true;
+
+                }
+                return false;
+            }
+        });
 
 
     }
@@ -146,7 +172,7 @@ public class ResetPassword extends AppCompatActivity implements View.OnClickList
                                     }
                                 }
                             });
-                }  
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

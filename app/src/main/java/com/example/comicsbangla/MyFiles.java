@@ -100,56 +100,27 @@ public class MyFiles extends AppCompatActivity {
         comics_list=new ArrayList<>();
         comicname_page_number=new ArrayList<>();
         if(user.isAnonymous()) {
-            SharedPreferences sharedPref = this.getSharedPreferences(
-                    "kr", MODE_PRIVATE);
-            Map<String,Integer> keys = (Map<String, Integer>) sharedPref.getAll();
-            List<String> sortedKeys=new ArrayList(keys.keySet());
-            Collections.sort(sortedKeys);
-            ArrayList<Pair<String,String>> list=new ArrayList<>();
-            for (int i=0;i<sortedKeys.size();i++) {
-                int value=Integer.parseInt(String.valueOf(keys.get(sortedKeys.get(i))));
-                if(value!=-1) {
-                    list.add(new Pair<String, String>(sortedKeys.get(i), Integer.toString(keys.get(sortedKeys.get(i)))));
-                }
-                // do something
-            }
-            Collections.reverse(list);
-            for(int i=0;i<list.size();i++){
-                String key=list.get(i).first;
-                StringBuilder sb=new StringBuilder(key);
-                while(true) {
-                    char c=sb.charAt(0);
-                    if(c==']') {
-                        sb.deleteCharAt(0);
-                        break;
-                    }
-                    sb.deleteCharAt(0);
-                }
-                key=sb.toString();
-                comicname_page_number.add(new Pair<>(key, Integer.parseInt(list.get(i).second)));
-                comics_list.add(key);
-            }
-            if(comics_list.isEmpty()) {
-                comics_list.add("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন");
-            }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.sv,R.id.textView10,comics_list);
-            keepReading.setAdapter(adapter);
+            readFromDevice("kr");
         }
+        else {
+            readFromDevice("kr_online");
+        }
+
         keepReading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(!comics_list.get(position).equals("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন"));
-                    ReadComic.comic_name=comicname_page_number.get(position).first;
-                    StorageReference comicref=FirebaseStorage.getInstance().getReference().child("Comic/"+ReadComic.comic_name);
-                    final ArrayList<StorageReference> comic_images=new ArrayList<>();
+                if(!comics_list.get(position).equals("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন")) {
+                    ReadComic.comic_name = comicname_page_number.get(position).first;
+                    StorageReference comicref = FirebaseStorage.getInstance().getReference().child("Comic/" + ReadComic.comic_name);
+                    final ArrayList<StorageReference> comic_images = new ArrayList<>();
                     comicref.listAll()
                             .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                                 @Override
                                 public void onSuccess(ListResult listResult) {
                                     comic_images.addAll(listResult.getItems());
                                     Intent intent;
-                                    MainActivity.main_comic_images=comic_images;
-                                    intent=new Intent(getApplicationContext(),ReadComic.class);
+                                    MainActivity.main_comic_images = comic_images;
+                                    intent = new Intent(getApplicationContext(), ReadComic.class);
                                     startActivity(intent);
                                 }
                             })
@@ -159,6 +130,7 @@ public class MyFiles extends AppCompatActivity {
                                     // Uh-oh, an error occurred!
                                 }
                             });
+                }
             }
         });
 
@@ -227,6 +199,42 @@ public class MyFiles extends AppCompatActivity {
         if (hasFocus) {
             hideSystemUI();
         }
+    }
+    void readFromDevice(String filename) {
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                filename, MODE_PRIVATE);
+        Map<String,Integer> keys = (Map<String, Integer>) sharedPref.getAll();
+        List<String> sortedKeys=new ArrayList(keys.keySet());
+        Collections.sort(sortedKeys);
+        ArrayList<Pair<String,String>> list=new ArrayList<>();
+        for (int i=0;i<sortedKeys.size();i++) {
+            int value=Integer.parseInt(String.valueOf(keys.get(sortedKeys.get(i))));
+            if(value!=-1) {
+                list.add(new Pair<String, String>(sortedKeys.get(i), Integer.toString(keys.get(sortedKeys.get(i)))));
+            }
+            // do something
+        }
+        Collections.reverse(list);
+        for(int i=0;i<list.size();i++){
+            String key=list.get(i).first;
+            StringBuilder sb=new StringBuilder(key);
+            while(true) {
+                char c=sb.charAt(0);
+                if(c=='}') {
+                    sb.deleteCharAt(0);
+                    break;
+                }
+                sb.deleteCharAt(0);
+            }
+            key=sb.toString();
+            comicname_page_number.add(new Pair<>(key, Integer.parseInt(list.get(i).second)));
+            comics_list.add(key);
+        }
+        if(comics_list.isEmpty()) {
+            comics_list.add("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন");
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.sv,R.id.textView10,comics_list);
+        keepReading.setAdapter(adapter);
     }
 }
 

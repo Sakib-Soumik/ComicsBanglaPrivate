@@ -3,8 +3,10 @@ package com.example.comicsbangla;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +19,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -25,9 +29,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignInWithGoogle extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
@@ -90,15 +98,48 @@ public class SignInWithGoogle extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                progressBar.setVisibility(View.GONE);
+
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("TAG", "signInWithCredential:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
+                                if (isNewUser) {
+                                    FirebaseAuth mAuth=FirebaseAuth.getInstance();
+                                    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("kr", MODE_PRIVATE);
+                                    Map<String,Integer> history = (Map<String, Integer>) sharedPref.getAll();
 
+                                    DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("User").child(mAuth.getCurrentUser().getUid()).child("History");
+                                    mDatabaseReference.setValue(history)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    SharedPreferences settings = getApplicationContext().getSharedPreferences("kr_online", Context.MODE_PRIVATE);
+                                                    settings.edit().clear().apply();
+                                                    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                                                            "kr_online", MODE_PRIVATE);
+                                                    final SharedPreferences.Editor editor = sharedPref.edit();
+                                                    SharedPreferences kr = getApplicationContext().getSharedPreferences(
+                                                            "kr", MODE_PRIVATE);
+                                                    Map<String,?> keys = kr.getAll();
+                                                    for(Map.Entry<String,?> entry : keys.entrySet()){
+                                                            editor.putInt(entry.getKey(),Integer.parseInt(entry.getValue().toString()));
+                                                            editor.apply();
+                                                    }
+                                                    progressBar.setVisibility(View.GONE);
+                                                    Intent maintIntent = new Intent(SignInWithGoogle.this, LoggedInProfile.class);
+                                                    startActivity(maintIntent);
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d("TAG", "onFailure: " + e.getMessage());
+                                                }
+                                            });
 
+                                } else {
                                     startActivity(new Intent(getApplicationContext(),LoggedInProfile.class));
+                                }
 
-                                Log.d("TAG", "onComplete: signed in");
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.d("TAG", "signInWithCredential:failure", task.getException());
@@ -107,6 +148,16 @@ public class SignInWithGoogle extends AppCompatActivity {
                         }
                     });
 
+    }
+    public static class User {
+
+        public Map<String,Integer> history;
+
+        public User(Map<String,Integer> userHistory) {
+            history=userHistory;
+        }
+
 
     }
+
 }

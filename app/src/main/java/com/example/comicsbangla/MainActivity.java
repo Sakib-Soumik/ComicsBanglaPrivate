@@ -1,7 +1,9 @@
 package com.example.comicsbangla;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +46,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -61,10 +64,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_main);
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        comicId=new ArrayList<>();
         mAuth=FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser();
+        if(!user.isAnonymous()) {
+            SharedPreferences settings = getApplicationContext().getSharedPreferences("kr_online", Context.MODE_PRIVATE);
+            settings.edit().clear().apply();
+            SharedPreferences sharedPref = this.getSharedPreferences(
+                    "kr_online", MODE_PRIVATE);
+            final SharedPreferences.Editor editor = sharedPref.edit();
+            DatabaseReference userRef= FirebaseDatabase.getInstance().getReference();
+            userRef = userRef.child("User").child(user.getUid()).child("History");
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        editor.putInt(ds.getKey(),Integer.parseInt(ds.getValue().toString()));
+                        editor.apply();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        comicId=new ArrayList<>();
+
         action_images=findViewById(R.id.recyclerAction);
         new_uploads=findViewById(R.id.new_upload);
         adventure=findViewById(R.id.recyclerAdventure);

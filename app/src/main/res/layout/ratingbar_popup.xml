@@ -38,7 +38,7 @@
                 android:layout_marginRight="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/redcross"
-                android:marginRight="@dimen/_90sdp">
+                >
 
             </ImageView>
 
@@ -64,7 +64,7 @@
                 android:layout_marginRight="@dimen/_20sdp"
 
                 android:background="@drawable/tick1"
-                android:marginRight="@dimen/_90sdp">
+                >
 
             </ImageView>
 
