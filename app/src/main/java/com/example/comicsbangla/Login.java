@@ -3,6 +3,7 @@ package com.example.comicsbangla;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,11 +60,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     ProgressBar progressBar;
     FirebaseAuth mAuth;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_login);
+
         progressBar=findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
         mAuth=FirebaseAuth.getInstance();
@@ -308,4 +312,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
+
 }

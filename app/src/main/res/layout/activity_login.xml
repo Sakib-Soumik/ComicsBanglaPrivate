@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/back"
     android:paddingTop="@dimen/_10sdp"
+    android:id="@+id/login_layout"
     tools:context=".Login">
     <ProgressBar
         android:id="@+id/progressbar"

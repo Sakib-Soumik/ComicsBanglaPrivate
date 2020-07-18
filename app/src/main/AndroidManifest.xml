@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="adjustResize"
+
         android:usesCleartextTraffic="true">
         <activity android:name=".ResetPassword"></activity>
         <activity android:name=".LoggedInProfile" />
@@ -34,9 +34,13 @@
 
         <activity android:name=".ReadComic" />
         <activity android:name=".OverView" />
-        <activity android:name=".Login" />
+        <activity android:name=".Login"
+
+            />
         <activity android:name=".SignInWithGoogle" />
-        <activity android:name=".Signup" />
+        <activity android:name=".Signup"
+
+            />
         <activity
             android:name=".ui.login.Login"
             android:label="@string/title_activity_login" />

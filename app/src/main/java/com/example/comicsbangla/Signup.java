@@ -56,6 +56,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_signup);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         mAuth=FirebaseAuth.getInstance();
         progressBar=findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -27,6 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class LoggedInProfile extends AppCompatActivity {
     FirebaseAuth mAuth;
@@ -54,8 +56,32 @@ public class LoggedInProfile extends AppCompatActivity {
         userName= findViewById(R.id.profileName);
         userPic= findViewById(R.id.profilePic);
         //Default Image
-        userPic.setImageResource(R.drawable.defaultpropic);
 
+        FirebaseAuth auth=FirebaseAuth.getInstance();
+        FirebaseUser user=auth.getCurrentUser();
+        if(user.getDisplayName()!=null) {
+            userName.setText(user.getDisplayName());
+        }
+        else {
+            userName.setText("");
+        }
+        if(user.getEmail()!=null) {
+            userEmail.setText(user.getEmail());
+        }
+        else {
+            userEmail.setText("");
+        }
+        if(user.getPhotoUrl()!=null) {
+            Glide.with(getApplicationContext())
+                    .load((String.valueOf(user.getPhotoUrl())))
+                    .placeholder(R.drawable.comic_load)
+                    //.apply(requestOptions)
+                    .dontTransform()
+                    .into(userPic);
+        }
+        else {
+            userPic.setImageResource(R.drawable.defaultpropic);
+        }
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
