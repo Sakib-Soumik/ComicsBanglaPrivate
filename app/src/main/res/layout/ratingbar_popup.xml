@@ -3,16 +3,9 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:layout_gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="@dimen/_20sdp"
     >
 
-    
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        >
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_230sdp"
@@ -32,6 +25,7 @@
                 android:textColor="#C1000000" />
 
             <ImageView
+                android:id="@+id/close"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_alignParentRight="true"
@@ -57,28 +51,15 @@
                 />
 
             <ImageView
+                android:id="@+id/tick"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/ratingBarInput"
                 android:layout_marginRight="@dimen/_20sdp"
-
                 android:background="@drawable/tick1"
                 >
 
             </ImageView>
-
-
-
-
         </RelativeLayout>
-
-
-
-
-
-
-    </androidx.cardview.widget.CardView>
-
-
 </RelativeLayout>

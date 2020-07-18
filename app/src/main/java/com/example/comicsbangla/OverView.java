@@ -2,13 +2,20 @@ package com.example.comicsbangla;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -45,34 +53,56 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class OverView extends AppCompatActivity {
-    ImageView comic_cover;
+    ImageView comic_cover,close,tick;
     Button read;
     TextView description,comic_name,comic_author,rating_value_output,view;
-    RatingBar ratingBarInput, ratingBarOutput;
+    RatingBar ratingBarInput;
     String banglaRatingString;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    String Review;
-    ScrollView scrollView;
+    float ratingGiven;
+
+    Dialog ratingDialog;
+    LinearLayout linearLayout;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_over_view);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         //--------------Finding Everything-------------//
 
-        comic_cover= findViewById(R.id.comic_cover);
-        read= findViewById(R.id.read);
+        comic_cover = findViewById(R.id.comic_cover);
+        read = findViewById(R.id.read);
         description = findViewById(R.id.comic_description);
         comic_name = findViewById(R.id.comic_name);
         comic_author = findViewById(R.id.author_name);
-        rating_value_output= findViewById(R.id.ratingValueOutput);
-        ratingBarInput= findViewById(R.id.ratingBarInput);
-        view= findViewById(R.id.viewCount);
-        mAuth=FirebaseAuth.getInstance();
-        user=mAuth.getCurrentUser();
+        rating_value_output = findViewById(R.id.ratingValueOutput);
+        view = findViewById(R.id.viewCount);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        linearLayout = findViewById(R.id.linear);
+
+        //---------------------------------Rating Bar Dialog Box------------------------------------
+
+        ratingDialog = new Dialog(this);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showdialog();
+            }
+
+        });
+        
+
+
+
+
+
         //------------------------showing everything from database------------------//
         final String comicid=getIntent().getStringExtra("ComicId");
         DatabaseReference cover_ref= FirebaseDatabase.getInstance().getReference();
@@ -171,16 +201,6 @@ public class OverView extends AppCompatActivity {
         });
 
 
-
-        //---------------------------Getting User Rating input --------------------------------\\
-        ratingBarInput.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                //value is stored in -> rating
-                Toast.makeText(OverView.this, "Rating Given :"+rating, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         //-------------------------------- Clicking "পড়ুন"-------------------------------------\\
         read.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,6 +275,50 @@ public class OverView extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void showdialog() {
+        ratingDialog.setContentView(R.layout.ratingbar_popup);
+        close = (ImageView) ratingDialog.findViewById(R.id.close);
+        tick = (ImageView) ratingDialog.findViewById(R.id.tick);
+        ratingBarInput =(RatingBar) ratingDialog.findViewById(R.id.ratingBarInput);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratingDialog.dismiss();
+            }
+
+        });
+        tick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratingGiven= ratingBarInput.getRating();
+
+                if(ratingGiven<1){
+
+                    //----------Custom Toast-----------------\\
+                    Toast toast = Toast.makeText(OverView.this, "সর্বনিম্ন রেটিং ১", Toast.LENGTH_LONG);
+                    int backgroundColor = ResourcesCompat.getColor(toast.getView().getResources(), R.color.OnClickColor, null);
+                    toast.getView().getBackground().setColorFilter(backgroundColor, PorterDuff.Mode.SRC_IN);
+                    View view = toast.getView();
+                    TextView text = (TextView) view.findViewById(android.R.id.message);
+                    text.setTextColor(Color.BLACK);
+                    Typeface typeface = ResourcesCompat.getFont(OverView.this, R.font.st);
+                    text.setTypeface(typeface);
+                    toast.setGravity(Gravity.BOTTOM, 0, 250);
+                    text.setTextSize(24);
+                    toast.show();
+                    //-------------Custom Toast End---------------\\
+                }
+                else{
+                    Toast.makeText(OverView.this, "Rating given"+ratingGiven, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        });
+        ratingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        ratingDialog.show();
+
     }
 
 
