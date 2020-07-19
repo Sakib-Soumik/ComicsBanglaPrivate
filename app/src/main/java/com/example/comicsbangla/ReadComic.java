@@ -30,6 +30,7 @@ public class ReadComic extends AppCompatActivity {
     static String comic_name;
     RecyclerView comic_images;
     boolean adjust=false;
+
     private FirebaseUser user;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -101,6 +102,7 @@ public class ReadComic extends AppCompatActivity {
         }
         else {
             writeOnStorage("kr_online");
+
             FirebaseAuth mAuth=FirebaseAuth.getInstance();
             final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("kr_online", MODE_PRIVATE);
             Map<String,Integer> history = (Map<String, Integer>) sharedPref.getAll();
@@ -186,7 +188,7 @@ public class ReadComic extends AppCompatActivity {
             }
         }
         Map<String,?> m=sharedPref.getAll();
-        String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name;
+        String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name+"{"+Integer.toString(MainActivity.main_comic_images.size())+"}";
         editor.putInt(key,ReadComic.current_page);
         editor.apply();
     }

@@ -84,7 +84,6 @@ import kotlin.jvm.functions.Function1;
 
 public class MyFiles extends AppCompatActivity {
 
-
     ListView keepReading;
     ArrayList<String> comics_list;
     ArrayList<Pair<String,Integer>> comicname_page_number;
@@ -192,8 +191,15 @@ public class MyFiles extends AppCompatActivity {
         super.onResume();
         // put your code here...
         hideSystemUI();
-
+        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser().isAnonymous()) {
+            readFromDevice("kr");
+        }
+        else {
+            readFromDevice("kr_online");
+        }
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -216,6 +222,7 @@ public class MyFiles extends AppCompatActivity {
             // do something
         }
         Collections.reverse(list);
+        ArrayList<String> comicinfo=new ArrayList<>();
         for(int i=0;i<list.size();i++){
             String key=list.get(i).first;
             StringBuilder sb=new StringBuilder(key);
@@ -227,15 +234,88 @@ public class MyFiles extends AppCompatActivity {
                 }
                 sb.deleteCharAt(0);
             }
-            key=sb.toString();
+            boolean found=false;
+            String total_page="";
+            key="";
+            while(true) {
+                if(sb.toString().isEmpty()) break;
+                char c=sb.charAt(0);
+                if(c=='{') {
+                    sb.deleteCharAt(0);
+                    found=true;
+                    continue;
+                }
+                if(found) {
+                    if( c!='}') {
+                        total_page += c;
+                    }
+                    sb.deleteCharAt(0);
+                }
+                else {
+                    key+=c;
+                    sb.deleteCharAt(0);
+                }
+            }
+            String current_page=Integer.toString(Integer.parseInt(list.get(i).second)+1);
+            int size= current_page.length();
+            char ratings[] = new char[size];
+            char ratingInBangla[]=new char[size];
+            ratings= current_page.toCharArray();
+            for(int j = 0; j <ratings.length; j++){
+                TranslateNumber(ratings[j],j,ratingInBangla);
+            }
+            StringBuilder stringBuilder= new StringBuilder();
+            for(char ch:ratingInBangla){
+                stringBuilder.append(ch);
+            }
+            size= total_page.length();
+            char ratings2[] = new char[size];
+            char ratingInBangla2[]=new char[size];
+            ratings2= total_page.toCharArray();
+            for(int j = 0; j <ratings2.length; j++){
+                TranslateNumber(ratings2[j],j,ratingInBangla2);
+            }
+            StringBuilder stringBuilder2= new StringBuilder();
+            for(char ch:ratingInBangla2){
+                stringBuilder2.append(ch);
+            }
+            String total_page_in_bangla= stringBuilder2.toString();
+            comicinfo.add(key+"("+stringBuilder.toString()+"/"+total_page_in_bangla+"পৃষ্ঠা)");
             comicname_page_number.add(new Pair<>(key, Integer.parseInt(list.get(i).second)));
             comics_list.add(key);
         }
         if(comics_list.isEmpty()) {
+            comicinfo.add("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন");
             comics_list.add("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন");
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.sv,R.id.textView10,comics_list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.sv,R.id.textView10,comicinfo);
         keepReading.setAdapter(adapter);
+    }
+    private void TranslateNumber(char rating,int i, char[] ratingInBangla) {
+        switch (rating){
+            case '0': ratingInBangla[i]='0';
+                break;
+            case '1': ratingInBangla[i]='১';
+                break;
+            case '2': ratingInBangla[i]='২';
+                break;
+            case '3': ratingInBangla[i]='৩';
+                break;
+            case '4': ratingInBangla[i]='৪';
+                break;
+            case '5': ratingInBangla[i]='৫';
+                break;
+            case '6': ratingInBangla[i]='৬';
+                break;
+            case '7': ratingInBangla[i]='৭';
+                break;
+            case '8': ratingInBangla[i]='৮';
+                break;
+            case '9': ratingInBangla[i]='৯';
+                break;
+            case '.': ratingInBangla[i]='.';
+
+        }
     }
 }
 
