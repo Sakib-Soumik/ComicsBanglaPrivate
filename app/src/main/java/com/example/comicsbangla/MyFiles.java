@@ -292,6 +292,7 @@ public class MyFiles extends AppCompatActivity {
         keepReading.setAdapter(adapter);
     }
     private void TranslateNumber(char rating,int i, char[] ratingInBangla) {
+        //ghfhgf
         switch (rating){
             case '0': ratingInBangla[i]='0';
                 break;
