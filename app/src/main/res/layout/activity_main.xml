@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".MainActivity"
     android:fitsSystemWindows="true"
     android:background="@drawable/back">
@@ -40,22 +41,34 @@
             android:id="@+id/new_upload"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_250sdp"
-
             android:background="@drawable/back"
             android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></androidx.recyclerview.widget.RecyclerView>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        
+        <androidx.cardview.widget.CardView
+            android:id="@+id/roundCardView"
+            android:layout_width="@dimen/_32sdp"
+            app:cardBackgroundColor="#20000000"
+            app:cardElevation="0dp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_alignParentRight="true"
+            app:cardCornerRadius="@dimen/_30sdp">
 
         <ImageButton
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_23sdp"
-            android:layout_marginRight="@dimen/_18sdp"
-            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
             android:background="@drawable/searchicon"
             android:id="@+id/search_button"
             >
 
         </ImageButton>
+
+        </androidx.cardview.widget.CardView>
 
     <RelativeLayout
         android:layout_marginTop="@dimen/_15sdp"

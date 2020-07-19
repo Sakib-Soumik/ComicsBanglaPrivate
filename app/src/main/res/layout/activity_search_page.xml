@@ -37,6 +37,7 @@
             android:paddingTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_10sdp"
             android:textCursorDrawable="@drawable/cursor"
+            android:drawableLeft="@drawable/ic_search"
             android:layout_height="match_parent"
             android:textSize="@dimen/_24sdp"
             android:fontFamily="@font/st"
@@ -45,16 +46,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageButton
-        android:id="@+id/searchClicked"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:background="@drawable/searchicon2"
-        android:layout_marginRight="@dimen/_14sdp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/_38sdp">
-
-    </ImageButton>
     <ListView
         android:id="@+id/searchlist"
         android:layout_width="match_parent"
