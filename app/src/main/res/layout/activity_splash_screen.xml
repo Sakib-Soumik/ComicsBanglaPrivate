@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_screen_edited"
+    android:background="@drawable/sp"
     tools:context=".SplashScreen"
     >
 

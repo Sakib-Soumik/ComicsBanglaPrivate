@@ -46,7 +46,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
         </androidx.recyclerview.widget.RecyclerView>
-        
+
         <androidx.cardview.widget.CardView
             android:id="@+id/roundCardView"
             android:layout_width="@dimen/_32sdp"
