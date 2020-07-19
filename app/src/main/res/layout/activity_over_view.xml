@@ -25,7 +25,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_100sdp">
+            >
 
             <ImageView
                 android:layout_width="match_parent"
@@ -79,23 +79,14 @@
                 android:layout_below="@id/author_name"
                 android:fontFamily="@font/st"
                 />
-
-            <RelativeLayout
-                android:id="@+id/layoutLin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/comic_description"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="@dimen/_35sdp"
-                android:layout_marginStart="@dimen/_35sdp"
-                android:layout_alignParentStart="true">
                 <LinearLayout
+                    android:layout_below="@id/comic_description"
+                    android:layout_marginLeft="@dimen/_50sdp"
                     android:id="@+id/linear"
+                    android:layout_marginTop="@dimen/_40sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
                     android:layout_alignParentStart="true">
 
                     <TextView
@@ -136,17 +127,19 @@
                 </LinearLayout>
                 <Button
                     android:id="@+id/read"
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_40sdp"
                     android:text="পড়ুন"
-                    android:layout_marginRight="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_60sdp"
                     android:layout_alignParentEnd="true"
+                    android:layout_below="@id/comic_description"
                     android:background="@drawable/button_selector"
                     android:textSize="@dimen/_18sdp"
                     android:fontFamily="@font/ss"
-                    android:layout_alignParentRight="true" />
-
-            </RelativeLayout>
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="@dimen/_100sdp"
+                    />
 
         </RelativeLayout>
     </ScrollView>

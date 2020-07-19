@@ -47,7 +47,6 @@ public class search_page extends AppCompatActivity {
         hideSystemUI();
         setContentView(R.layout.activity_search_page);
         searchresult=findViewById(R.id.searchlist);
-        searchClick=findViewById(R.id.searchClicked);
         final TextInputEditText searchinput=findViewById(R.id.searchInput);
         progressBar=findViewById(R.id.progressbar);
         progressBar.setVisibility(View.VISIBLE);
@@ -74,14 +73,6 @@ public class search_page extends AppCompatActivity {
         };
         ref.addListenerForSingleValueEvent(eventListener);
 
-        searchClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(search_page.this, "clicked", Toast.LENGTH_SHORT).show();
-            }
-
-        });
 
         searchinput .addTextChangedListener(new TextWatcher() {
 

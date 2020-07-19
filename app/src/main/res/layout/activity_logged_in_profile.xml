@@ -7,15 +7,24 @@
     android:background="@drawable/back"
     tools:context=".LoggedInProfile"
     >
-    <ImageView
-        android:id="@+id/profilePic"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/roundCardView"
         android:layout_width="@dimen/_120sdp"
         android:layout_height="@dimen/_120sdp"
-        android:layout_centerInParent="true"
         android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:elevation="10dp"
         android:layout_marginTop="@dimen/_60sdp"
-        >
-    </ImageView>
+        app:cardCornerRadius="@dimen/_80sdp">
+
+        <ImageView
+            android:id="@+id/profilePic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </ImageView>
+    </androidx.cardview.widget.CardView>
+
     <TextView
         android:id="@+id/profileName"
         android:layout_width="wrap_content"

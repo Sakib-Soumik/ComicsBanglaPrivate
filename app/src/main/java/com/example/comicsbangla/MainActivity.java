@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     public static String previous_page;
     FirebaseUser user;
+    CardView searchView;
     ArrayList<String> comicId;
     //@RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         comicId=new ArrayList<>();
 
+        searchView= findViewById(R.id.roundCardView);
         action_images=findViewById(R.id.recyclerAction);
         new_uploads=findViewById(R.id.new_upload);
         adventure=findViewById(R.id.recyclerAdventure);
@@ -124,8 +127,7 @@ public class MainActivity extends AppCompatActivity {
         category_call("Mystery",mystery);
 
         //--------------------------Search Icon-------------------------//
-        ImageButton search= findViewById(R.id.search_button);
-        search.setOnClickListener(new View.OnClickListener() {
+        searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, search_page.class));
