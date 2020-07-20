@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,12 +36,14 @@ public class LoggedInProfile extends AppCompatActivity {
     Button logout;
     TextView userEmail,userName;
     ImageView userPic;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_logged_in_profile);
-
+        progressBar=findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
         final FirebaseAuth mAuth;
         mAuth=FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -85,21 +88,7 @@ public class LoggedInProfile extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
-
-                // Google sign out
-                mGoogleSignInClient.signOut();
-
-                Toast.makeText(getApplicationContext(),"signed out",Toast.LENGTH_LONG).show();
-                FirebaseUser user=mAuth.getCurrentUser();
-
-                Intent intentLoadNewActivity = new Intent(LoggedInProfile.this,SplashScreen.class);
-                intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intentLoadNewActivity);
-                killActivity();
-
+                signOut(mGoogleSignInClient);
             }
 
 
@@ -146,6 +135,30 @@ public class LoggedInProfile extends AppCompatActivity {
         // put your code here...
         hideSystemUI();
 
+    }
+    void signOut(GoogleSignInClient mGoogleSignInClient) {
+        progressBar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        FirebaseAuth.getInstance().signOut();
+
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getApplicationContext(),"signed out",Toast.LENGTH_LONG).show();
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        progressBar.setVisibility(View.GONE);
+                        Intent intentLoadNewActivity = new Intent(LoggedInProfile.this,SplashScreen.class);
+                        intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intentLoadNewActivity);
+                        killActivity();
+
+                    }
+                });
     }
     void hideSystemUI() {
         View decorView = getWindow().getDecorView();

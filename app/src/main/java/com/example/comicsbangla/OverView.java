@@ -3,8 +3,10 @@ package com.example.comicsbangla;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.solver.widgets.Snapshot;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -54,9 +57,11 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class OverView extends AppCompatActivity {
+    ProgressBar progressBar;
     ImageView comic_cover,close,tick;
     Button read;
     TextView description,comic_name,comic_author,rating_value_output,view;
@@ -68,6 +73,11 @@ public class OverView extends AppCompatActivity {
     Dialog ratingDialog;
     LinearLayout linearLayout;
     String comicid;
+    int number_of_rating=0;
+    double total_rating=0.0,avg_rating=0.0;
+    final double[] rating={0.0};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,18 +99,24 @@ public class OverView extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         linearLayout = findViewById(R.id.linear);
 
+
+
         //---------------------------------Rating Bar Dialog Box------------------------------------
 
         ratingDialog = new Dialog(this);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showdialog();
+                FirebaseAuth auth=FirebaseAuth.getInstance();
+                if(auth.getCurrentUser().isAnonymous()) {
+                    Toast.makeText(getApplicationContext(),"You have to be logged in to give rating",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    showdialog();
+                }
             }
 
         });
-
-
 
         //------------------------showing everything from database------------------//
         comicid=getIntent().getStringExtra("ComicId");
@@ -138,6 +154,33 @@ public class OverView extends AppCompatActivity {
 
             }
         });
+        DatabaseReference total_rating_ref= FirebaseDatabase.getInstance().getReference();
+        total_rating_ref=total_rating_ref.child("Comics").child("Total_Rating");
+        total_rating_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                total_rating=Double.parseDouble(dataSnapshot.child(comicid).getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        DatabaseReference number_of_rating_ref= FirebaseDatabase.getInstance().getReference();
+        number_of_rating_ref=number_of_rating_ref.child("Comics").child("Number_Of_Rating");
+        number_of_rating_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                number_of_rating=Integer.parseInt(dataSnapshot.child(comicid).getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         DatabaseReference view_ref= FirebaseDatabase.getInstance().getReference();
         view_ref=view_ref.child("Comics").child("Views");
         view_ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -170,9 +213,7 @@ public class OverView extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 db_rating[0] =dataSnapshot.child(comicid).getValue(String.class);
-                float ratingOutputValue;
-                ratingOutputValue= Float.parseFloat(db_rating[0]);
-
+                avg_rating=Double.parseDouble(db_rating[0]);
                 //Converting Rating Value to Bangla String
                 int size= db_rating[0].length();
                 char ratings[] = new char[size];
@@ -363,16 +404,45 @@ public class OverView extends AppCompatActivity {
         close = (ImageView) ratingDialog.findViewById(R.id.close);
         tick = (ImageView) ratingDialog.findViewById(R.id.tick);
         ratingBarInput =(RatingBar) ratingDialog.findViewById(R.id.ratingBarInput);
+        ratingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        ratingDialog.show();
+
+        progressBar= ratingDialog.findViewById(R.id.progressbarpopup);
+        progressBar.setVisibility(View.GONE);
 
         //-------------If the rating is given once, it will be highlighted in ratingbar-------------
-        boolean ratingAlreadyGiven=true;
-        String  ratingByUser= "3.0";
-        if(ratingAlreadyGiven){
-            ratingBarInput.setRating(Float.parseFloat(ratingByUser));
-        }
-        //-----------Ending-------------------------------------------------------------------------
+        getRatingStatus(progressBar);
 
+    }
+    void getRatingStatus(final ProgressBar progressBar) {
+        progressBar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Rating");
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.hasChild(comicid)) {
+                    rating[0] =Double.parseDouble(snapshot.child(comicid).getValue(String.class));
+                    rating_routine(progressBar);
+                }
+                else {
+                    //Toast.makeText(getApplicationContext(),"Something wrong",Toast.LENGTH_LONG).show();
+                    rating_routine(progressBar);
 
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+    void rating_routine(final ProgressBar progressBar) {
+        ratingBarInput.setRating(Float.parseFloat(Double.toString(rating[0])));
+        //Toast.makeText(getApplicationContext(),"Previous rating is "+Double.toString(rating[0]),Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        //-----------Ending----------------------------------------------------
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -400,17 +470,103 @@ public class OverView extends AppCompatActivity {
                     //-------------Custom Toast End---------------\\
                 }
                 else{
-                    Toast.makeText(OverView.this, "Rating given"+ratingGiven, Toast.LENGTH_SHORT).show();
-                    ratingDialog.dismiss();
+                    if((int)rating[0]!=0) {
+                        total_rating-=rating[0];
+                        total_rating+=ratingGiven;
+                    }
+                    else {
+                        total_rating+=ratingGiven;
+                        number_of_rating++;
+                    }
+                    progressBar.setVisibility(View.VISIBLE);
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    final double new_rating=total_rating/number_of_rating;
+
+                    DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("Comics").child("Total_Rating").child(comicid);
+                    mDatabaseReference.setValue(Double.toString(total_rating))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    DatabaseReference rating_num_ref = FirebaseDatabase.getInstance().getReference("Comics").child("Number_Of_Rating").child(comicid);
+                                    rating_num_ref.setValue(Integer.toString(number_of_rating))
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    DatabaseReference avg_rating_ref = FirebaseDatabase.getInstance().getReference("Comics").child("Avg_Rating").child(comicid);
+                                                    avg_rating_ref.setValue(String.format(Locale.getDefault(),"%.2f",new_rating))
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                     String rating_string=String.format(Locale.getDefault(),"%.2f",new_rating);
+                                                                    int size= rating_string.length();
+                                                                    char ratings[] = new char[size];
+                                                                    char ratingInBangla[]=new char[size];
+                                                                    ratings= rating_string.toCharArray();
+
+                                                                    for(int i = 0; i <ratings.length; i++){
+
+                                                                        TranslateNumber(ratings[i],i,ratingInBangla);
+                                                                    }
+                                                                    StringBuilder stringBuilder= new StringBuilder();
+                                                                    for(char ch:ratingInBangla){
+                                                                        stringBuilder.append(ch);
+                                                                    }
+                                                                    banglaRatingString= stringBuilder.toString();
+
+                                                                    rating_value_output.setText(banglaRatingString);
+                                                                    DatabaseReference user_rating = FirebaseDatabase.getInstance().getReference("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Rating").child(comicid);
+                                                                    user_rating.setValue(Double.toString(ratingGiven))
+                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                @Override
+                                                                                public void onSuccess(Void aVoid) {
+                                                                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                                                    progressBar.setVisibility(View.GONE);
+                                                                                    ratingDialog.dismiss();
+                                                                                }
+                                                                            })
+                                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                                @Override
+                                                                                public void onFailure(@NonNull Exception e) {
+
+                                                                                }
+                                                                            });
+
+
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+
+                                                                }
+                                                            });
+
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+
+                                                }
+                                            });
+
+                                }
+
+
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+
                 }
             }
 
         });
-        ratingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        ratingDialog.show();
-
     }
-
 
     private void TranslateNumber(char rating,int i, char[] ratingInBangla) {
         switch (rating){
