@@ -47,28 +47,27 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/roundCardView"
-            android:layout_width="@dimen/_32sdp"
-            app:cardBackgroundColor="#20000000"
-            app:cardElevation="0dp"
-            android:layout_height="@dimen/_32sdp"
-            android:layout_marginTop="@dimen/_25sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:layout_alignParentRight="true"
-            app:cardCornerRadius="@dimen/_30sdp">
+            <RelativeLayout
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/circle"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_18sdp"
+                android:clickable="true"
+                android:id="@+id/search_layout"
+                android:focusable="true">
 
-        <ImageButton
-            android:layout_gravity="center"
-            android:layout_width="@dimen/_16sdp"
-            android:layout_height="@dimen/_16sdp"
-            android:background="@drawable/searchicon"
-            android:id="@+id/search_button"
-            >
+                <ImageButton
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/searchicon"
+                    android:id="@+id/search_button"
+                    >
+                </ImageButton>
 
-        </ImageButton>
-
-        </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
     <RelativeLayout
         android:layout_marginTop="@dimen/_15sdp"

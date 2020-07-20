@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,11 +58,10 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<StorageReference> main_comic_images;
     RecyclerView action_images,new_uploads,most_viewed_recycler,adventure,comedy,children,fiction,mystery;
     private FirebaseAuth mAuth;
-    public static String afterlogin;
     ProgressBar progressBar;
     public static String previous_page;
     FirebaseUser user;
-    CardView searchView;
+    RelativeLayout searchView;
     ArrayList<String> comicId;
     //@RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         comicId=new ArrayList<>();
 
-        searchView= findViewById(R.id.roundCardView);
+        searchView= findViewById(R.id.search_layout);
         action_images=findViewById(R.id.recyclerAction);
         new_uploads=findViewById(R.id.new_upload);
         adventure=findViewById(R.id.recyclerAdventure);

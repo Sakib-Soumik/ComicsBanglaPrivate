@@ -8,35 +8,48 @@
     android:background="@drawable/back">
 
     <RelativeLayout
+        android:layout_marginTop="@dimen/_50sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        >
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            app:srcCompat="@drawable/cc"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
             android:textColor="#CB000000"
-            android:textSize="@dimen/_35sdp"
+            android:layout_below="@id/imageView9"
+            android:textSize="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_18sdp"
             android:fontFamily="@font/ss"
             android:text="প্রোফাইল দেখতে হলে" />
 
-
-        <TextView
-            android:id="@+id/login_clicked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/RedBackGround"
-            android:textSize="@dimen/_30sdp"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginBottom="@dimen/_40sdp"
+        <Button
+            android:id="@+id/signInGoogle"
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/button_selector"
+            android:paddingLeft="@dimen/_15sdp"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_ggg"
+            android:fontFamily="@font/ss"
+            app:errorEnabled="true"
+            android:textSize="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_below="@id/textView5"
-            android:fontFamily="@font/st"
-            android:textStyle="bold"
-            android:clickable="true"
-            android:text="সাইন আপ/লগ ইন" />
+            android:layout_centerInParent="true"
+            android:text="  সাইন-ইন" />
 
     </RelativeLayout>
 

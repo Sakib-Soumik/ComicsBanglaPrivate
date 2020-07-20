@@ -35,16 +35,9 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_profile);
-        loginClicked= findViewById(R.id.login_clicked);
         //--------------------------------Login Button Clicked-------------------------------
 
-        loginClicked.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Profile.this, Login.class));
-            }
 
-        });
         FirebaseAuth mAuth;
         //logout=(ImageButton) findViewById(R.id.logoutbutton);
         mAuth=FirebaseAuth.getInstance();
