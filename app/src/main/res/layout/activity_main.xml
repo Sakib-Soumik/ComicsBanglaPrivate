@@ -52,20 +52,20 @@
                 android:layout_height="@dimen/_30sdp"
                 android:background="@drawable/circle"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginRight="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_23sdp"
                 android:clickable="true"
                 android:id="@+id/search_layout"
                 android:focusable="true">
 
-                <ImageButton
+                <ImageView
                     android:layout_width="@dimen/_16sdp"
                     android:layout_height="@dimen/_16sdp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/searchicon"
                     android:id="@+id/search_button"
                     >
-                </ImageButton>
+                </ImageView>
 
             </RelativeLayout>
 
