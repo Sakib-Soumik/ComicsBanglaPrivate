@@ -8,6 +8,7 @@ import androidx.core.content.res.ResourcesCompat;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -52,6 +53,8 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OverView extends AppCompatActivity {
     ImageView comic_cover,close,tick;
@@ -64,6 +67,7 @@ public class OverView extends AppCompatActivity {
     float ratingGiven;
     Dialog ratingDialog;
     LinearLayout linearLayout;
+    String comicid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +103,7 @@ public class OverView extends AppCompatActivity {
 
 
         //------------------------showing everything from database------------------//
-        final String comicid=getIntent().getStringExtra("ComicId");
+        comicid=getIntent().getStringExtra("ComicId");
         DatabaseReference cover_ref= FirebaseDatabase.getInstance().getReference();
         cover_ref=cover_ref.child("Comics").child("PhotoUrl2");
         cover_ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -129,6 +133,18 @@ public class OverView extends AppCompatActivity {
 
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        DatabaseReference view_ref= FirebaseDatabase.getInstance().getReference();
+        view_ref=view_ref.child("Comics").child("Views");
+        view_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                view.setText(dataSnapshot.child(comicid).getValue(String.class));
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -213,10 +229,80 @@ public class OverView extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(ListResult listResult) {
                                         comic_images.addAll(listResult.getItems());
-                                        Intent intent;
-                                        MainActivity.main_comic_images=comic_images;
-                                        intent=new Intent(getApplicationContext(),ReadComic.class);
-                                        startActivity(intent);
+                                        FirebaseAuth auth=FirebaseAuth.getInstance();
+                                        if(auth.getCurrentUser().isAnonymous()) {
+                                            if(already_viewed("kr")) {
+                                                Intent intent;
+                                                MainActivity.main_comic_images=comic_images;
+                                                intent=new Intent(getApplicationContext(),ReadComic.class);
+                                                startActivity(intent);
+                                            }
+                                            else {
+                                                int viewcount=Integer.parseInt(view.getText().toString());
+                                                viewcount++;
+                                                DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("Comics").child("Views").child(comicid);
+                                                mDatabaseReference.setValue(Integer.toString(viewcount))
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d("TAG", "view updated on database");
+                                                                Intent intent;
+                                                                MainActivity.main_comic_images=comic_images;
+                                                                intent=new Intent(getApplicationContext(),ReadComic.class);
+                                                                startActivity(intent);
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.d("TAG", "onFailure: " + e.getMessage());
+                                                                Intent intent;
+                                                                MainActivity.main_comic_images=comic_images;
+                                                                intent=new Intent(getApplicationContext(),ReadComic.class);
+                                                                startActivity(intent);
+                                                            }
+                                                        });
+
+                                            }
+                                        }
+                                        else {
+                                            if(already_viewed("kr_online")) {
+                                                Intent intent;
+                                                MainActivity.main_comic_images=comic_images;
+                                                intent=new Intent(getApplicationContext(),ReadComic.class);
+                                                startActivity(intent);
+                                            }
+                                            else {
+                                                int viewcount=Integer.parseInt(view.getText().toString());
+                                                viewcount++;
+                                                viewcount++;
+                                                DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("Comics").child("Views").child(comicid);
+                                                mDatabaseReference.setValue(Integer.toString(viewcount))
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d("TAG", "view updated on database");
+                                                                Intent intent;
+                                                                MainActivity.main_comic_images=comic_images;
+                                                                intent=new Intent(getApplicationContext(),ReadComic.class);
+                                                                startActivity(intent);
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.d("TAG", "onFailure: " + e.getMessage());
+                                                                Intent intent;
+                                                                MainActivity.main_comic_images=comic_images;
+                                                                intent=new Intent(getApplicationContext(),ReadComic.class);
+                                                                startActivity(intent);
+                                                            }
+                                                        });
+
+                                            }
+
+                                        }
+
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -298,9 +384,7 @@ public class OverView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ratingGiven= ratingBarInput.getRating();
-
                 if(ratingGiven<1){
-
                     //----------Custom Toast-----------------\\
                     Toast toast = Toast.makeText(OverView.this, "সর্বনিম্ন রেটিং ১", Toast.LENGTH_LONG);
                     int backgroundColor = ResourcesCompat.getColor(toast.getView().getResources(), R.color.OnClickColor, null);
@@ -364,6 +448,18 @@ public class OverView extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
+        DatabaseReference view_ref= FirebaseDatabase.getInstance().getReference();
+        view_ref=view_ref.child("Comics").child("Views");
+        view_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                view.setText(dataSnapshot.child(comicid).getValue(String.class));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         // put your code here...
         hideSystemUI();
 
@@ -385,6 +481,15 @@ public class OverView extends AppCompatActivity {
             window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
-
-
+    boolean already_viewed(String filename) {
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                filename, MODE_PRIVATE);
+        Map<String,Integer> keys = (Map<String, Integer>) sharedPref.getAll();
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+            if(entry.getKey().contains(ReadComic.comic_name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
