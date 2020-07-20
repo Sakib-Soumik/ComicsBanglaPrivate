@@ -24,17 +24,17 @@
                 android:text="রেটিং দিন :"
                 android:textColor="#C1000000" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/close"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/redcross"
                 >
 
-            </ImageView>
+            </ImageButton>
 
             <RatingBar
                 android:id="@+id/ratingBarInput"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView8"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:max="5"
                 android:numStars="5"
                 android:stepSize="0.5"
@@ -50,26 +50,29 @@
                 android:progressTint="@color/persian_red"
                 />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/tick"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_alignParentRight="true"
+                android:layout_alignLeft="@id/close"
                 android:layout_below="@id/ratingBarInput"
-                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_22sdp"
                 android:background="@drawable/tick1"
                 >
-
-            </ImageView>
+            </ImageButton>
 
         <ProgressBar
             android:id="@+id/progressbarpopup"
             style="?android:attr/progressBarStyle"
             android:layout_below="@+id/textView8"
-            android:layout_marginLeft="@dimen/_100sdp"
+            android:layout_centerInParent="true"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_vertical|center_horizontal"
             android:indeterminate="true" />
+
+
+
     </RelativeLayout>
 </RelativeLayout>

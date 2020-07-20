@@ -29,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -62,7 +63,8 @@ import java.util.Map;
 
 public class OverView extends AppCompatActivity {
     ProgressBar progressBar;
-    ImageView comic_cover,close,tick;
+    ImageView comic_cover;
+    ImageButton close,tick;
     Button read;
     TextView description,comic_name,comic_author,rating_value_output,view;
     RatingBar ratingBarInput;
@@ -401,8 +403,8 @@ public class OverView extends AppCompatActivity {
 
     private void showdialog() {
         ratingDialog.setContentView(R.layout.ratingbar_popup);
-        close = (ImageView) ratingDialog.findViewById(R.id.close);
-        tick = (ImageView) ratingDialog.findViewById(R.id.tick);
+        close = (ImageButton) ratingDialog.findViewById(R.id.close);
+        tick = (ImageButton) ratingDialog.findViewById(R.id.tick);
         ratingBarInput =(RatingBar) ratingDialog.findViewById(R.id.ratingBarInput);
         ratingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         ratingDialog.show();
