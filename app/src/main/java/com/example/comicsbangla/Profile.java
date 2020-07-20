@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,9 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Profile extends AppCompatActivity {
-    TextView loginClicked;
-    private GoogleSignInClient mGoogleSignInClient;
-    ImageButton logout;
+    Button signinbutton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,42 +36,14 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         //--------------------------------Login Button Clicked-------------------------------
 
-
-        FirebaseAuth mAuth;
-        //logout=(ImageButton) findViewById(R.id.logoutbutton);
-        mAuth=FirebaseAuth.getInstance();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        // [END config_signin]
-
-
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        //Button Edit profile starts
-
-        //editprofile=(ImageButton)findViewById(R.id.edit_profile) ;
-
-
-        /*logout.setOnClickListener(new View.OnClickListener() {
+        signinbutton=findViewById(R.id.signInGoogle);
+        signinbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
-
-                // Google sign out
-                mGoogleSignInClient.signOut();
-                Toast.makeText(getApplicationContext(),"signed out",Toast.LENGTH_LONG).show();
-                Intent intentLoadNewActivity = new Intent(Profile.this,MainActivity.class);
-                startActivity(intentLoadNewActivity);
-
-
-
+                startActivity(new Intent(Profile.this,SignInWithGoogle.class));
+                finish();
             }
-        });*/
-        //Button Edit profile ends
-
-
+        });
 
 
         //Initialize and Assign Variable for Bottom navbar

@@ -18,7 +18,6 @@
         android:theme="@style/AppTheme"
 
         android:usesCleartextTraffic="true">
-        <activity android:name=".ResetPassword"></activity>
         <activity android:name=".LoggedInProfile" />
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -34,16 +33,8 @@
 
         <activity android:name=".ReadComic" />
         <activity android:name=".OverView" />
-        <activity android:name=".Login"
-
-            />
         <activity android:name=".SignInWithGoogle" />
-        <activity android:name=".Signup"
-
-            />
-        <activity
-            android:name=".ui.login.Login"
-            android:label="@string/title_activity_login" />
+        
         <activity android:name=".MyFiles" />
         <activity android:name=".Profile" />
         <activity android:name=".search_page" />
