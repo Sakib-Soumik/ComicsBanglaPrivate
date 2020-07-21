@@ -29,6 +29,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -61,14 +67,21 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     public static String previous_page;
     FirebaseUser user;
+    public static String addUnitId="ca-app-pub-3940256099942544/6300978111";
     RelativeLayout searchView;
     ArrayList<String> comicId;
+    private AdView mAdView;
     //@RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_main);
+        //
+        //adload
+        //
+
+
         progressBar=findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
         mAuth=FirebaseAuth.getInstance();

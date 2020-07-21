@@ -36,6 +36,12 @@ import com.bumptech.glide.module.AppGlideModule;
 
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -87,11 +93,19 @@ public class MyFiles extends AppCompatActivity {
     ListView keepReading;
     ArrayList<String> comics_list;
     ArrayList<Pair<String,Integer>> comicname_page_number;
+    AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_my_files);
+        mAdView = new AdView(this);
+        mAdView.setAdSize(AdSize.BANNER);
+        mAdView.setAdUnitId(MainActivity.addUnitId);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         keepReading = findViewById(R.id.keep_reading);
         FirebaseAuth mAuth=FirebaseAuth.getInstance();
 

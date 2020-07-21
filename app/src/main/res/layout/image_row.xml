@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <com.github.chrisbanes.photoview.PhotoView
+        <ImageView
             android:id="@+id/comic_image"
             android:adjustViewBounds="true"
             android:layout_width="match_parent"

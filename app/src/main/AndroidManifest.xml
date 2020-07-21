@@ -13,6 +13,8 @@
 
 
 
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,6 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+
+
 
         android:usesCleartextTraffic="true">
         <activity android:name=".LoggedInProfile" />
@@ -41,6 +45,9 @@
             </intent-filter>
         </service>
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3110096151197337~2961020978"/>
         <meta-data
             android:name="com.mypackage.MyGlideModule"
             android:value="GlideModule" />
