@@ -36,10 +36,13 @@ import com.bumptech.glide.module.AppGlideModule;
 
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -99,10 +102,11 @@ public class MyFiles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_my_files);
-        mAdView = new AdView(this);
-        mAdView.setAdSize(AdSize.BANNER);
-        mAdView.setAdUnitId(MainActivity.addUnitId);
-
+        mAdView = findViewById(R.id.adView);
+        List<String> devices= Collections.singletonList("AFAE4F4EF1660D968802FCDB2D8A40CE");
+        RequestConfiguration configuration =
+                new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
+        MobileAds.setRequestConfiguration(configuration);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -117,6 +121,42 @@ public class MyFiles extends AppCompatActivity {
         else {
             readFromDevice("kr_online");
         }
+
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                Log.d("TAG", "onLoaded ");
+            }
+
+            @Override
+            public void onAdFailedToLoad (LoadAdError adError)  {
+                Log.d("TAG", "onAdFailedToLoad: "+adError.toString());
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        });
+
 
         keepReading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -332,5 +372,6 @@ public class MyFiles extends AppCompatActivity {
 
         }
     }
+
 }
 
