@@ -103,7 +103,7 @@ public class MyFiles extends AppCompatActivity {
         hideSystemUI();
         setContentView(R.layout.activity_my_files);
         mAdView = findViewById(R.id.adView);
-        List<String> devices= Collections.singletonList("AFAE4F4EF1660D968802FCDB2D8A40CE");
+        List<String> devices=Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE");
         RequestConfiguration configuration =
                 new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
         MobileAds.setRequestConfiguration(configuration);
@@ -126,7 +126,6 @@ public class MyFiles extends AppCompatActivity {
             @Override
             public void onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
-                Log.d("TAG", "onLoaded ");
             }
 
             @Override
