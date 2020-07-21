@@ -114,7 +114,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send token to your app server.
+        
     }
 
     /**
