@@ -78,6 +78,7 @@ public class OverView extends AppCompatActivity {
     int number_of_rating=0;
     double total_rating=0.0,avg_rating=0.0;
     final double[] rating={0.0};
+    int view_count;
 
 
 
@@ -188,7 +189,22 @@ public class OverView extends AppCompatActivity {
         view_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                view.setText(dataSnapshot.child(comicid).getValue(String.class));
+                String rating=dataSnapshot.child(comicid).getValue(String.class);
+                view_count=Integer.parseInt(rating);
+                int size= rating.length();
+                char ratings[] = new char[size];
+                char ratingInBangla[]=new char[size];
+                ratings= rating.toCharArray();
+
+                for(int i = 0; i <ratings.length; i++){
+
+                    TranslateNumber(ratings[i],i,ratingInBangla);
+                }
+                StringBuilder stringBuilder= new StringBuilder();
+                for(char ch:ratingInBangla){
+                    stringBuilder.append(ch);
+                }
+                view.setText(stringBuilder.toString());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -281,7 +297,7 @@ public class OverView extends AppCompatActivity {
                                                 startActivity(intent);
                                             }
                                             else {
-                                                int viewcount=Integer.parseInt(view.getText().toString());
+                                                int viewcount=view_count;
                                                 viewcount++;
                                                 DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("Comics").child("Views").child(comicid);
                                                 mDatabaseReference.setValue(Integer.toString(viewcount))
@@ -316,8 +332,7 @@ public class OverView extends AppCompatActivity {
                                                 startActivity(intent);
                                             }
                                             else {
-                                                int viewcount=Integer.parseInt(view.getText().toString());
-                                                viewcount++;
+                                                int viewcount=view_count;
                                                 viewcount++;
                                                 DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("Comics").child("Views").child(comicid);
                                                 mDatabaseReference.setValue(Integer.toString(viewcount))
@@ -363,9 +378,6 @@ public class OverView extends AppCompatActivity {
                 });
             }
         });
-
-
-
 
         //--------------------------------Navigation Bar-------------------------------------\\
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
@@ -611,7 +623,21 @@ public class OverView extends AppCompatActivity {
         view_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                view.setText(dataSnapshot.child(comicid).getValue(String.class));
+                String rating=dataSnapshot.child(comicid).getValue(String.class);
+                int size= rating.length();
+                char ratings[] = new char[size];
+                char ratingInBangla[]=new char[size];
+                ratings= rating.toCharArray();
+
+                for(int i = 0; i <ratings.length; i++){
+
+                    TranslateNumber(ratings[i],i,ratingInBangla);
+                }
+                StringBuilder stringBuilder= new StringBuilder();
+                for(char ch:ratingInBangla){
+                    stringBuilder.append(ch);
+                }
+                view.setText(stringBuilder.toString());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
