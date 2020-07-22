@@ -23,7 +23,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:layout_marginBottom="@dimen/_35sdp"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -141,18 +144,20 @@
                     android:textSize="@dimen/_18sdp"
                     android:fontFamily="@font/ss"
                     android:layout_alignParentRight="true"
-                    android:layout_marginBottom="@dimen/_100sdp"
+                    android:layout_marginBottom="@dimen/_40sdp"
                     />
+            <FrameLayout
+                android:id="@+id/ad_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/read"
+                >
+            </FrameLayout>
 
         </RelativeLayout>
+
     </ScrollView>
-    <FrameLayout
-        android:id="@+id/ad_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/_35sdp"
-        >
-    </FrameLayout>
+
 
 </RelativeLayout>

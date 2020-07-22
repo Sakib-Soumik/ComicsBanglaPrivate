@@ -99,15 +99,23 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
         </androidx.recyclerview.widget.RecyclerView>
-        <FrameLayout
-            android:id="@+id/ad_container"
+
+        <RelativeLayout
+            android:id="@+id/rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
             android:layout_below="@id/recyclerRecommended"
-            android:layout_marginBottom="@dimen/_35sdp"
             >
-        </FrameLayout>
+            <FrameLayout
+                android:id="@+id/ad_container"
+                android:layout_width="match_parent"
+                android:scaleType="fitCenter"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                >
+            </FrameLayout>
+
+        </RelativeLayout>
 
 
 
@@ -115,7 +123,7 @@
             android:id="@+id/textAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/recyclerRecommended"
+            android:layout_below="@id/rl"
             android:text="@string/action"
             android:textSize="@dimen/_25sdp"
             android:fontFamily="@font/ss"
@@ -243,6 +251,7 @@
             android:layout_height="@dimen/_150sdp"
             android:layout_below="@id/textHorror"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_14sdp"
             android:background="@drawable/back"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
@@ -254,7 +263,6 @@
             android:layout_below="@id/recyclerMystery"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/_35sdp"
             >
         </FrameLayout>
 
