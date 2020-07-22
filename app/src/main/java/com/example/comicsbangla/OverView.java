@@ -288,8 +288,9 @@ public class OverView extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(ListResult listResult) {
                                         comic_images.addAll(listResult.getItems());
+                                        MainActivity.main_comic_images=new ArrayList<>();
                                         for(int i=0;i<comic_images.size();i++) {
-                                            if(i%10==0) {
+                                            if(i%10==0 && i>0) {
                                                 MainActivity.main_comic_images.add(null);
                                             }
                                             else {

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -67,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     public static String previous_page;
     FirebaseUser user;
-    public static String addUnitId="ca-app-pub-3940256099942544/6300978111";
+
     RelativeLayout searchView;
     ArrayList<String> comicId;
-    private AdView mAdView;
+
     //@RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
         //
         //adload
         //
-
+        new AdLoader(this,(FrameLayout)findViewById(R.id.ad_container));
+        new AdLoader(this,(FrameLayout)findViewById(R.id.ad_container1));
 
         progressBar=findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
