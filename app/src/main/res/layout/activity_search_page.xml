@@ -18,6 +18,15 @@
         app:menu="@menu/menunavbar"
         android:layout_alignParentBottom="true"/>
 
+    <FrameLayout
+        android:id="@+id/ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_35sdp"
+        >
+    </FrameLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginTop="@dimen/_20sdp"
         android:id="@+id/searchInputLayout"
@@ -51,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/searchInputLayout"
+        android:layout_above="@id/ad_container"
         >
 
     </ListView>

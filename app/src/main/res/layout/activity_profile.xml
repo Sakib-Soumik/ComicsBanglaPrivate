@@ -52,6 +52,21 @@
             android:text="  সাইন-ইন" />
 
     </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/ad_container1"
+        android:layout_above="@id/ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_35sdp"
+        >
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
