@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -51,6 +52,7 @@ public class search_page extends AppCompatActivity {
         progressBar=findViewById(R.id.progressbar);
         progressBar.setVisibility(View.VISIBLE);
         searchinput.setVisibility(View.GONE);
+        new AdLoader(this,(FrameLayout)findViewById(R.id.ad_container));
 
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();

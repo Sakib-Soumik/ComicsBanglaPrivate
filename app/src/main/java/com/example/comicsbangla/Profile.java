@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +46,8 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-
+        new AdLoader(this,(FrameLayout)findViewById(R.id.ad_container));
+        new AdLoader(this,(FrameLayout)findViewById(R.id.ad_container1));
         //Initialize and Assign Variable for Bottom navbar
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
         //set home selected

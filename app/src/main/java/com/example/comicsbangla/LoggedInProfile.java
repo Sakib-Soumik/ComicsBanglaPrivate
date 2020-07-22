@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class LoggedInProfile extends AppCompatActivity {
         setContentView(R.layout.activity_logged_in_profile);
         progressBar=findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
+        new AdLoader(this,(FrameLayout)findViewById(R.id.ad_container));
         final FirebaseAuth mAuth;
         mAuth=FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
