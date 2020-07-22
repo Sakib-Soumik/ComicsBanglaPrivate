@@ -288,11 +288,18 @@ public class OverView extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(ListResult listResult) {
                                         comic_images.addAll(listResult.getItems());
+                                        for(int i=0;i<comic_images.size();i++) {
+                                            if(i%10==0) {
+                                                MainActivity.main_comic_images.add(null);
+                                            }
+                                            else {
+                                                MainActivity.main_comic_images.add(comic_images.get(i));
+                                            }
+                                        }
                                         FirebaseAuth auth=FirebaseAuth.getInstance();
                                         if(auth.getCurrentUser().isAnonymous()) {
                                             if(already_viewed("kr")) {
                                                 Intent intent;
-                                                MainActivity.main_comic_images=comic_images;
                                                 intent=new Intent(getApplicationContext(),ReadComic.class);
                                                 startActivity(intent);
                                             }
@@ -306,7 +313,6 @@ public class OverView extends AppCompatActivity {
                                                             public void onSuccess(Void aVoid) {
                                                                 Log.d("TAG", "view updated on database");
                                                                 Intent intent;
-                                                                MainActivity.main_comic_images=comic_images;
                                                                 intent=new Intent(getApplicationContext(),ReadComic.class);
                                                                 startActivity(intent);
                                                             }
@@ -316,7 +322,6 @@ public class OverView extends AppCompatActivity {
                                                             public void onFailure(@NonNull Exception e) {
                                                                 Log.d("TAG", "onFailure: " + e.getMessage());
                                                                 Intent intent;
-                                                                MainActivity.main_comic_images=comic_images;
                                                                 intent=new Intent(getApplicationContext(),ReadComic.class);
                                                                 startActivity(intent);
                                                             }
@@ -327,7 +332,6 @@ public class OverView extends AppCompatActivity {
                                         else {
                                             if(already_viewed("kr_online")) {
                                                 Intent intent;
-                                                MainActivity.main_comic_images=comic_images;
                                                 intent=new Intent(getApplicationContext(),ReadComic.class);
                                                 startActivity(intent);
                                             }
@@ -341,7 +345,6 @@ public class OverView extends AppCompatActivity {
                                                             public void onSuccess(Void aVoid) {
                                                                 Log.d("TAG", "view updated on database");
                                                                 Intent intent;
-                                                                MainActivity.main_comic_images=comic_images;
                                                                 intent=new Intent(getApplicationContext(),ReadComic.class);
                                                                 startActivity(intent);
                                                             }
@@ -351,7 +354,6 @@ public class OverView extends AppCompatActivity {
                                                             public void onFailure(@NonNull Exception e) {
                                                                 Log.d("TAG", "onFailure: " + e.getMessage());
                                                                 Intent intent;
-                                                                MainActivity.main_comic_images=comic_images;
                                                                 intent=new Intent(getApplicationContext(),ReadComic.class);
                                                                 startActivity(intent);
                                                             }

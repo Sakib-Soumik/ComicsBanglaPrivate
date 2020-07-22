@@ -72,7 +72,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
         Glide.with(context)
                 .load(comic_images.get(position))
                 .apply(requestOptions)
-                .thumbnail(Glide.with(context).load(R.raw.comic_load_gif))
+                    .thumbnail(Glide.with(context).load(R.raw.comic_load_gif))
                 .dontTransform()
                 .into(comicItemHolder.comic_image);
         if(position<2) {

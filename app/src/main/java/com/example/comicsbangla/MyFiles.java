@@ -109,12 +109,17 @@ public class MyFiles extends AppCompatActivity {
         setContentView(R.layout.activity_my_files);
 
 
-        adcontainerView = findViewById(R.id.ad_container);
+        mAdView = (AdView) findViewById(R.id.adView);
+        List<String> devices=Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE");
+        RequestConfiguration configuration =
+                new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
+        MobileAds.setRequestConfiguration(configuration);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        //adcontainerView = findViewById(R.id.ad_container);
         // Step 1 - Create an AdView and set the ad unit ID on it.
-        mAdView = new AdView(this);
-        mAdView.setAdUnitId(MainActivity.addUnitId);
-        adcontainerView.addView(mAdView);
-        loadBanner();
+
+        //loadBanner();
 
         keepReading = findViewById(R.id.keep_reading);
         FirebaseAuth mAuth=FirebaseAuth.getInstance();
@@ -175,7 +180,14 @@ public class MyFiles extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(ListResult listResult) {
                                     comic_images.addAll(listResult.getItems());
-                                    MainActivity.main_comic_images = comic_images;
+                                    for(int i=0;i<comic_images.size();i++) {
+                                        if(i%10==0) {
+                                            MainActivity.main_comic_images.add(null);
+                                        }
+                                        else {
+                                            MainActivity.main_comic_images.add(comic_images.get(i));
+                                        }
+                                    }
                                     MainActivity.previous_page="keep_reading";
                                     Intent intent;
                                     intent = new Intent(MyFiles.this, ReadComic.class);
@@ -233,6 +245,9 @@ public class MyFiles extends AppCompatActivity {
         // to get test ads on a physical device, e.g.,
         // "Use AdRequest.Builder.addTestDevice("ABCDE0123") to get test ads on this
         // device."
+        mAdView = new AdView(this);
+        mAdView.setAdUnitId(MainActivity.addUnitId);
+        adcontainerView.addView(mAdView);
         List<String> devices=Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE");
         RequestConfiguration configuration =
                 new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
@@ -376,7 +391,7 @@ public class MyFiles extends AppCompatActivity {
             comicname_page_number.add(new Pair<>(key, Integer.parseInt(list.get(i).second)));
             comics_list.add(key);
         }
-        if(comics_list.isEmpty()) {
+        if(comicinfo.isEmpty()) {
             comicinfo.add("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন");
             comics_list.add("পড়তে থাকা কমিক্স গুলো এখানে দেখতে পাবেন");
         }

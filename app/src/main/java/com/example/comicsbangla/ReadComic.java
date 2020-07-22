@@ -159,7 +159,7 @@ public class ReadComic extends AppCompatActivity {
     }
     void writeOnStorage(String file_name) {
         int page=current_page;
-        if(adjust) page=current_page+2;
+        if(adjust) page=current_page-2;
         if(page==MainActivity.main_comic_images.size()-1) {
 
             SharedPreferences sharedPref = this.getSharedPreferences(
@@ -182,14 +182,14 @@ public class ReadComic extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         for(Map.Entry<String,?> entry : keys.entrySet()){
             if(entry.getKey().contains(ReadComic.comic_name) && Integer.parseInt(entry.getValue().toString())!=-1) {
-                editor.putInt(entry.getKey(),ReadComic.current_page);
+                editor.putInt(entry.getKey(),ReadComic.current_page-(current_page%10));
                 editor.apply();
                 return;
             }
         }
         Map<String,?> m=sharedPref.getAll();
-        String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name+"{"+Integer.toString(MainActivity.main_comic_images.size())+"}";
-        editor.putInt(key,ReadComic.current_page);
+        String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name+"{"+Integer.toString(MainActivity.main_comic_images.size()-(MainActivity.main_comic_images.size()%10))+"}";
+        editor.putInt(key,ReadComic.current_page-(current_page%10));
         editor.apply();
     }
 
