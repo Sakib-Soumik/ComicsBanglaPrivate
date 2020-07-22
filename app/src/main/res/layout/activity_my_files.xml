@@ -8,15 +8,16 @@
     android:background="@drawable/back">
 
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="675dp"
-        android:layout_marginLeft="@dimen/_40sdp"
-        app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+
+    <FrameLayout
+        android:id="@+id/ad_container"
+        android:layout_width="match_parent"
+        android:rotation="90"
+        android:layout_height="match_parent"
+        />
+
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navbar"
@@ -33,6 +34,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="@dimen/_50sdp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
@@ -40,6 +42,7 @@
         android:textSize="@dimen/_35sdp"
         android:textColor="#C1000000"
         android:fontFamily="@font/ss"
+
         />
 
     <ListView

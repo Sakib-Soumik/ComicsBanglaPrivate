@@ -16,8 +16,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -25,8 +27,10 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -97,18 +101,20 @@ public class MyFiles extends AppCompatActivity {
     ArrayList<String> comics_list;
     ArrayList<Pair<String,Integer>> comicname_page_number;
     AdView mAdView;
+    FrameLayout adcontainerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_my_files);
-        mAdView = findViewById(R.id.adView);
-        List<String> devices=Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE");
-        RequestConfiguration configuration =
-                new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
-        MobileAds.setRequestConfiguration(configuration);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+
+
+        adcontainerView = findViewById(R.id.ad_container);
+        // Step 1 - Create an AdView and set the ad unit ID on it.
+        mAdView = new AdView(this);
+        mAdView.setAdUnitId(MainActivity.addUnitId);
+        adcontainerView.addView(mAdView);
+        loadBanner();
 
         keepReading = findViewById(R.id.keep_reading);
         FirebaseAuth mAuth=FirebaseAuth.getInstance();
@@ -222,6 +228,39 @@ public class MyFiles extends AppCompatActivity {
 
 
     }
+    private void loadBanner() {
+        // Create an ad request. Check your logcat output for the hashed device ID
+        // to get test ads on a physical device, e.g.,
+        // "Use AdRequest.Builder.addTestDevice("ABCDE0123") to get test ads on this
+        // device."
+        List<String> devices=Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE");
+        RequestConfiguration configuration =
+                new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
+        MobileAds.setRequestConfiguration(configuration);
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        AdSize adSize = getAdSize();
+        // Step 4 - Set the adaptive ad size on the ad view.
+        mAdView.setAdSize(adSize);
+
+        // Step 5 - Start loading the ad in the background.
+        mAdView.loadAd(adRequest);
+    }
+    private AdSize getAdSize() {
+        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        // Step 3 - Get adaptive ad size and return for setting on the ad view.
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
+    }
+
     void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
