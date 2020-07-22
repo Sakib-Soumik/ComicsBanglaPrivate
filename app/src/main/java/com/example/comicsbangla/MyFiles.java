@@ -109,17 +109,17 @@ public class MyFiles extends AppCompatActivity {
         setContentView(R.layout.activity_my_files);
 
 
-        mAdView = (AdView) findViewById(R.id.adView);
-        List<String> devices=Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE");
+        /*mAdView = (AdView) findViewById(R.id.adView);
+        List<String> devices=Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE","9FFEC22EBBE3DD3E0672D229ECB10FA6");
         RequestConfiguration configuration =
                 new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
         MobileAds.setRequestConfiguration(configuration);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        //adcontainerView = findViewById(R.id.ad_container);
+        AdRequest adRequest = new AdRequest.Builder().build();*/
+        //mAdView.loadAd(adRequest);
+        adcontainerView = findViewById(R.id.ad_container);
         // Step 1 - Create an AdView and set the ad unit ID on it.
 
-        //loadBanner();
+        loadBanner();
 
         keepReading = findViewById(R.id.keep_reading);
         FirebaseAuth mAuth=FirebaseAuth.getInstance();
@@ -132,40 +132,6 @@ public class MyFiles extends AppCompatActivity {
         else {
             readFromDevice("kr_online");
         }
-
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-            }
-
-            @Override
-            public void onAdFailedToLoad (LoadAdError adError)  {
-                Log.d("TAG", "onAdFailedToLoad: "+adError.toString());
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-            }
-
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
-            }
-        });
 
 
         keepReading.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -248,7 +214,7 @@ public class MyFiles extends AppCompatActivity {
         mAdView = new AdView(this);
         mAdView.setAdUnitId(MainActivity.addUnitId);
         adcontainerView.addView(mAdView);
-        List<String> devices=Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE");
+        List<String> devices=Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE","9FFEC22EBBE3DD3E0672D229ECB10FA6");
         RequestConfiguration configuration =
                 new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
         MobileAds.setRequestConfiguration(configuration);
