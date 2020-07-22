@@ -10,7 +10,7 @@ buildscript {
         mavenCentral()
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
@@ -37,8 +37,12 @@ allprojects {
         mavenCentral()
         google()
         jcenter()
+        maven {
+            url  "https://adcolony.bintray.com/AdColony"
+
+             }
+
         maven { url "https://jitpack.io" }
-        
     }
 }
 

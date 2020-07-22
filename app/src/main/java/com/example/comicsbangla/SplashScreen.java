@@ -23,6 +23,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.adcolony.sdk.AdColony;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
@@ -63,6 +64,9 @@ public class SplashScreen extends AppCompatActivity {
         if(mAuth.getCurrentUser()==null) {
             signInAnonymously();
         }
+        AdColony.configure(this,           // activity context
+                "app695c5ddddc084a34af",
+                "vz0f81684e7b3445f19f");
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override

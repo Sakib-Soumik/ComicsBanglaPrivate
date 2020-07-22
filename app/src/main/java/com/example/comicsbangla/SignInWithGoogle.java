@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -51,6 +52,8 @@ public class SignInWithGoogle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_with_google);
         progressBar=findViewById(R.id.progressbar);
+        new AdLoader(this,(FrameLayout) findViewById(R.id.ad_container));
+        new AdLoader(this,(FrameLayout) findViewById(R.id.ad_container1));
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
