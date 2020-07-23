@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,9 +27,14 @@ import android.widget.Toast;
 
 import com.adcolony.sdk.AdColony;
 import com.bumptech.glide.Glide;
+import com.google.android.ads.mediationtestsuite.MediationTestSuite;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -42,6 +49,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -64,6 +72,8 @@ public class SplashScreen extends AppCompatActivity {
         if(mAuth.getCurrentUser()==null) {
             signInAnonymously();
         }
+
+
         AdColony.configure(this,           // activity context
                 "app695c5ddddc084a34af",
                 "vz0f81684e7b3445f19f");
@@ -104,6 +114,18 @@ public class SplashScreen extends AppCompatActivity {
                                 waited += 100;
                             }
                         }
+                        /*AdvertisingIdClient.Info adInfo=null;
+                        try {
+                       adInfo = AdvertisingIdClient.getAdvertisingIdInfo(getApplicationContext());
+                        } catch (IOException e) {
+                            // ...
+                        } catch (GooglePlayServicesRepairableException e) {
+                            // ...
+                        } catch (GooglePlayServicesNotAvailableException e) {
+                            // ...
+                        }
+                        String userId = adInfo.getId();
+                        Log.d("IDDDDDDDDDDDDDDDDDDD", "onCreate: "+userId);*/
                     } catch (Exception e) {
 
                     } finally {
@@ -117,7 +139,11 @@ public class SplashScreen extends AppCompatActivity {
             };
             splashTread.start();
 
+
+
+
     }
+
 
     void signInAnonymously() {
         mAuth.signInAnonymously()

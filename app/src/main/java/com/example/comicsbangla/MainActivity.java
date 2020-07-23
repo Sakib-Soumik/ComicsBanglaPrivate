@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.ads.mediationtestsuite.MediationTestSuite;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         hideSystemUI();
         setContentView(R.layout.activity_main);
+        //MediationTestSuite.launch(MainActivity.this);
         //
         //adload
         //
@@ -315,7 +317,10 @@ public class MainActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Random rand = new Random(System.currentTimeMillis());
                             Collections.shuffle(popular_id_photo_ref,rand);
-                            popular_id_photo_ref.add(new Pair<String, StorageReference>(id,FirebaseStorage.getInstance().getReferenceFromUrl(dataSnapshot.child(id).getValue(String.class))));
+                            StorageReference reference=FirebaseStorage.getInstance().getReferenceFromUrl(dataSnapshot.child(id).getValue(String.class));
+                            if(!popular_id_photo_ref.contains(new Pair<String, StorageReference>(id,reference))) {
+                                popular_id_photo_ref.add(new Pair<String, StorageReference>(id,reference));
+                            }
                             ActionItemAdapter mostviewedItemAdapter=new ActionItemAdapter(MainActivity.this,popular_id_photo_ref);
                             most_viewed_recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
                             most_viewed_recycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
