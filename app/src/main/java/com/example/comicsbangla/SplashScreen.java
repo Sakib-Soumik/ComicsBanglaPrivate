@@ -25,7 +25,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.adcolony.sdk.AdColony;
+
 import com.bumptech.glide.Glide;
 import com.google.android.ads.mediationtestsuite.MediationTestSuite;
 import com.google.android.gms.ads.MobileAds;
@@ -74,9 +74,7 @@ public class SplashScreen extends AppCompatActivity {
         }
 
 
-        AdColony.configure(this,           // activity context
-                "app695c5ddddc084a34af",
-                "vz0f81684e7b3445f19f");
+
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -116,7 +114,7 @@ public class SplashScreen extends AppCompatActivity {
                         }
                         /*AdvertisingIdClient.Info adInfo=null;
                         try {
-                       adInfo = AdvertisingIdClient.getAdvertisingIdInfo(getApplicationContext());
+                       /*adInfo = AdvertisingIdClient.getAdvertisingIdInfo(getApplicationContext());
                         } catch (IOException e) {
                             // ...
                         } catch (GooglePlayServicesRepairableException e) {
@@ -125,7 +123,8 @@ public class SplashScreen extends AppCompatActivity {
                             // ...
                         }
                         String userId = adInfo.getId();
-                        Log.d("IDDDDDDDDDDDDDDDDDDD", "onCreate: "+userId);*/
+                        Log.d("IDDDDDDDDDDDDDDDDDDD", "onCreate: "+userId);
+                        Toast.makeText(getApplicationContext(),userId,Toast.LENGTH_LONG).show();*/
                     } catch (Exception e) {
 
                     } finally {
