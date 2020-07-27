@@ -227,6 +227,9 @@ public class MyFiles extends AppCompatActivity {
     }
     @Override
     public void onResume(){
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
+        bottomNavigationView.setSelectedItemId(R.id.myfiles);
+
         super.onResume();
         // put your code here...
         hideSystemUI();

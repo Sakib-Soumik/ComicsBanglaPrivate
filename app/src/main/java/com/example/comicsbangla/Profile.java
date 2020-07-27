@@ -86,6 +86,9 @@ public class Profile extends AppCompatActivity {
     }
     @Override
     public void onResume(){
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
+        bottomNavigationView.setSelectedItemId(R.id.profile);
+
         super.onResume();
         // put your code here...
         hideSystemUI();
@@ -108,4 +111,5 @@ public class Profile extends AppCompatActivity {
             window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
+
 }

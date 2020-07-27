@@ -211,6 +211,8 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onResume(){
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
+        bottomNavigationView.setSelectedItemId(R.id.home);
         super.onResume();
         // put your code here...
         hideSystemUI();

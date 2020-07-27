@@ -98,7 +98,7 @@ public class LoggedInProfile extends AppCompatActivity {
 
         //--------------------------------Navigation Bar-------------------------------------\\
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
-        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setSelectedItemId(R.id.profile);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -133,6 +133,9 @@ public class LoggedInProfile extends AppCompatActivity {
     }
     @Override
     public void onResume(){
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
+        bottomNavigationView.setSelectedItemId(R.id.profile);
+
         super.onResume();
         // put your code here...
         hideSystemUI();

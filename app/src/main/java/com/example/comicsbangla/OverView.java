@@ -114,7 +114,8 @@ public class OverView extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth auth=FirebaseAuth.getInstance();
                 if(auth.getCurrentUser().isAnonymous()) {
-                    Toast.makeText(getApplicationContext(),"You have to be logged in to give rating",Toast.LENGTH_LONG).show();
+                    String m="রেটিং দিতে হলে সাইন-ইন করুন।";
+                    customToast(m);
                 }
                 else {
                     showdialog();
@@ -386,6 +387,7 @@ public class OverView extends AppCompatActivity {
 
         //--------------------------------Navigation Bar-------------------------------------\\
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navbar);
+        bottomNavigationView.setItemIconTintList(null);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -397,6 +399,7 @@ public class OverView extends AppCompatActivity {
                         return true;
 
                     case R.id.myfiles:
+
                         startActivity(new Intent(getApplicationContext(),MyFiles.class));
                         overridePendingTransition(0,0);
                         return true;
@@ -622,7 +625,9 @@ public class OverView extends AppCompatActivity {
     }
     @Override
     public void onResume(){
+
         super.onResume();
+
         DatabaseReference view_ref= FirebaseDatabase.getInstance().getReference();
         view_ref=view_ref.child("Comics").child("Views");
         view_ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -649,6 +654,7 @@ public class OverView extends AppCompatActivity {
 
             }
         });
+
         // put your code here...
         hideSystemUI();
 
@@ -680,5 +686,18 @@ public class OverView extends AppCompatActivity {
             }
         }
         return false;
+    }
+    void customToast(String msg){
+        Toast toast = Toast.makeText(OverView.this, msg, Toast.LENGTH_LONG);
+        int backgroundColor = ResourcesCompat.getColor(toast.getView().getResources(), R.color.OnClickColor, null);
+        toast.getView().getBackground().setColorFilter(backgroundColor, PorterDuff.Mode.SRC_IN);
+        View view = toast.getView();
+        TextView text = (TextView) view.findViewById(android.R.id.message);
+        text.setTextColor(Color.BLACK);
+        Typeface typeface = ResourcesCompat.getFont(OverView.this, R.font.st);
+        text.setTypeface(typeface);
+        toast.setGravity(Gravity.BOTTOM, 0, 250);
+        text.setTextSize(24);
+        toast.show();
     }
 }
