@@ -69,12 +69,6 @@ public class SplashScreen extends AppCompatActivity {
         hideSystemUI();
         setContentView(R.layout.activity_splash_screen);
         mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser()==null) {
-            signInAnonymously();
-        }
-
-
-
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -128,9 +122,10 @@ public class SplashScreen extends AppCompatActivity {
                     } catch (Exception e) {
 
                     } finally {
-                        startActivity(new Intent(SplashScreen.this,
-                                MainActivity.class));
-                        finish();
+                        if(mAuth.getCurrentUser()==null) {
+                            signInAnonymously();
+                        }
+
                     }
                 }
 
@@ -150,9 +145,10 @@ public class SplashScreen extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
+                            startActivity(new Intent(SplashScreen.this,MainActivity.class));
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInAnonymously:success");
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInAnonymously:failure", task.getException());
