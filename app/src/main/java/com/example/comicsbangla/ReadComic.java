@@ -96,6 +96,7 @@ public class ReadComic extends AppCompatActivity {
             if(current_page<0) current_page=0;
             adjust=true;
         }
+
         FirebaseAuth auth=FirebaseAuth.getInstance();
         if(auth.getCurrentUser().isAnonymous()) {
             writeOnStorage("kr");
@@ -188,8 +189,10 @@ public class ReadComic extends AppCompatActivity {
             }
         }
         Map<String,?> m=sharedPref.getAll();
+        int x=comic_images.computeVerticalScrollOffset();
         String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name+"{"+Integer.toString(MainActivity.main_comic_images.size()-(MainActivity.main_comic_images.size()%10))+"}";
-        editor.putInt(key,ReadComic.current_page-(current_page%10));
+
+        editor.putInt(key,current_page-(current_page%10));
         editor.apply();
     }
 

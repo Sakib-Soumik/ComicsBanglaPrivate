@@ -277,17 +277,15 @@ public class MyFiles extends AppCompatActivity {
             String total_page="";
             key="";
             while(true) {
-                if(sb.toString().isEmpty()) break;
                 char c=sb.charAt(0);
+                if(c=='}') break;
                 if(c=='{') {
                     sb.deleteCharAt(0);
                     found=true;
                     continue;
                 }
                 if(found) {
-                    if( c!='}') {
                         total_page += c;
-                    }
                     sb.deleteCharAt(0);
                 }
                 else {
