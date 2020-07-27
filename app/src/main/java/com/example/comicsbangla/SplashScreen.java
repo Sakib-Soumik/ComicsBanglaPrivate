@@ -125,6 +125,10 @@ public class SplashScreen extends AppCompatActivity {
                         if(mAuth.getCurrentUser()==null) {
                             signInAnonymously();
                         }
+                        else {
+                            startActivity(new Intent(SplashScreen.this,MainActivity.class));
+                            finish();
+                        }
 
                     }
                 }
