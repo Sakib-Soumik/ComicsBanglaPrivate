@@ -14,6 +14,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -94,6 +96,15 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
 
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(!(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)) {
+            //we are connected to a network
+            OverView.customToast("আপনার ইন্টারনেট কানেকশন চেক করুন",SplashScreen.this);
+
+        }
+
+
             final Thread splashTread = new Thread() {
                 @Override
                 public void run() {
@@ -156,7 +167,7 @@ public class SplashScreen extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInAnonymously:failure", task.getException());
-                            Toast.makeText(getApplicationContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
+                            OverView.customToast("আপনার ইন্টারনেট কানেকশন চেক করুন",SplashScreen.this);
                         }
 
                         // ...

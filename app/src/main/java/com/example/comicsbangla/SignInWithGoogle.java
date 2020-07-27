@@ -163,7 +163,7 @@ public class SignInWithGoogle extends AppCompatActivity {
                                                 editor.putInt(ds.getKey(),Integer.parseInt(ds.getValue().toString()));
                                                 editor.apply();
                                             }
-                                            Intent maintIntent = new Intent(SignInWithGoogle.this, MainActivity.class);
+                                            Intent maintIntent = new Intent(SignInWithGoogle.this, LoggedInProfile.class);
                                             maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             maintIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

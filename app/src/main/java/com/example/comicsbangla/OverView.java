@@ -8,6 +8,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -115,7 +116,7 @@ public class OverView extends AppCompatActivity {
                 FirebaseAuth auth=FirebaseAuth.getInstance();
                 if(auth.getCurrentUser().isAnonymous()) {
                     String m="রেটিং দিতে হলে সাইন-ইন করুন।";
-                    customToast(m);
+                    customToast(m,OverView.this);
                 }
                 else {
                     showdialog();
@@ -687,14 +688,14 @@ public class OverView extends AppCompatActivity {
         }
         return false;
     }
-    void customToast(String msg){
-        Toast toast = Toast.makeText(OverView.this, msg, Toast.LENGTH_LONG);
+    public  static void customToast(String msg, Context context){
+        Toast toast = Toast.makeText(context, msg, Toast.LENGTH_LONG);
         int backgroundColor = ResourcesCompat.getColor(toast.getView().getResources(), R.color.OnClickColor, null);
         toast.getView().getBackground().setColorFilter(backgroundColor, PorterDuff.Mode.SRC_IN);
         View view = toast.getView();
         TextView text = (TextView) view.findViewById(android.R.id.message);
         text.setTextColor(Color.BLACK);
-        Typeface typeface = ResourcesCompat.getFont(OverView.this, R.font.st);
+        Typeface typeface = ResourcesCompat.getFont(context, R.font.st);
         text.setTypeface(typeface);
         toast.setGravity(Gravity.BOTTOM, 0, 250);
         text.setTextSize(24);
