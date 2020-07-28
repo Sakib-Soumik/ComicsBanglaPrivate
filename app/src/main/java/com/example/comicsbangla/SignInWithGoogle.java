@@ -3,10 +3,12 @@ package com.example.comicsbangla;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -109,6 +111,7 @@ public class SignInWithGoogle extends AppCompatActivity {
                                 Log.d("TAG", "signInWithCredential:success");
                                 boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                                 if (isNewUser) {
+                                    launchMarket();
                                     FirebaseAuth mAuth=FirebaseAuth.getInstance();
                                     SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("kr", MODE_PRIVATE);
                                     Map<String,Integer> history = (Map<String, Integer>) sharedPref.getAll();
@@ -148,6 +151,7 @@ public class SignInWithGoogle extends AppCompatActivity {
                                             });
 
                                 } else {
+
                                     SharedPreferences settings = getApplicationContext().getSharedPreferences("kr_online", Context.MODE_PRIVATE);
                                     settings.edit().clear().apply();
                                     SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
@@ -201,6 +205,15 @@ public class SignInWithGoogle extends AppCompatActivity {
         }
 
 
+    }
+    private void launchMarket() {
+        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+        Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            startActivity(myAppLinkToMarket);
+        } catch (ActivityNotFoundException e) {
+            OverView.customToast("Can not rate app now",SignInWithGoogle.this);
+        }
     }
 
 }
