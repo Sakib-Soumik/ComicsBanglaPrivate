@@ -71,8 +71,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_15sdp"
         android:gravity="center_horizontal"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:textSize="@dimen/_25sdp"
+        android:textColor="#CB000000"
+        android:fontFamily="@font/cc"
+        android:text="Fairuz Nawar"
+        android:textSize="@dimen/_30sdp"
         >
     </TextView>
     <TextView
@@ -81,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:fontFamily="sans-serif-condensed-medium"
+        android:fontFamily="@font/cc"
         android:textSize="@dimen/_20sdp"
         android:layout_below="@id/profileName"
         >
@@ -100,6 +102,7 @@
         android:fontFamily="@font/ss"
         android:background="@drawable/round_buttons"
         android:layout_below="@id/rl"
+        android:textColor="#CB000000"
         android:textSize="@dimen/_22sdp"
         android:text="  লগ আউট"
         >
