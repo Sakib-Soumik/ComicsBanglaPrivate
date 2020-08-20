@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,6 +65,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
         private AdItemHolder(View view) {
             super(view);
             adView=view.findViewById(R.id.adView);
+            adView.setVisibility(View.GONE);
         }
     }
 
@@ -93,6 +95,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder  holder, int position) {
+        //Toast.makeText(context,Integer.toString(ReadComic.current_page),Toast.LENGTH_SHORT).show();
         if(getItemViewType(position)==AD_TYPE) {
             AdItemHolder adItemHolder=(AdItemHolder) holder;
 
@@ -102,12 +105,12 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
                     new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
             MobileAds.setRequestConfiguration(configuration);
             AdRequest adRequest = new AdRequest.Builder().build();
-            adItemHolder.adView.loadAd(adRequest);
+            //adItemHolder.adView.loadAd(adRequest);
         }
         else {
             ComicItemHolder comicItemHolder=(ComicItemHolder) holder;
             int comic_size=comic_images.size();
-            ReadComic.current_page=position;
+
             RequestOptions requestOptions = new RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .centerCrop()

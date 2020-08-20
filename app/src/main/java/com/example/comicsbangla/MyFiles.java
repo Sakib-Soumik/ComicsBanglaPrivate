@@ -334,7 +334,7 @@ public class MyFiles extends AppCompatActivity {
     private void TranslateNumber(char rating,int i, char[] ratingInBangla) {
         //ghfhgf
         switch (rating){
-            case '0': ratingInBangla[i]='0';
+            case '0': ratingInBangla[i]='০';
                 break;
             case '1': ratingInBangla[i]='১';
                 break;

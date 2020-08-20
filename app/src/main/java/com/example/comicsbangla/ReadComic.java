@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -26,7 +27,7 @@ import java.util.Map;
 
 public class ReadComic extends AppCompatActivity {
 
-    static int current_page;
+
     static String comic_name;
     RecyclerView comic_images;
     boolean adjust=false;
@@ -36,9 +37,10 @@ public class ReadComic extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         hideSystemUI();
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        super.onCreate(savedInstanceState);
+
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_read_comic);
@@ -91,11 +93,11 @@ public class ReadComic extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if(!adjust) {
+        /*if(!adjust) {
             current_page-=2;
             if(current_page<0) current_page=0;
             adjust=true;
-        }
+        }*/
 
         FirebaseAuth auth=FirebaseAuth.getInstance();
         if(auth.getCurrentUser().isAnonymous()) {
@@ -159,10 +161,13 @@ public class ReadComic extends AppCompatActivity {
         }
     }
     void writeOnStorage(String file_name) {
+        LinearLayoutManager layoutManager = ((LinearLayoutManager)comic_images.getLayoutManager());
+        int current_page = layoutManager.findLastVisibleItemPosition();
         int page=current_page;
-        if(adjust) page=current_page-2;
-        if(page==MainActivity.main_comic_images.size()-1) {
-
+        //Toast.makeText(this,Integer.toString(current_page),Toast.LENGTH_LONG).show();
+        //if(adjust) page=current_page-2;
+        //Toast.makeText(this,Integer.toString(page-(page%10))+" "+Integer.toString(MainActivity.main_comic_images.size()-(MainActivity.main_comic_images.size()%10)),Toast.LENGTH_LONG).show();
+        if(page+1==MainActivity.main_comic_images.size()) {
             SharedPreferences sharedPref = this.getSharedPreferences(
                     file_name, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -172,7 +177,7 @@ public class ReadComic extends AppCompatActivity {
                 if(entry.getKey().contains(comic_name)) {
                     editor.putInt(entry.getKey(),-1);
                     editor.apply();
-                    break;
+                    //break;
                 }
             }
             return;
@@ -183,20 +188,18 @@ public class ReadComic extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         for(Map.Entry<String,?> entry : keys.entrySet()){
             if(entry.getKey().contains(ReadComic.comic_name) && Integer.parseInt(entry.getValue().toString())!=-1) {
-                editor.putInt(entry.getKey(),ReadComic.current_page-(current_page%10));
+                editor.putInt(entry.getKey(),current_page);
                 editor.apply();
                 return;
             }
         }
         Map<String,?> m=sharedPref.getAll();
         int x=comic_images.computeVerticalScrollOffset();
-        String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name+"{"+Integer.toString(MainActivity.main_comic_images.size()-(MainActivity.main_comic_images.size()%10))+"}";
+        String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name+"{"+Integer.toString(MainActivity.main_comic_images.size())+"}";
 
-        editor.putInt(key,current_page-(current_page%10));
+        editor.putInt(key,current_page);
         editor.apply();
     }
-
-
 }
 
 
