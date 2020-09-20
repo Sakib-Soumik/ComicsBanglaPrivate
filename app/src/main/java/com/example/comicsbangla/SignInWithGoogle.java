@@ -111,7 +111,7 @@ public class SignInWithGoogle extends AppCompatActivity {
                                 Log.d("TAG", "signInWithCredential:success");
                                 boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                                 if (isNewUser) {
-                                    launchMarket();
+                                    //launchMarket();
                                     FirebaseAuth mAuth=FirebaseAuth.getInstance();
                                     SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("kr", MODE_PRIVATE);
                                     Map<String,Integer> history = (Map<String, Integer>) sharedPref.getAll();
