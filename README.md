@@ -1,6 +1,6 @@
-# ComicsBanglaPrivate
-Repository for comics bangla
-
+# ComicsBanglaPrivate\n
+Repository for comics bangla\n
+\n
 How to install the app on your android phone or emulator:
 Steps:
 1.Install android studio
