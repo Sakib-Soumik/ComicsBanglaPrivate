@@ -21,7 +21,7 @@ public class AdLoader {
     AdLoader(Context context,FrameLayout layout) {
         adcontainerView=layout;
         activity_contex=context;
-        //loadBanner();
+        loadBanner();
 
     }
 

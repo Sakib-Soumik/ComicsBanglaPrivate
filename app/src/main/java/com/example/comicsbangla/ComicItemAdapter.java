@@ -67,7 +67,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
         private AdItemHolder(View view) {
             super(view);
             adView=view.findViewById(R.id.adView);
-            adView.setVisibility(View.GONE);
+
 
         }
     }
