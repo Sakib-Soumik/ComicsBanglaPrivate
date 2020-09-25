@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 final ArrayList<Pair<String,StorageReference>> popular_id_photo_ref=new ArrayList<>();
-                for(int i=0;i<9;i++) {
+                for(int i=0;i<12;i++) {
                     final String id=most_viewed.get(i).second;
                     DatabaseReference pic_ref= FirebaseDatabase.getInstance().getReference();
                     pic_ref=pic_ref.child("Comics").child("PhotoUrl");
