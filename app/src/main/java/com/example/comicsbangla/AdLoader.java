@@ -21,7 +21,7 @@ public class AdLoader {
     AdLoader(Context context,FrameLayout layout) {
         adcontainerView=layout;
         activity_contex=context;
-        loadBanner();
+        //loadBanner();
 
     }
 
@@ -31,12 +31,12 @@ public class AdLoader {
         // "Use AdRequest.Builder.addTestDevice("ABCDE0123") to get test ads on this
         // device."
         AdView mAdView = new AdView(activity_contex);
-        mAdView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        mAdView.setAdUnitId("ca-app-pub-3110096151197337/8788896873");
         adcontainerView.addView(mAdView);
-        List<String> devices= Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE","9FFEC22EBBE3DD3E0672D229ECB10FA6","A528B56A5D7A05B41A358C15672BB5A5");
-        RequestConfiguration configuration =
-                new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
-        MobileAds.setRequestConfiguration(configuration);
+        //List<String> devices= Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE","9FFEC22EBBE3DD3E0672D229ECB10FA6","A528B56A5D7A05B41A358C15672BB5A5");
+        //RequestConfiguration configuration =
+                //new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
+        //MobileAds.setRequestConfiguration(configuration);
         AdRequest adRequest = new AdRequest.Builder().build();
 
         AdSize adSize = getAdSize();

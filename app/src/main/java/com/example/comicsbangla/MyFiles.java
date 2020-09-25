@@ -251,6 +251,8 @@ public class MyFiles extends AppCompatActivity {
         }
     }
     void readFromDevice(String filename) {
+        comicname_page_number.clear();
+        comics_list.clear();
         SharedPreferences sharedPref = this.getSharedPreferences(
                 filename, MODE_PRIVATE);
         Map<String,Integer> keys = (Map<String, Integer>) sharedPref.getAll();

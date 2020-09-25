@@ -67,6 +67,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
         private AdItemHolder(View view) {
             super(view);
             adView=view.findViewById(R.id.adView);
+            adView.setVisibility(View.GONE);
 
         }
     }
@@ -100,10 +101,10 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
         //Toast.makeText(context,Integer.toString(ReadComic.current_page),Toast.LENGTH_SHORT).show();
         if(getItemViewType(position)==AD_TYPE) {
             AdItemHolder adItemHolder=(AdItemHolder) holder;
-            List<String> devices= Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE","9FFEC22EBBE3DD3E0672D229ECB10FA6","A528B56A5D7A05B41A358C15672BB5A5");
-            RequestConfiguration configuration =
-                    new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
-            MobileAds.setRequestConfiguration(configuration);
+            //List<String> devices= Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE","9FFEC22EBBE3DD3E0672D229ECB10FA6","A528B56A5D7A05B41A358C15672BB5A5");
+            //RequestConfiguration configuration =
+               //     new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
+            //MobileAds.setRequestConfiguration(configuration);
             AdRequest adRequest = new AdRequest.Builder().build();
             adItemHolder.adView.loadAd(adRequest);
 
