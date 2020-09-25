@@ -63,6 +63,7 @@ public class LoggedInProfile extends AppCompatActivity {
             userName.setText(user.getDisplayName());
         }
         else {
+
             userName.setText("");
         }
         if(user.getEmail()!=null) {

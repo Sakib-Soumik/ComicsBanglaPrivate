@@ -59,14 +59,14 @@ public class ActionItemAdapter2 extends RecyclerView.Adapter {
                 .skipMemoryCache(true)
                 .dontAnimate()
                 .dontTransform()
-                .placeholder(R.drawable.category_load_first)
+                .placeholder(R.drawable.category_load_landscape)
                 .priority(Priority.IMMEDIATE)
                 .encodeFormat(Bitmap.CompressFormat.PNG)
                 .format(DecodeFormat.DEFAULT);
         Glide.with(context)
                 .load(comic_id_storageref.get(position).second)
                 .apply(requestOptions)
-                .thumbnail(Glide.with(context).load(R.raw.category_load))
+                .thumbnail(Glide.with(context).load(R.raw.category_load_gif_landscape))
                 .dontTransform()
                 .into(ActionItemHolder.cover_image);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -107,7 +107,7 @@
             android:paddingRight="@dimen/_20sdp"
             android:textColor="#9C000000"
             android:gravity="center"
-            android:text="Contact us : comicsbangala@comic.com"
+            android:text="Contact us : comicsbanglamail@aol.com"
             android:textSize="@dimen/_18sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_below="@id/logout"
