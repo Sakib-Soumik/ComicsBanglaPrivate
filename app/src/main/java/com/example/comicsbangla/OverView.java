@@ -3,7 +3,7 @@ package com.example.comicsbangla;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.solver.widgets.Snapshot;
+
 import androidx.core.content.res.ResourcesCompat;
 
 import android.annotation.SuppressLint;
@@ -92,6 +92,10 @@ public class OverView extends AppCompatActivity {
         new AdLoader(this,(FrameLayout)findViewById(R.id.ad_container));
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         mAuth = FirebaseAuth.getInstance();
+
+            //Toast.makeText(this,"Overview came",Toast.LENGTH_LONG).show();
+
+
         //--------------Finding Everything-------------//
 
         comic_cover = findViewById(R.id.comic_cover);
@@ -135,9 +139,10 @@ public class OverView extends AppCompatActivity {
                 String photo_url=dataSnapshot.child(comicid).getValue(String.class);
                 Glide.with(getApplicationContext())
                         .load(FirebaseStorage.getInstance().getReferenceFromUrl(photo_url))
-                        .placeholder(R.drawable.comic_load)
+                        .placeholder(R.drawable.category_load_landscape)
                         //.apply(requestOptions)
                         .dontTransform()
+                        .thumbnail(Glide.with(getApplicationContext()).load(R.raw.category_load_gif_landscape))
                         .into(comic_cover);
             }
 
@@ -294,13 +299,16 @@ public class OverView extends AppCompatActivity {
                                         comic_images.addAll(listResult.getItems());
                                         MainActivity.main_comic_images=new ArrayList<>();
                                         for(int i=0;i<comic_images.size();i++) {
-                                            if(i%10==0 && i>0) {
+                                            if(i%9==0 && i>0) {
                                                 MainActivity.main_comic_images.add(null);
+                                                MainActivity.main_comic_images.add(comic_images.get(i));
                                             }
                                             else {
                                                 MainActivity.main_comic_images.add(comic_images.get(i));
                                             }
                                         }
+                                        MainActivity.comic_id=comicid;
+                                        MainActivity.previous_page="overview";
                                         FirebaseAuth auth=FirebaseAuth.getInstance();
                                         if(auth.getCurrentUser().isAnonymous()) {
                                             if(already_viewed("kr")) {

@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     public static String previous_page;
     FirebaseUser user;
-
+    static String comic_id;
     RelativeLayout searchView;
     ArrayList<String> comicId;
 

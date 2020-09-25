@@ -1,14 +1,17 @@
 package com.example.comicsbangla;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -74,6 +77,7 @@ public class SignInWithGoogle extends AppCompatActivity {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -85,6 +89,7 @@ public class SignInWithGoogle extends AppCompatActivity {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d("signed in to google", "onActivityResult: done");
+                FirebaseAuth.getInstance().signOut();
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
@@ -95,12 +100,14 @@ public class SignInWithGoogle extends AppCompatActivity {
             }
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         progressBar.setVisibility(View.VISIBLE);
+
         Log.d("TAG", "firebaseAuthWithGoogle:" + acct.getId());
             AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
 
-            //linkAccount(googleIdtoken);
+        //linkAccount(googleIdtoken);
             mAuth.signInWithCredential(credential)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -135,12 +142,14 @@ public class SignInWithGoogle extends AppCompatActivity {
                                                     }
                                                     progressBar.setVisibility(View.GONE);
                                                     Intent maintIntent = new Intent(SignInWithGoogle.this, LoggedInProfile.class);
-                                                    maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                    maintIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    //finishAffinity();
+                                                    //maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    //maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    //maintIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(maintIntent);
-                                                    killActivity();
-                                                    return;
+                                                    //killActivity();
+                                                    finishAffinity();
+
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -160,20 +169,19 @@ public class SignInWithGoogle extends AppCompatActivity {
                                     DatabaseReference userRef= FirebaseDatabase.getInstance().getReference();
                                     FirebaseAuth auth=FirebaseAuth.getInstance();
                                     userRef = userRef.child("User").child(auth.getCurrentUser().getUid()).child("History");
-                                    userRef.addValueEventListener(new ValueEventListener() {
+                                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                                 editor.putInt(ds.getKey(),Integer.parseInt(ds.getValue().toString()));
                                                 editor.apply();
                                             }
-                                            Intent maintIntent = new Intent(SignInWithGoogle.this, LoggedInProfile.class);
-                                            maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            maintIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            maintIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            OverView.customToast("Welcome "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),getApplicationContext());
+                                            Intent maintIntent = new Intent(getApplicationContext(), LoggedInProfile.class);
+
                                             startActivity(maintIntent);
-                                            killActivity();
-                                            return;
+                                            finishAffinity();
+
                                         }
 
                                         @Override

@@ -41,7 +41,6 @@
             android:id="@+id/searchInput"
             android:drawablePadding="@dimen/_10sdp"
             android:layout_width="match_parent"
-            android:inputType="textEmailAddress"
             android:paddingLeft="@dimen/_23sdp"
             android:paddingTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_10sdp"
@@ -50,6 +49,7 @@
             android:layout_height="match_parent"
             android:textSize="@dimen/_24sdp"
             android:fontFamily="@font/st"
+            android:inputType="textFilter"
             android:hint="সার্চ করুন" />
 
 

@@ -42,7 +42,7 @@ public class ReadComic extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_read_comic);
 
 
@@ -67,7 +67,7 @@ public class ReadComic extends AppCompatActivity {
                 pagenumber=Math.max(Integer.parseInt(entry.getValue().toString()),pagenumber);
             }
         }
-        if(pagenumber==-1) {
+        if(pagenumber==-1 || pagenumber==0) {
             comic_images.getLayoutManager().scrollToPosition(0);
         }
         else {
@@ -83,10 +83,12 @@ public class ReadComic extends AppCompatActivity {
             startActivity(new Intent(ReadComic.this,MyFiles.class));
         }
         else {
+            Toast.makeText(this,"backpressed",Toast.LENGTH_LONG).show();
             Intent intent=new Intent(ReadComic.this,OverView.class);
-            intent.putExtra("ComicId",MainActivity.previous_page);
+            intent.putExtra("ComicId",MainActivity.comic_id);
             this.startActivity(intent);
         }
+
 
     }*/
 
@@ -100,12 +102,12 @@ public class ReadComic extends AppCompatActivity {
         }*/
 
         FirebaseAuth auth=FirebaseAuth.getInstance();
+        Log.d("TAG", "onPause: "+auth.getCurrentUser().getEmail());
         if(auth.getCurrentUser().isAnonymous()) {
             writeOnStorage("kr");
         }
         else {
             writeOnStorage("kr_online");
-
             FirebaseAuth mAuth=FirebaseAuth.getInstance();
             final SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("kr_online", MODE_PRIVATE);
             Map<String,Integer> history = (Map<String, Integer>) sharedPref.getAll();
@@ -195,7 +197,12 @@ public class ReadComic extends AppCompatActivity {
         }
         Map<String,?> m=sharedPref.getAll();
         int x=comic_images.computeVerticalScrollOffset();
-        String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name+"{"+Integer.toString(MainActivity.main_comic_images.size())+"}";
+        int cnt=0;
+        for(int i=0;i<MainActivity.main_comic_images.size();i++) {
+            if(MainActivity.main_comic_images.get(i)==null) cnt++;
+        }
+        String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name+"{"+Integer.toString(MainActivity.main_comic_images.size()-cnt)+"}";
+        Log.d("comic_size", "writeOnStorage: "+MainActivity.main_comic_images.size());
 
         editor.putInt(key,current_page);
         editor.apply();

@@ -26,9 +26,11 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
 import com.google.firebase.storage.StorageReference;
@@ -65,7 +67,7 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
         private AdItemHolder(View view) {
             super(view);
             adView=view.findViewById(R.id.adView);
-            adView.setVisibility(View.GONE);
+
         }
     }
 
@@ -98,14 +100,48 @@ public class ComicItemAdapter extends RecyclerView.Adapter {
         //Toast.makeText(context,Integer.toString(ReadComic.current_page),Toast.LENGTH_SHORT).show();
         if(getItemViewType(position)==AD_TYPE) {
             AdItemHolder adItemHolder=(AdItemHolder) holder;
-
-
-            List<String> devices= Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE","9FFEC22EBBE3DD3E0672D229ECB10FA6");
+            List<String> devices= Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE","9FFEC22EBBE3DD3E0672D229ECB10FA6","A528B56A5D7A05B41A358C15672BB5A5");
             RequestConfiguration configuration =
                     new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
             MobileAds.setRequestConfiguration(configuration);
             AdRequest adRequest = new AdRequest.Builder().build();
-            //adItemHolder.adView.loadAd(adRequest);
+            adItemHolder.adView.loadAd(adRequest);
+
+            adItemHolder.adView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    // Code to be executed when an ad finishes loading.
+                    Log.d("comic_ad", "onBindViewHolder: "+"ad loaded");
+                }
+
+                @Override
+                public void onAdFailedToLoad(LoadAdError adError) {
+                    // Code to be executed when an ad request fails.
+                    Log.d("comic_ad", "onBindViewHolder: "+adError.toString());
+                }
+
+                @Override
+                public void onAdOpened() {
+                    // Code to be executed when an ad opens an overlay that
+                    // covers the screen.
+                }
+
+                @Override
+                public void onAdClicked() {
+                    // Code to be executed when the user clicks on an ad.
+                }
+
+                @Override
+                public void onAdLeftApplication() {
+                    // Code to be executed when the user has left the app.
+                }
+
+                @Override
+                public void onAdClosed() {
+                    // Code to be executed when the user is about to return
+                    // to the app after tapping on an ad.
+                }
+            });
         }
         else {
             ComicItemHolder comicItemHolder=(ComicItemHolder) holder;

@@ -48,12 +48,7 @@ public class LoggedInProfile extends AppCompatActivity {
         new AdLoader(this,(FrameLayout)findViewById(R.id.ad_container));
         final FirebaseAuth mAuth;
         mAuth=FirebaseAuth.getInstance();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
 
-        final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         //-------------------------------------Finding Views----------------------------------------
         logout= findViewById(R.id.logout);
@@ -79,8 +74,9 @@ public class LoggedInProfile extends AppCompatActivity {
         if(user.getPhotoUrl()!=null) {
             Glide.with(getApplicationContext())
                     .load((String.valueOf(user.getPhotoUrl())))
-                    .placeholder(R.drawable.comic_load)
+                    .placeholder(R.drawable.category_load_first)
                     //.apply(requestOptions)
+                    .thumbnail(Glide.with(this).load(R.raw.category_load))
                     .dontTransform()
                     .into(userPic);
         }
@@ -90,7 +86,7 @@ public class LoggedInProfile extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signOut(mGoogleSignInClient);
+                signOut();
             }
 
 
@@ -105,15 +101,18 @@ public class LoggedInProfile extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.home:
-                        startActivity(new Intent(LoggedInProfile.this,MainActivity.class));
+
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
                         overridePendingTransition(0,0);
-                        killActivity();
+
                         return true;
 
                     case R.id.myfiles:
-                        startActivity(new Intent(LoggedInProfile.this,MyFiles.class));
+
+                        startActivity(new Intent(getApplicationContext(),MyFiles.class));
                         overridePendingTransition(0,0);
-                        killActivity();
+
                         return true;
                     case R.id.profile:
                         return true;
@@ -141,7 +140,13 @@ public class LoggedInProfile extends AppCompatActivity {
         hideSystemUI();
 
     }
-    void signOut(GoogleSignInClient mGoogleSignInClient) {
+    void signOut() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         progressBar.setVisibility(View.VISIBLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -152,16 +157,15 @@ public class LoggedInProfile extends AppCompatActivity {
                 new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getApplicationContext(),"signed out",Toast.LENGTH_LONG).show();
+                        OverView.customToast("Signed Out",getApplicationContext());
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setVisibility(View.GONE);
                         Intent intentLoadNewActivity = new Intent(LoggedInProfile.this,SplashScreen.class);
-                        intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        //intentLoadNewActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intentLoadNewActivity);
-                        killActivity();
-
+                        finishAffinity();
                     }
                 });
     }
@@ -184,6 +188,7 @@ public class LoggedInProfile extends AppCompatActivity {
     }
     public void killActivity() {
         finish();
+
     }
 
 }

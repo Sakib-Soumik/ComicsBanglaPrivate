@@ -147,8 +147,9 @@ public class MyFiles extends AppCompatActivity {
                                     comic_images.addAll(listResult.getItems());
                                     MainActivity.main_comic_images=new ArrayList<>();
                                     for(int i=0;i<comic_images.size();i++) {
-                                        if(i%10==0 && i>0) {
+                                        if(i%9==0 && i>0) {
                                             MainActivity.main_comic_images.add(null);
+                                            MainActivity.main_comic_images.add(comic_images.get(i));
                                         }
                                         else {
                                             MainActivity.main_comic_images.add(comic_images.get(i));
@@ -296,7 +297,9 @@ public class MyFiles extends AppCompatActivity {
                     sb.deleteCharAt(0);
                 }
             }
+
             String current_page=Integer.toString(Integer.parseInt(list.get(i).second)+1);
+
             int size= current_page.length();
             char ratings[] = new char[size];
             char ratingInBangla[]=new char[size];
@@ -319,8 +322,13 @@ public class MyFiles extends AppCompatActivity {
             for(char ch:ratingInBangla2){
                 stringBuilder2.append(ch);
             }
+            int cur=Integer.parseInt(stringBuilder.toString());
+            int cnt=0;
+            for(int k=0;k<=cur;k++) {
+                if(k>0 && k%9==0) cnt++;
+            }
             String total_page_in_bangla= stringBuilder2.toString();
-            comicinfo.add(key+"("+stringBuilder.toString()+"/"+total_page_in_bangla+"পৃষ্ঠা)");
+            comicinfo.add(key+"("+Integer.toString(cur-cnt)+"/"+total_page_in_bangla+"পৃষ্ঠা)");
             comicname_page_number.add(new Pair<>(key, Integer.parseInt(list.get(i).second)));
             comics_list.add(key);
         }
