@@ -74,22 +74,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/new_upload"
-                android:layout_marginLeft="@dimen/_15sdp"
-                android:layout_marginRight="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_60sdp"
                 >
                 <TextView
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/textRecommended"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="পপুলার"
                     android:textSize="@dimen/_25sdp"
                     android:fontFamily="@font/ss"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:textColor="#C1000000"
                     android:layout_marginTop="@dimen/_20sdp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/recyclerRecommended"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_150sdp"
@@ -120,6 +121,8 @@
 
 
                 <TextView
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/textAction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -127,11 +130,12 @@
                     android:text="@string/action"
                     android:textSize="@dimen/_25sdp"
                     android:fontFamily="@font/ss"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:textColor="#C1000000"
                     android:layout_marginTop="@dimen/_20sdp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/recyclerAction"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_150sdp"
@@ -143,6 +147,8 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/textAdventure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -150,11 +156,12 @@
                     android:text="@string/adventure"
                     android:textSize="@dimen/_25sdp"
                     android:fontFamily="@font/ss"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:textColor="#B5000000"
                     android:layout_marginTop="@dimen/_20sdp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/recyclerAdventure"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_150sdp"
@@ -167,17 +174,20 @@
 
                 <TextView
                     android:id="@+id/textComedy"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/recyclerAdventure"
                     android:text="@string/comedy"
                     android:textSize="@dimen/_25sdp"
                     android:fontFamily="@font/ss"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:textColor="#B5000000"
                     android:layout_marginTop="@dimen/_20sdp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/recyclerComedy"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_150sdp"
@@ -189,6 +199,8 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/textContemp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -196,11 +208,12 @@
                     android:text="@string/children"
                     android:textSize="@dimen/_25sdp"
                     android:fontFamily="@font/ss"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:textColor="#B5000000"
                     android:layout_marginTop="@dimen/_20sdp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/recyclerContemporary"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_150sdp"
@@ -212,6 +225,8 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/textFiction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -219,11 +234,12 @@
                     android:text="@string/fiction"
                     android:textSize="@dimen/_25sdp"
                     android:fontFamily="@font/ss"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:textColor="#B5000000"
                     android:layout_marginTop="@dimen/_20sdp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/recyclerFiction"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_150sdp"
@@ -235,17 +251,20 @@
                 </androidx.recyclerview.widget.RecyclerView>
                 <TextView
                     android:id="@+id/textHorror"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/recyclerFiction"
                     android:text="@string/mystery"
                     android:textSize="@dimen/_25sdp"
                     android:fontFamily="@font/ss"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:textColor="#B5000000"
                     android:layout_marginTop="@dimen/_20sdp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
                     android:id="@+id/recyclerMystery"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_150sdp"
