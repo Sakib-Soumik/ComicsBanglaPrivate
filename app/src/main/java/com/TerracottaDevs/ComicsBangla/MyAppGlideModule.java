@@ -1,4 +1,4 @@
-package com.example.comicsbangla;
+package com.TerracottaDevs.ComicsBangla;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.example.comicsbangla.data;
+package com.TerracottaDevs.ComicsBangla.data;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

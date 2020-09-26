@@ -1,6 +1,6 @@
-package com.example.comicsbangla.data;
+package com.TerracottaDevs.ComicsBangla.data;
 
-import com.example.comicsbangla.data.model.LoggedInUser;
+import com.TerracottaDevs.ComicsBangla.data.model.LoggedInUser;
 
 import java.io.IOException;
 

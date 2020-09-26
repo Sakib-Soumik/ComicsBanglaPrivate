@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.comicsbangla">
+    package="com.TerracottaDevs.ComicsBangla">
 
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -26,8 +26,8 @@
         android:debuggable="false"
         android:usesCleartextTraffic="true"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".LoggedInProfile" />
-        <activity android:name=".SplashScreen"
+        <activity android:name="com.TerracottaDevs.ComicsBangla.LoggedInProfile" />
+        <activity android:name="com.TerracottaDevs.ComicsBangla.SplashScreen"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name="com.TerracottaDevs.ComicsBangla.MyFirebaseMessagingService"
             android:exported="false"
             android:directBootAware="true"
             tools:targetApi="n">
@@ -61,14 +61,14 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <activity android:name=".ReadComic" />
-        <activity android:name=".OverView" />
-        <activity android:name=".SignInWithGoogle" />
+        <activity android:name="com.TerracottaDevs.ComicsBangla.ReadComic" />
+        <activity android:name="com.TerracottaDevs.ComicsBangla.OverView" />
+        <activity android:name="com.TerracottaDevs.ComicsBangla.SignInWithGoogle" />
 
-        <activity android:name=".MyFiles" />
-        <activity android:name=".Profile" />
-        <activity android:name=".search_page" />
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.TerracottaDevs.ComicsBangla.MyFiles" />
+        <activity android:name="com.TerracottaDevs.ComicsBangla.Profile" />
+        <activity android:name="com.TerracottaDevs.ComicsBangla.search_page" />
+        <activity android:name="com.TerracottaDevs.ComicsBangla.MainActivity" />
     </application>
 
 </manifest>

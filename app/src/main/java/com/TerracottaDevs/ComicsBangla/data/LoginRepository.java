@@ -1,6 +1,6 @@
-package com.example.comicsbangla.data;
+package com.TerracottaDevs.ComicsBangla.data;
 
-import com.example.comicsbangla.data.model.LoggedInUser;
+import com.TerracottaDevs.ComicsBangla.data.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and
