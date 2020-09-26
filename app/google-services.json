@@ -8,12 +8,73 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1098172688450:android:f858752cc2980e729465db",
+        "android_client_info": {
+          "package_name": "com.TerracottaDevs.ComicsBangla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098172688450-qb1vgs2mpg8hshbg27ico4hkrp7ean1s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.TerracottaDevs.ComicsBangla",
+            "certificate_hash": "363f61829fe4fb0578b523534ba4279f0634ac96"
+          }
+        },
+        {
+          "client_id": "1098172688450-p7082cdd4tdgou8ud9hdfm7so6fon3ge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd3ArYMpgRpo9xDVPuEY2jV7FUV1rFmOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098172688450-p7082cdd4tdgou8ud9hdfm7so6fon3ge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1098172688450:android:aa68fc12a25592509465db",
         "android_client_info": {
           "package_name": "com.example.comicsbangla"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1098172688450-er48bkkvg2u4071c7fguphqms65ksehl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.comicsbangla",
+            "certificate_hash": "363f61829fe4fb0578b523534ba4279f0634ac96"
+          }
+        },
+        {
+          "client_id": "1098172688450-6ovs5gc22vp83poofr1uppti2n7mqfai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.comicsbangla",
+            "certificate_hash": "87c8dccaa5490ef2046b0c6156a8e072dfd62f3f"
+          }
+        },
+        {
+          "client_id": "1098172688450-tjp5jil6f0ns6a0d2kpb2q2550gun3p1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.comicsbangla",
+            "certificate_hash": "3129c1bebb06db4fcbbe1a669a442e3bdeefa6c5"
+          }
+        },
         {
           "client_id": "1098172688450-25p839a9if7glpl858f34jukl7nmqrll.apps.googleusercontent.com",
           "client_type": 1,
@@ -49,7 +110,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-3110096151197337~2961020978"
     }
   ],
   "configuration_version": "1"
