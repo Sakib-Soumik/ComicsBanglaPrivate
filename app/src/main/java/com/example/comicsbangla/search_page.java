@@ -8,7 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;

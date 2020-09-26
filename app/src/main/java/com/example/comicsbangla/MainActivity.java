@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
@@ -180,10 +179,10 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInAnonymously:success");
+
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInAnonymously:failure", task.getException());
+
                             Toast.makeText(getApplicationContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
                         }
 
@@ -285,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     most_viewed.add(new Pair<Integer, String>(Integer.parseInt(ds.getValue().toString()),ds.getKey()));
                     //Toast.makeText(getApplicationContext(),ds.getValue().toString(),Toast.LENGTH_LONG).show();
-                    //Log.d("views", "onDataChange: "+ds.getValue().toString());
+
                 }
 
                 Collections.sort(most_viewed, new Comparator<Pair<Integer,String>>() {

@@ -13,7 +13,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -64,14 +64,14 @@ public class SignInWithGoogle extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        Log.d("login", "onCreate: started");
+
         mGoogleSignInClient= GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
         signIn();
         //progressBar.setVisibility(View.GONE);
         //FirebaseAuth.getInstance().signOut();
         //FirebaseUser currentUser = mAuth.getCurrentUser();
-        Log.d("login", "onCreate: done");
+
     }
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -88,12 +88,12 @@ public class SignInWithGoogle extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d("signed in to google", "onActivityResult: done");
+
                 FirebaseAuth.getInstance().signOut();
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.d("TAG", "Google sign in failed", e);
+
                 e.printStackTrace();
                this.finish();
                 // ...
@@ -104,7 +104,7 @@ public class SignInWithGoogle extends AppCompatActivity {
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         progressBar.setVisibility(View.VISIBLE);
 
-        Log.d("TAG", "firebaseAuthWithGoogle:" + acct.getId());
+
             AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
 
         //linkAccount(googleIdtoken);
@@ -115,7 +115,7 @@ public class SignInWithGoogle extends AppCompatActivity {
                             if (task.isSuccessful()) {
 
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d("TAG", "signInWithCredential:success");
+
                                 boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                                 if (isNewUser) {
                                     //launchMarket();
@@ -155,7 +155,7 @@ public class SignInWithGoogle extends AppCompatActivity {
                                             .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
-                                                    Log.d("TAG", "onFailure: " + e.getMessage());
+
                                                 }
                                             });
 
@@ -194,7 +194,7 @@ public class SignInWithGoogle extends AppCompatActivity {
 
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Log.d("TAG", "signInWithCredential:failure", task.getException());
+
                             }
                             // ...
                         }

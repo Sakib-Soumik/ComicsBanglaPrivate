@@ -19,7 +19,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.util.Pair;
 import android.view.View;
 import android.view.Window;
@@ -76,7 +76,7 @@ public class SplashScreen extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-                            Log.w("TAG", "getInstanceId failed", task.getException());
+
                             return;
                         }
 
@@ -85,7 +85,7 @@ public class SplashScreen extends AppCompatActivity {
 
                         // Log and toast
                         //String msg = getString(R.string.msg_token_fmt, token);
-                        //Log.d(TAG, msg);
+
                         //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -128,7 +128,7 @@ public class SplashScreen extends AppCompatActivity {
                             // ...
                         }
                         String userId = adInfo.getId();
-                        Log.d("IDDDDDDDDDDDDDDDDDDD", "onCreate: "+userId);
+
                         Toast.makeText(getApplicationContext(),userId,Toast.LENGTH_LONG).show();*/
                     } catch (Exception e) {
 
@@ -162,11 +162,11 @@ public class SplashScreen extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             startActivity(new Intent(SplashScreen.this,MainActivity.class));
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInAnonymously:success");
+
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInAnonymously:failure", task.getException());
+
                             OverView.customToast("আপনার ইন্টারনেট কানেকশন চেক করুন",SplashScreen.this);
                         }
 

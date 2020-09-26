@@ -1,22 +1,11 @@
 package com.example.comicsbangla;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.Display;
 import android.widget.FrameLayout;
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.RequestConfiguration;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class AdLoader {
     FrameLayout adcontainerView;
@@ -29,7 +18,7 @@ public class AdLoader {
     }
 
     private void loadBanner() {
-        // Create an ad request. Check your logcat output for the hashed device ID
+
         // to get test ads on a physical device, e.g.,
         // "Use AdRequest.Builder.addTestDevice("ABCDE0123") to get test ads on this
         // device."
@@ -47,7 +36,7 @@ public class AdLoader {
         mAdView.setAdSize(adSize);
 
         // Step 5 - Start loading the ad in the background.
-        
+
     }
     private AdSize getAdSize() {
         // Step 2 - Determine the screen width (less decorations) to use for the ad width.

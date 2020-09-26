@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -102,7 +102,7 @@ public class ReadComic extends AppCompatActivity {
         }*/
 
         FirebaseAuth auth=FirebaseAuth.getInstance();
-        Log.d("TAG", "onPause: "+auth.getCurrentUser().getEmail());
+
         if(auth.getCurrentUser().isAnonymous()) {
             writeOnStorage("kr");
         }
@@ -116,13 +116,13 @@ public class ReadComic extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d("TAG", "onSuccess:onpause History updated on database");
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d("TAG", "onFailure: " + e.getMessage());
+
                         }
                     });
         }
@@ -202,7 +202,7 @@ public class ReadComic extends AppCompatActivity {
             if(MainActivity.main_comic_images.get(i)==null) cnt++;
         }
         String key="{"+ Integer.toString((int)m.size()) +"}"+ReadComic.comic_name+"{"+Integer.toString(MainActivity.main_comic_images.size()-cnt)+"}";
-        Log.d("comic_size", "writeOnStorage: "+MainActivity.main_comic_images.size());
+
 
         editor.putInt(key,current_page);
         editor.apply();
