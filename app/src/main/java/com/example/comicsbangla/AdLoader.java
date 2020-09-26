@@ -2,13 +2,16 @@ package com.example.comicsbangla;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Display;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
 
@@ -44,7 +47,7 @@ public class AdLoader {
         mAdView.setAdSize(adSize);
 
         // Step 5 - Start loading the ad in the background.
-        mAdView.loadAd(adRequest);
+        
     }
     private AdSize getAdSize() {
         // Step 2 - Determine the screen width (less decorations) to use for the ad width.
