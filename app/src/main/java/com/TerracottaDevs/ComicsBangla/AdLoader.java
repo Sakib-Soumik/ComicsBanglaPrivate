@@ -6,6 +6,11 @@ import android.widget.FrameLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class AdLoader {
     FrameLayout adcontainerView;
@@ -27,13 +32,14 @@ public class AdLoader {
         adcontainerView.addView(mAdView);
         //List<String> devices= Arrays.asList("AFAE4F4EF1660D968802FCDB2D8A40CE","9FFEC22EBBE3DD3E0672D229ECB10FA6","A528B56A5D7A05B41A358C15672BB5A5");
         //RequestConfiguration configuration =
-                //new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
+          //      new RequestConfiguration.Builder().setTestDeviceIds(devices).build();
         //MobileAds.setRequestConfiguration(configuration);
         AdRequest adRequest = new AdRequest.Builder().build();
 
         AdSize adSize = getAdSize();
         // Step 4 - Set the adaptive ad size on the ad view.
         mAdView.setAdSize(adSize);
+        mAdView.loadAd(adRequest);
 
         // Step 5 - Start loading the ad in the background.
 
