@@ -26,3 +26,10 @@ Steps:<br />
 9. After we add your SHA1 key to firebase you can completely take advantage of all the features of the app<br />
 
 10. ENJOY!
+
+
+
+https://github.com/user-attachments/assets/cc7b4162-2e04-4df6-97db-022970335c0b
+
+
+
